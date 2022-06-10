@@ -1,0 +1,41 @@
+a:not([class]) {
+  background:none;
+  &:hover {
+    background:none;
+  }
+}
+
+.icon {
+  color: $nav-child-link-color;
+}
+
+.main-header {
+  @include mq(md) {
+    border-bottom: 0px;
+  }
+}
+
+.nav-list {
+  .nav-list-item {
+    .nav-list-link {
+      color: $nav-child-link-color;
+    }
+    .nav-list-expander {
+      color: $nav-child-link-color;
+    }
+  }
+}
+
+.site-footer {
+  color: #333333;
+}
+
+.site-header {
+  @include mq(md) {
+    border-bottom: 0px;
+  }
+}
+
+.site-title {
+  color: $body-heading-color;
+}

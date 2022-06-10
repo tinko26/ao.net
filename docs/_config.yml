@@ -1,0 +1,25 @@
+title: ao.net
+
+# description: ...
+
+url: "https://tinko26.github.io"
+
+baseurl: "/ao.net"
+
+permalink: pretty
+
+search_enabled: false
+
+heading_anchors: true
+
+remote_theme: just-the-docs/just-the-docs
+
+color_scheme: ao
+
+plugins:
+  - jekyll-seo-tag
+
+footer_content: "Copyright &copy; 2022 Stefan Wagner. Distributed by an <a href=\"https://github.com/tinko26/ao.net/tree/main/LICENSE\">MIT license</a>."
+
+last_edit_timestamp: true
+last_edit_time_format: "%b %e %Y at %I:%M %p"
