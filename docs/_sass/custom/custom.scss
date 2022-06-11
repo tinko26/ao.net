@@ -86,6 +86,10 @@ code {
   }
 }
 
+.main-content hr:last-of-type {
+  visibility: hidden;
+}
+
 .main-header {
   @include mq(md) {
     border-bottom: 0px;
