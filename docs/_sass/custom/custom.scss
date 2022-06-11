@@ -87,9 +87,9 @@ code {
 }
 
 .language-console.highlighter-rouge {
-  background-color: #333333;
+  background-color: #555555;
   code {
-    background-color: #333333;
+    background-color: #555555;
   }
 }
 
@@ -127,7 +127,7 @@ code {
     .kp  { } /* keyword.pseudo */
     .kr  { } /* keyword.reserved */
     .ld  { } /* literal.date */
-    .s   { } /* literal.string */
+    .s   { color: #a31515; } /* literal.string */
     .na  { } /* name.attribute */
     .nb  { } /* name.builtin */
     .nc  { } /* name.class */
