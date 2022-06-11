@@ -22,7 +22,7 @@ plugins:
 back_to_top: true
 back_to_top_text: "Back to top"
 
-footer_content: "<a href=\"https://github.com/tinko26/ao.net\">Ao.NET on GitHub</a><br/><br/>Copyright &copy; 2022 Stefan Wagner.<br/>Distributed by an <a href=\"https://github.com/tinko26/ao.net/tree/main/LICENSE\">MIT license</a>."
+footer_content: "Copyright &copy; 2022 Stefan Wagner.<br/>Distributed by an <a href=\"https://github.com/tinko26/ao.net/tree/main/LICENSE\">MIT license</a>.<br/><br/><a href=\"https://github.com/tinko26/ao.net\">Ao.NET on GitHub</a>"
 
 last_edit_timestamp: false
 last_edit_time_format: "%b %e %Y at %I:%M %p"
