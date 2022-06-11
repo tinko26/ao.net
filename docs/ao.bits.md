@@ -10,33 +10,44 @@ This namespace contains a single static class with extension methods for integer
 
 ## Extensions
 
-The `Extensions` class contains methods that get or set bits in integer values, respectively.
+The `Extensions` class contains methods that get or set bits of integer values, respectively.
+
+### Get bits
 
 ```csharp
 var a = 0x12345678U;
-
-// Get bits.
 
 var a3 = a.GetBits(24, 8);
 var a2 = a.GetBits(16, 8);
 var a1 = a.GetBits( 8, 8);
 var a0 = a.GetBits( 0, 8);
 
-Debug.Assert(a3 == 0x12U);
-Debug.Assert(a2 == 0x34U);
-Debug.Assert(a1 == 0x56U);
-Debug.Assert(a0 == 0x78U);
+Console.WriteLine("{0:X2}", a3);
+Console.WriteLine("{0:X2}", a2);
+Console.WriteLine("{0:X2}", a1);
+Console.WriteLine("{0:X2}", a0);
+```
 
-// Set bits.
+```console
+12
+34
+56
+78
+```
+
+### Set bits
+
+```csharp
+var a = 0U;
 
 a.SetBits(24, 8, 0x87U);
 a.SetBits(16, 8, 0x65U);
 a.SetBits( 8, 8, 0x43U);
 a.SetBits( 0, 8, 0x21U);
 
-Debug.Assert(a == 0x87654321U);
+Console.WriteLine("{0:X8}", a);
 ```
 
 ```console
-Hello World!
+87654321
 ```
