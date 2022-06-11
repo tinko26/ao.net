@@ -5,8 +5,85 @@ a:not([class]) {
   }
 }
 
+code {
+  border: 0;
+}
+
 .icon {
   color: $nav-child-link-color;
+}
+
+.language-csharp {
+  .highlight {
+    .c1  { color: #008000; } /* comment.single */
+    .kt  { color: #0000ff; } /* keyword.type   */
+    .m   { color: #000000; } /* literal.number */
+    .n   { color: #1f377f; } /* name           */
+    .nf  { color: #74531f; } /* name.function  */
+    .p   { color: #000000; } /* punctuation    */
+    .c   { } /* comment */
+    .err { } /* error */
+    .g   { } /* generic */
+    .k   { } /* keyword */
+    .l   { } /* literal */
+    .o   { } /* operator */
+    .x   { } /* other */
+    .cm  { } /* comment.multiline */
+    .cp  { } /* comment.preproc */
+    .cs  { } /* comment.special */
+    .gd  { } /* generic.deleted */
+    .ge  { } /* generic.emph */
+    .gr  { } /* generic.error */
+    .gh  { } /* generic.heading */
+    .gi  { } /* generic.inserted */
+    .go  { } /* generic.output */
+    .gp  { } /* generic.prompt */
+    .gs  { } /* generic.strong */
+    .gu  { } /* generic.subheading */
+    .gt  { } /* generic.traceback */
+    .kc  { } /* keyword.constant */
+    .kd  { } /* keyword.declaration */
+    .kn  { } /* keyword.namespace */
+    .kp  { } /* keyword.pseudo */
+    .kr  { } /* keyword.reserved */
+    .ld  { } /* literal.date */
+    .s   { } /* literal.string */
+    .na  { } /* name.attribute */
+    .nb  { } /* name.builtin */
+    .nc  { } /* name.class */
+    .no  { } /* name.constant */
+    .nd  { } /* name.decorator */
+    .ni  { } /* name.entity */
+    .ne  { } /* name.exception */
+    .nl  { } /* name.label */
+    .nn  { } /* name.namespace */
+    .nx  { } /* name.other */
+    .py  { } /* name.property */
+    .nt  { } /* name.tag */
+    .nv  { } /* name.variable */
+    .ow  { } /* operator.word */
+    .w   { } /* text.whitespace */
+    .mf  { } /* literal.number.float */
+    .mh  { } /* literal.number.hex */
+    .mi  { } /* literal.number.integer */
+    .mo  { } /* literal.number.oct */
+    .sb  { } /* literal.string.backtick */
+    .sc  { } /* literal.string.char */
+    .sd  { } /* literal.string.doc */
+    .s2  { } /* literal.string.double */
+    .se  { } /* literal.string.escape */
+    .sh  { } /* literal.string.heredoc */
+    .si  { } /* literal.string.interpol */
+    .sx  { } /* literal.string.other */
+    .sr  { } /* literal.string.regex */
+    .s1  { } /* literal.string.single */
+    .ss  { } /* literal.string.symbol */
+    .bp  { } /* name.builtin.pseudo */
+    .vc  { } /* name.variable.class */
+    .vg  { } /* name.variable.global */
+    .vi  { } /* name.variable.instance */
+    .il  { } /* literal.number.integer.long */
+  }
 }
 
 .main-header {

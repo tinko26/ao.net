@@ -32,7 +32,7 @@ Debug.Assert(a0 == 0x78U);
 a.SetBits(24, 8, 0x87U);
 a.SetBits(16, 8, 0x65U);
 a.SetBits( 8, 8, 0x43U);
-a.SetBits( 0, 8, 0x12U);
+a.SetBits( 0, 8, 0x21U);
 
 Debug.Assert(a == 0x87654321U);
 ```
