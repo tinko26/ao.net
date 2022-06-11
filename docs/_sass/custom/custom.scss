@@ -13,6 +13,7 @@ code {
 
 code.language-plaintext {
   font-weight: bold;
+  padding:0;
 }
 
 div.highlighter-rouge {
@@ -110,7 +111,7 @@ div.highlighter-rouge {
     .kt  { color: #0000ff; } /* keyword.type   */
     .m   { color: #000000; } /* literal.number */
     .n   { color: #1f377f; } /* name           */
-    .nf  { color: #74531f; } /* name.function  */
+    .nf  { color: #1f7453; } /* name.function  */
     .p   { color: #000000; } /* punctuation    */
     .c   { } /* comment */
     .err { } /* error */
