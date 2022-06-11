@@ -182,18 +182,6 @@ div.highlighter-rouge {
   visibility: hidden;
 }
 
-.site-footer {
-  border:1px solid orange;
-}
-
-.main-content {
-  border:1px solid blue;
-}
-
-.main-content-wrap {
-  border:1px solid red;
-}
-
 .main-header {
   @include mq(md) {
     border-bottom: 0px;
