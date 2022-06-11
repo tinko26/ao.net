@@ -26,27 +26,28 @@
 
 namespace Ao
 {
-	namespace Timing
-	{
-		namespace Win32
-		{
-			public ref class Tick abstract sealed
-			{
-				public:
+    namespace Timing
+    {
+        namespace Win32
+        {
+            public ref class Tick abstract sealed
+            {
 
-				static property Ao::Measurements::Time Now
-				{
-					Ao::Measurements::Time get()
-					{
-						Ao::Measurements::Time x;
+            public:
 
-						x.Milliseconds = (double)::GetTickCount64();
+                static property Ao::Measurements::Time Now
+                {
+                    Ao::Measurements::Time get()
+                    {
+                        Ao::Measurements::Time x;
 
-						return x;
-					}
-				}
+                        x.Milliseconds = (double)::GetTickCount64();
 
-			};
-		}
-	}
+                        return x;
+                    }
+                }
+
+            };
+        }
+    }
 }

@@ -40,12 +40,12 @@ namespace Ao.Mathematics
 
         public bool Equals(Range x) => this == x;
 
-		#endregion
+        #endregion
 
-		#region Methods (Override)
+        #region Methods (Override)
 
-		public override bool Equals(object x)
-		{
+        public override bool Equals(object x)
+        {
             if (x == null) return false;
 
             if (!(x is Range)) return false;
@@ -53,17 +53,17 @@ namespace Ao.Mathematics
             var y = (Range)x;
 
             return this == y;
-		}
+        }
 
-		public override int GetHashCode() => 
-            Min.GetHashCode() ^ 
+        public override int GetHashCode() =>
+            Min.GetHashCode() ^
             Max.GetHashCode();
 
-		#endregion
+        #endregion
 
-		#region Operators
+        #region Operators
 
-		public static bool operator ==(Range a, Range b) => a.Min == b.Min && a.Max == b.Max;
+        public static bool operator ==(Range a, Range b) => a.Min == b.Min && a.Max == b.Max;
 
         public static bool operator !=(Range a, Range b) => a.Min != b.Min || a.Max != b.Max;
 

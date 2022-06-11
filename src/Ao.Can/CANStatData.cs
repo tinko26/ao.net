@@ -26,64 +26,64 @@ using System.Linq;
 
 namespace Ao.Can
 {
-	public sealed class CANStatData
-	{
-		#region Methods
+    public sealed class CANStatData
+    {
+        #region Methods
 
-		public void Add(Time T, CAN C)
-		{
-			var E = new Entry
-			{
-				Data = C.Data,
+        public void Add(Time T, CAN C)
+        {
+            var E = new Entry
+            {
+                Data = C.Data,
 
-				DLC = C.DLC,
+                DLC = C.DLC,
 
-				Time = T
-			};
+                Time = T
+            };
 
-			if (HasEntries)
-			{
-				var L = Last;
+            if (HasEntries)
+            {
+                var L = Last;
 
-				if 
-				(
-					L.Data != E.Data || 
-					L.DLC != E.DLC
-				)
-				{
-					Entries.Add(E);
-				}
-			}
+                if
+                (
+                    L.Data != E.Data ||
+                    L.DLC != E.DLC
+                )
+                {
+                    Entries.Add(E);
+                }
+            }
 
-			else
-			{
-				Entries.Add(E);
-			}
-		}
+            else
+            {
+                Entries.Add(E);
+            }
+        }
 
-		#endregion
+        #endregion
 
-		#region Properties
+        #region Properties
 
-		public bool HasEntries => Entries.Count > 0;
+        public bool HasEntries => Entries.Count > 0;
 
-		public List<Entry> Entries { get; } = new List<Entry>();
+        public List<Entry> Entries { get; } = new List<Entry>();
 
-		public Entry Last => Entries.Last();
+        public Entry Last => Entries.Last();
 
-		#endregion
+        #endregion
 
-		#region Types
+        #region Types
 
-		public sealed class Entry
-		{
-			public Time Time { get; set; }
+        public sealed class Entry
+        {
+            public Time Time { get; set; }
 
-			public ulong Data { get; set; }
+            public ulong Data { get; set; }
 
-			public uint DLC { get; set; }
-		}
+            public uint DLC { get; set; }
+        }
 
-		#endregion
-	}
+        #endregion
+    }
 }

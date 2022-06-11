@@ -25,108 +25,108 @@ using System;
 
 namespace Ao.J1939
 {
-	public struct PGN : 
-		IComparable<PGN>, 
-		IEquatable<PGN>
-	{
-		#region Methods
+    public struct PGN :
+        IComparable<PGN>,
+        IEquatable<PGN>
+    {
+        #region Methods
 
-		public int CompareTo(PGN x) => Value.CompareTo(x.Value);
+        public int CompareTo(PGN x) => Value.CompareTo(x.Value);
 
-		public bool Equals(PGN x) => this == x;
+        public bool Equals(PGN x) => this == x;
 
-		#endregion
+        #endregion
 
-		#region Methods (Override)
+        #region Methods (Override)
 
-		public override bool Equals(object x)
-		{
-			if (x == null) return false;
+        public override bool Equals(object x)
+        {
+            if (x == null) return false;
 
-			if (!(x is PGN)) return false;
+            if (!(x is PGN)) return false;
 
-			var y = (PGN)x;
+            var y = (PGN)x;
 
-			return this == y;
-		}
+            return this == y;
+        }
 
-		public override int GetHashCode() => Value.GetHashCode();
+        public override int GetHashCode() => Value.GetHashCode();
 
-		#endregion
+        #endregion
 
-		#region Operators
+        #region Operators
 
-		public static bool operator ==(PGN x, PGN y) => x.Value == y.Value;
+        public static bool operator ==(PGN x, PGN y) => x.Value == y.Value;
 
-		public static bool operator !=(PGN x, PGN y) => x.Value != y.Value;
+        public static bool operator !=(PGN x, PGN y) => x.Value != y.Value;
 
-		public static bool operator <(PGN x, PGN y) => x.Value < y.Value;
+        public static bool operator <(PGN x, PGN y) => x.Value < y.Value;
 
-		public static bool operator <=(PGN x, PGN y) => x.Value <= y.Value;
+        public static bool operator <=(PGN x, PGN y) => x.Value <= y.Value;
 
-		public static bool operator >(PGN x, PGN y) => x.Value > y.Value;
+        public static bool operator >(PGN x, PGN y) => x.Value > y.Value;
 
-		public static bool operator >=(PGN x, PGN y) => x.Value >= y.Value;
+        public static bool operator >=(PGN x, PGN y) => x.Value >= y.Value;
 
-		#endregion
+        #endregion
 
-		#region Properties
+        #region Properties
 
-		public DataPage DataPage { get; set; }
+        public DataPage DataPage { get; set; }
 
-		public DataPage DataPageExtended { get; set; }
+        public DataPage DataPageExtended { get; set; }
 
-		public bool IsBroadcast => PF >= 0xF0;
+        public bool IsBroadcast => PF >= 0xF0;
 
-		public bool IsProprietary => PF == 0xEF || PF == 0xFF;
+        public bool IsProprietary => PF == 0xEF || PF == 0xFF;
 
-		public bool IsStandard => !IsProprietary;
+        public bool IsStandard => !IsProprietary;
 
-		public bool IsUnicast => !IsBroadcast;
+        public bool IsUnicast => !IsBroadcast;
 
-		public byte PF { get; set; }
+        public byte PF { get; set; }
 
-		public byte PS { get; set; }
+        public byte PS { get; set; }
 
-		public uint Value
-		{
-			get
-			{
-				var X = 0U;
+        public uint Value
+        {
+            get
+            {
+                var X = 0U;
 
-				X.SetBits(17, 1, (uint)DataPageExtended);
+                X.SetBits(17, 1, (uint)DataPageExtended);
 
-				X.SetBits(16, 1, (uint)DataPage);
+                X.SetBits(16, 1, (uint)DataPage);
 
-				X.SetBits(8, 8, PF);
+                X.SetBits(8, 8, PF);
 
-				if (IsBroadcast)
-				{
-					X.SetBits(0, 8, PS);
-				}
+                if (IsBroadcast)
+                {
+                    X.SetBits(0, 8, PS);
+                }
 
-				return X;
-			}
-			set
-			{
-				DataPageExtended = (DataPage)value.GetBits(17, 1);
+                return X;
+            }
+            set
+            {
+                DataPageExtended = (DataPage)value.GetBits(17, 1);
 
-				DataPage = (DataPage)value.GetBits(16, 1);
+                DataPage = (DataPage)value.GetBits(16, 1);
 
-				PF = (byte)value.GetBits(8, 8);
+                PF = (byte)value.GetBits(8, 8);
 
-				if (IsBroadcast)
-				{
-					PS = (byte)value.GetBits(0, 8);
-				}
+                if (IsBroadcast)
+                {
+                    PS = (byte)value.GetBits(0, 8);
+                }
 
-				else
-				{
-					PS = 0;
-				}
-			}
-		}
+                else
+                {
+                    PS = 0;
+                }
+            }
+        }
 
-		#endregion
-	}
+        #endregion
+    }
 }

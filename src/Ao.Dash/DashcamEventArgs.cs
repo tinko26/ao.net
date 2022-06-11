@@ -24,10 +24,10 @@ using System;
 
 namespace Ao.Dash
 {
-	public sealed class DashcamEventArgs : EventArgs
-	{
-		public DashcamEventArgs(Dashcam D) => Dashcam = D;
+    public sealed class DashcamEventArgs : EventArgs
+    {
+        public DashcamEventArgs(Dashcam D) => Dashcam = D;
 
-		public Dashcam Dashcam { get; }
-	}
+        public Dashcam Dashcam { get; }
+    }
 }

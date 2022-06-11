@@ -25,8 +25,8 @@ using System;
 
 namespace Ao.Geometry
 {
-	public struct Sphere3
-	{
+    public struct Sphere3
+    {
         #region Construction
 
         public Sphere3(Point3 center, double radius)

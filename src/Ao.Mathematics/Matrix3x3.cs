@@ -24,61 +24,61 @@ using System;
 
 namespace Ao.Mathematics
 {
-	public struct Matrix3x3 : IEquatable<Matrix3x3>
-	{
-		#region Constants
+    public struct Matrix3x3 : IEquatable<Matrix3x3>
+    {
+        #region Constants
 
-		public static readonly Matrix3x3 Identity = new Matrix3x3(1, 0, 0, 0, 1, 0, 0, 0, 1);
+        public static readonly Matrix3x3 Identity = new Matrix3x3(1, 0, 0, 0, 1, 0, 0, 0, 1);
 
-		public static readonly Matrix3x3 Zero = new Matrix3x3();
+        public static readonly Matrix3x3 Zero = new Matrix3x3();
 
-		#endregion
+        #endregion
 
-		#region Construction
+        #region Construction
 
-		public Matrix3x3
-		(
-			double m11, double m12, double m13,
-			double m21, double m22, double m23,
-			double m31, double m32, double m33
-		)
-		{
-			M11 = m11;
-			M12 = m12;
-			M13 = m13;
-			M21 = m21;
-			M22 = m22;
-			M23 = m23;
-			M31 = m31;
-			M32 = m32;
-			M33 = m33;
-		}
+        public Matrix3x3
+        (
+            double m11, double m12, double m13,
+            double m21, double m22, double m23,
+            double m31, double m32, double m33
+        )
+        {
+            M11 = m11;
+            M12 = m12;
+            M13 = m13;
+            M21 = m21;
+            M22 = m22;
+            M23 = m23;
+            M31 = m31;
+            M32 = m32;
+            M33 = m33;
+        }
 
-		#endregion
+        #endregion
 
-		#region Methods
+        #region Methods
 
-		public bool Equals(Matrix3x3 x) => this == x;
+        public bool Equals(Matrix3x3 x) => this == x;
 
         #endregion
 
         #region Methods (Override)
 
         public override bool Equals(object x)
-		{
-			if (x == null) return false;
+        {
+            if (x == null) return false;
 
-			if (!(x is Matrix3x3)) return false;
+            if (!(x is Matrix3x3)) return false;
 
-			var y = (Matrix3x3)x;
+            var y = (Matrix3x3)x;
 
-			return this == y;
-		}
+            return this == y;
+        }
 
-		public override int GetHashCode() =>
-			M11.GetHashCode() ^ M12.GetHashCode() ^ M13.GetHashCode() ^ 
-			M21.GetHashCode() ^ M22.GetHashCode() ^ M23.GetHashCode() ^ 
-			M31.GetHashCode() ^ M32.GetHashCode() ^ M33.GetHashCode();
+        public override int GetHashCode() =>
+            M11.GetHashCode() ^ M12.GetHashCode() ^ M13.GetHashCode() ^
+            M21.GetHashCode() ^ M22.GetHashCode() ^ M23.GetHashCode() ^
+            M31.GetHashCode() ^ M32.GetHashCode() ^ M33.GetHashCode();
 
         #endregion
 
@@ -344,14 +344,14 @@ namespace Ao.Mathematics
         #region Operators
 
         public static bool operator ==(Matrix3x3 a, Matrix3x3 b) =>
-			a.M11 == b.M11 && a.M12 == b.M12 && a.M13 == b.M13 && 
-			a.M21 == b.M21 && a.M22 == b.M22 && a.M23 == b.M23 && 
-			a.M31 == b.M31 && a.M32 == b.M32 && a.M33 == b.M33;
+            a.M11 == b.M11 && a.M12 == b.M12 && a.M13 == b.M13 &&
+            a.M21 == b.M21 && a.M22 == b.M22 && a.M23 == b.M23 &&
+            a.M31 == b.M31 && a.M32 == b.M32 && a.M33 == b.M33;
 
-		public static bool operator !=(Matrix3x3 a, Matrix3x3 b) =>
-			a.M11 != b.M11 || a.M12 != b.M12 || a.M13 != b.M13 || 
-			a.M21 != b.M21 || a.M22 != b.M22 || a.M23 != b.M23 || 
-			a.M31 != b.M31 || a.M32 != b.M32 || a.M33 != b.M33;
+        public static bool operator !=(Matrix3x3 a, Matrix3x3 b) =>
+            a.M11 != b.M11 || a.M12 != b.M12 || a.M13 != b.M13 ||
+            a.M21 != b.M21 || a.M22 != b.M22 || a.M23 != b.M23 ||
+            a.M31 != b.M31 || a.M32 != b.M32 || a.M33 != b.M33;
 
         #endregion
 

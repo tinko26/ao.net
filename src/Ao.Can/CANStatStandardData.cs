@@ -25,36 +25,36 @@ using System.Collections.Generic;
 
 namespace Ao.Can
 {
-	public sealed class CANStatStandardData
-	{
-		#region Methods
+    public sealed class CANStatStandardData
+    {
+        #region Methods
 
-		public void Add(Time T, CAN C)
-		{
-			var i = C.SID;
+        public void Add(Time T, CAN C)
+        {
+            var i = C.SID;
 
-			if (!Data.ContainsKey(i))
-			{
-				Data[i] = new CANStatData();
+            if (!Data.ContainsKey(i))
+            {
+                Data[i] = new CANStatData();
 
-				Time[i] = new CANStatTime();
-			}
+                Time[i] = new CANStatTime();
+            }
 
-			Data[i].Add(T, C);
+            Data[i].Add(T, C);
 
-			Time[i].Add(T);
-		}
+            Time[i].Add(T);
+        }
 
-		#endregion
+        #endregion
 
-		#region Properties
+        #region Properties
 
-		public Dictionary<uint, CANStatData> Data { get; } = new Dictionary<uint, CANStatData>();
+        public Dictionary<uint, CANStatData> Data { get; } = new Dictionary<uint, CANStatData>();
 
-		public IEnumerable<uint> SID => Data.Keys;
+        public IEnumerable<uint> SID => Data.Keys;
 
-		public Dictionary<uint, CANStatTime> Time { get; } = new Dictionary<uint, CANStatTime>();
+        public Dictionary<uint, CANStatTime> Time { get; } = new Dictionary<uint, CANStatTime>();
 
-		#endregion
-	}
+        #endregion
+    }
 }

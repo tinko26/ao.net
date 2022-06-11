@@ -25,120 +25,120 @@ using System;
 
 namespace Ao.J1939
 {
-	public sealed class ACKM : PG
-	{
-		#region Fields
+    public sealed class ACKM : PG
+    {
+        #region Fields
 
-		private ulong Value;
+        private ulong Value;
 
-		#endregion
+        #endregion
 
-		#region Properties
+        #region Properties
 
-		public override string Acronym => "ACKM";
+        public override string Acronym => "ACKM";
 
-		public byte Address
-		{
-			get => (byte)Value.GetBits(32, 8);
-			set
-			{
-				var T = Value;
+        public byte Address
+        {
+            get => (byte)Value.GetBits(32, 8);
+            set
+            {
+                var T = Value;
 
-				T.SetBits(32, 8, value);
+                T.SetBits(32, 8, value);
 
-				Value = T;
-			}
-		}
+                Value = T;
+            }
+        }
 
-		public override byte[] Data 
-		{ 
-			get
-			{
-				var B = BitConverter.GetBytes(Value);
+        public override byte[] Data
+        {
+            get
+            {
+                var B = BitConverter.GetBytes(Value);
 
-				if (!BitConverter.IsLittleEndian)
-				{
-					B = B.Reverse();
-				}
+                if (!BitConverter.IsLittleEndian)
+                {
+                    B = B.Reverse();
+                }
 
-				return B;
-			}
-			set
-			{
-				var B = value;
+                return B;
+            }
+            set
+            {
+                var B = value;
 
-				B = B.Resize(8);
+                B = B.Resize(8);
 
-				if (!BitConverter.IsLittleEndian)
-				{
-					B = B.Reverse();
-				}
+                if (!BitConverter.IsLittleEndian)
+                {
+                    B = B.Reverse();
+                }
 
-				Value = BitConverter.ToUInt64(B, 0);
-			}
-		}
+                Value = BitConverter.ToUInt64(B, 0);
+            }
+        }
 
-		public override int DataLength => 8;
+        public override int DataLength => 8;
 
-		public override DataPage DataPage => DataPage.DataPage0;
+        public override DataPage DataPage => DataPage.DataPage0;
 
-		public override DataPage DataPageExtended => DataPage.DataPage0;
+        public override DataPage DataPageExtended => DataPage.DataPage0;
 
-		public override byte GroupExtension => 0;
+        public override byte GroupExtension => 0;
 
-		public byte GroupFunction
-		{
-			get => (byte)Value.GetBits(8, 8);
-			set
-			{
-				var T = Value;
+        public byte GroupFunction
+        {
+            get => (byte)Value.GetBits(8, 8);
+            set
+            {
+                var T = Value;
 
-				T.SetBits(8, 8, value);
+                T.SetBits(8, 8, value);
 
-				Value = T;
-			}
-		}
+                Value = T;
+            }
+        }
 
-		public override bool IsDataLengthVariable => false;
+        public override bool IsDataLengthVariable => false;
 
-		public override bool IsMultipacket => false;
+        public override bool IsMultipacket => false;
 
-		public override string Label => "Acknowledgement";
+        public override string Label => "Acknowledgement";
 
-		public override byte PF => 0xE8;
+        public override byte PF => 0xE8;
 
-		public PGN RequestedPGN
-		{
-			get
-			{
-				return new PGN 
-				{ 
-					Value = (uint)Value.GetBits(40, 24) 
-				};
-			}
-			set
-			{
-				var T = Value;
+        public PGN RequestedPGN
+        {
+            get
+            {
+                return new PGN
+                {
+                    Value = (uint)Value.GetBits(40, 24)
+                };
+            }
+            set
+            {
+                var T = Value;
 
-				T.SetBits(40, 24, value.Value);
+                T.SetBits(40, 24, value.Value);
 
-				Value = T;
-			}
-		}
+                Value = T;
+            }
+        }
 
-		public ACKMResult Result
-		{
-			get => (ACKMResult)Value.GetBits(0, 8);
-			set
-			{
-				var T = Value;
+        public ACKMResult Result
+        {
+            get => (ACKMResult)Value.GetBits(0, 8);
+            set
+            {
+                var T = Value;
 
-				T.SetBits(0, 8, (ulong)value);
+                T.SetBits(0, 8, (ulong)value);
 
-				Value = T;
-			}
-		}
+                Value = T;
+            }
+        }
 
-		#endregion
-	}
+        #endregion
+    }
 }

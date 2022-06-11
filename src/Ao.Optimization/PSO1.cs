@@ -24,8 +24,8 @@ using System;
 
 namespace Ao.Optimization
 {
-	public sealed class PSO1
-	{
+    public sealed class PSO1
+    {
         #region History
 
         public double HistoryAverageDeviationThreshold { get; set; } = 0.001;

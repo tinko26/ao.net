@@ -26,40 +26,40 @@ using System.Linq;
 
 namespace Ao.Can
 {
-	public sealed class CANStatExtendedData
-	{
-		#region Methods
+    public sealed class CANStatExtendedData
+    {
+        #region Methods
 
-		public void Add(Time T, CAN C)
-		{
-			var i = C.XID;
+        public void Add(Time T, CAN C)
+        {
+            var i = C.XID;
 
-			if (!Data.ContainsKey(i))
-			{
-				Data[i] = new CANStatData();
+            if (!Data.ContainsKey(i))
+            {
+                Data[i] = new CANStatData();
 
-				Time[i] = new CANStatTime();
-			}
+                Time[i] = new CANStatTime();
+            }
 
-			Data[i].Add(T, C);
+            Data[i].Add(T, C);
 
-			Time[i].Add(T);
-		}
+            Time[i].Add(T);
+        }
 
-		#endregion
+        #endregion
 
-		#region Properties
+        #region Properties
 
-		public Dictionary<uint, CANStatData> Data { get; } = new Dictionary<uint, CANStatData>();
+        public Dictionary<uint, CANStatData> Data { get; } = new Dictionary<uint, CANStatData>();
 
-		public IEnumerable<uint> EID => XID.Select(x => x & 0x3FFFFU).Distinct();
+        public IEnumerable<uint> EID => XID.Select(x => x & 0x3FFFFU).Distinct();
 
-		public IEnumerable<uint> SID => XID.Select(x => (x >> 18) & 0x7FFU).Distinct();
+        public IEnumerable<uint> SID => XID.Select(x => (x >> 18) & 0x7FFU).Distinct();
 
-		public Dictionary<uint, CANStatTime> Time { get; } = new Dictionary<uint, CANStatTime>();
+        public Dictionary<uint, CANStatTime> Time { get; } = new Dictionary<uint, CANStatTime>();
 
-		public IEnumerable<uint> XID => Data.Keys;
+        public IEnumerable<uint> XID => Data.Keys;
 
-		#endregion
-	}
+        #endregion
+    }
 }

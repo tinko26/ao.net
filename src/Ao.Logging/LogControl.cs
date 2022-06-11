@@ -24,56 +24,56 @@ using System;
 
 namespace Ao.Logging
 {
-	public sealed class LogControl
-	{
-		#region Events
+    public sealed class LogControl
+    {
+        #region Events
 
-		public event EventHandler Started;
+        public event EventHandler Started;
 
-		public event EventHandler Stopped;
+        public event EventHandler Stopped;
 
-		#endregion
+        #endregion
 
-		#region Fields
+        #region Fields
 
-		private readonly object Sync = new object();
+        private readonly object Sync = new object();
 
-		#endregion
+        #endregion
 
-		#region Methods
+        #region Methods
 
-		public void Start()
-		{
-			lock (Sync)
-			{
-				if (!Running)
-				{
-					Running = true;
+        public void Start()
+        {
+            lock (Sync)
+            {
+                if (!Running)
+                {
+                    Running = true;
 
-					Started?.Invoke(this, EventArgs.Empty);
-				}
-			}
-		}
+                    Started?.Invoke(this, EventArgs.Empty);
+                }
+            }
+        }
 
-		public void Stop()
-		{
-			lock (Sync)
-			{
-				if (Running)
-				{
-					Running = false;
+        public void Stop()
+        {
+            lock (Sync)
+            {
+                if (Running)
+                {
+                    Running = false;
 
-					Stopped?.Invoke(this, EventArgs.Empty);
-				}
-			}
-		}
+                    Stopped?.Invoke(this, EventArgs.Empty);
+                }
+            }
+        }
 
-		#endregion
+        #endregion
 
-		#region Properties
+        #region Properties
 
-		public bool Running { get; private set; }
+        public bool Running { get; private set; }
 
-		#endregion
-	}
+        #endregion
+    }
 }

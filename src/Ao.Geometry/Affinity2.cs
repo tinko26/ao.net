@@ -25,8 +25,8 @@ using System;
 
 namespace Ao.Geometry
 {
-	public struct Affinity2
-	{
+    public struct Affinity2
+    {
         #region Constants
 
         public static readonly Affinity2 Identity = new Affinity2(Matrix2x2.Identity);
@@ -142,8 +142,8 @@ namespace Ao.Geometry
 
         public Matrix2x2 Transformation { get; set; }
 
-		public Vector2 Translation { get; set; }
+        public Vector2 Translation { get; set; }
 
-		#endregion
-	}
+        #endregion
+    }
 }

@@ -28,41 +28,41 @@ using System.Linq;
 
 namespace Ao.Logging
 {
-	public sealed class SessionRoot
-	{
-		#region Construction
+    public sealed class SessionRoot
+    {
+        #region Construction
 
-		public SessionRoot(string path) => Path = path;
+        public SessionRoot(string path) => Path = path;
 
-		#endregion
+        #endregion
 
-		#region Methods
+        #region Methods
 
-		public Session CreateSession() => CreateSession(DateTime.Now);
+        public Session CreateSession() => CreateSession(DateTime.Now);
 
-		public Session CreateSession(DateTime dateTime) => CreateSession(dateTime.ToString("yyyy-MM-dd-HH-mm-ss", CultureInfo.InvariantCulture));
+        public Session CreateSession(DateTime dateTime) => CreateSession(dateTime.ToString("yyyy-MM-dd-HH-mm-ss", CultureInfo.InvariantCulture));
 
-		public Session CreateSession(string name) => new Session(string.Format("{0}{1}{2}", Path, System.IO.Path.DirectorySeparatorChar, name));
+        public Session CreateSession(string name) => new Session(string.Format("{0}{1}{2}", Path, System.IO.Path.DirectorySeparatorChar, name));
 
-		public IEnumerable<Session> GetSessions()
-		{
-			var D1 = new DirectoryInfo(Path);
+        public IEnumerable<Session> GetSessions()
+        {
+            var D1 = new DirectoryInfo(Path);
 
-			var D2 = D1.GetDirectories();
+            var D2 = D1.GetDirectories();
 
-			var D3 = from x in D2 select x.Name;
+            var D3 = from x in D2 select x.Name;
 
-			var D4 = from x in D3 select CreateSession(x);
+            var D4 = from x in D3 select CreateSession(x);
 
-			return D4;
-		}
+            return D4;
+        }
 
-		#endregion
+        #endregion
 
-		#region Properties
+        #region Properties
 
-		public string Path { get; }
+        public string Path { get; }
 
-		#endregion
-	}
+        #endregion
+    }
 }

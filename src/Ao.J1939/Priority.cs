@@ -22,22 +22,22 @@
 
 namespace Ao.J1939
 {
-	public enum Priority
-	{
-		Priority0 = 0,
+    public enum Priority
+    {
+        Priority0 = 0,
 
-		Priority1 = 1,
+        Priority1 = 1,
 
-		Priority2 = 2,
+        Priority2 = 2,
 
-		Priority3 = 3,
+        Priority3 = 3,
 
-		Priority4 = 4,
+        Priority4 = 4,
 
-		Priority5 = 5,
+        Priority5 = 5,
 
-		Priority6 = 6,
+        Priority6 = 6,
 
-		Priority7 = 7
-	}
+        Priority7 = 7
+    }
 }

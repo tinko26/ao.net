@@ -28,48 +28,49 @@
 
 namespace Ao
 {
-	namespace Timing
-	{
-		namespace Win32
-		{
-			public ref class Performance abstract sealed
-			{
-				private:
+    namespace Timing
+    {
+        namespace Win32
+        {
+            public ref class Performance abstract sealed
+            {
 
-				static Performance()
-				{
-					Ao::Measurements::Frequency f;
+            private:
 
-					LARGE_INTEGER t;
+                static Performance()
+                {
+                    Ao::Measurements::Frequency f;
 
-					IsSupported = ::QueryPerformanceFrequency(&t) != FALSE;
+                    LARGE_INTEGER t;
 
-					f.Hertz = IsSupported ? (double)t.QuadPart : 0;
+                    IsSupported = ::QueryPerformanceFrequency(&t) != FALSE;
 
-					Frequency = f;
-				}
+                    f.Hertz = IsSupported ? (double)t.QuadPart : 0;
 
-				public:
+                    Frequency = f;
+                }
 
-				static initonly Ao::Measurements::Frequency Frequency;
+            public:
 
-				static initonly bool IsSupported;
+                static initonly Ao::Measurements::Frequency Frequency;
 
-				public:
+                static initonly bool IsSupported;
 
-				static property PerformanceCount Count
-				{
-					PerformanceCount get()
-					{
-						LARGE_INTEGER pc;
+            public:
 
-						::QueryPerformanceCounter(&pc);
+                static property PerformanceCount Count
+                {
+                    PerformanceCount get()
+                    {
+                        LARGE_INTEGER pc;
 
-						return PerformanceCount(pc.QuadPart);
-					}
-				}
+                        ::QueryPerformanceCounter(&pc);
 
-			};
-		}
-	}
+                        return PerformanceCount(pc.QuadPart);
+                    }
+                }
+
+            };
+        }
+    }
 }

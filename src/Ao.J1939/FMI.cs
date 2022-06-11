@@ -22,70 +22,70 @@
 
 namespace Ao.J1939
 {
-	public enum FMI
-	{
-		AboveNormal = 0,
+    public enum FMI
+    {
+        AboveNormal = 0,
 
-		BelowNormal = 1,
+        BelowNormal = 1,
 
-		DataErratic = 2,
+        DataErratic = 2,
 
-		VoltageAboveNormal = 3,
+        VoltageAboveNormal = 3,
 
-		VoltageBelowNormal = 4,
+        VoltageBelowNormal = 4,
 
-		CurrentAboveNormal = 5,
+        CurrentAboveNormal = 5,
 
-		CurrentBelowNormal = 6,
+        CurrentBelowNormal = 6,
 
-		MechanicalSystemNotResponding = 7,
+        MechanicalSystemNotResponding = 7,
 
-		AbnormalFrequency = 8,
+        AbnormalFrequency = 8,
 
-		AbnormalUpdateRate = 9,
+        AbnormalUpdateRate = 9,
 
-		AbnormalRateOfChange = 10,
+        AbnormalRateOfChange = 10,
 
-		RootCause = 11,
+        RootCause = 11,
 
-		BadDevice = 12,
+        BadDevice = 12,
 
-		Calibration = 13,
+        Calibration = 13,
 
-		SpecialInstructions = 14,
+        SpecialInstructions = 14,
 
-		AboveNormalLeast = 15,
+        AboveNormalLeast = 15,
 
-		AboveNormalModerate = 16,
+        AboveNormalModerate = 16,
 
-		BelowNormalLeast = 17,
+        BelowNormalLeast = 17,
 
-		BelowNormalModerate = 18,
+        BelowNormalModerate = 18,
 
-		ReceiverNetworkDataInError = 19,
+        ReceiverNetworkDataInError = 19,
 
-		DataDriftedHigh = 20,
+        DataDriftedHigh = 20,
 
-		DataDriftedLow = 21,
+        DataDriftedLow = 21,
 
-		FMI22 = 22,
+        FMI22 = 22,
 
-		FMI23 = 23,
+        FMI23 = 23,
 
-		FMI24 = 24,
+        FMI24 = 24,
 
-		FMI25 = 25,
+        FMI25 = 25,
 
-		FMI26 = 26,
+        FMI26 = 26,
 
-		FMI27 = 27,
+        FMI27 = 27,
 
-		FMI28 = 28,
+        FMI28 = 28,
 
-		FMI29 = 29,
+        FMI29 = 29,
 
-		FMI30 = 30,
+        FMI30 = 30,
 
-		ConditionExists = 31
-	}
+        ConditionExists = 31
+    }
 }

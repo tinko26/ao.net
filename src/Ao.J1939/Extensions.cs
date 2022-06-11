@@ -24,131 +24,131 @@ using System;
 
 namespace Ao.J1939
 {
-	internal static class Extensions
-	{
-		public static Signal GetSignal(this byte X)
-		{
-			if (X < 0xFBU)
-			{
-				return Signal.Valid;
-			}
+    internal static class Extensions
+    {
+        public static Signal GetSignal(this byte X)
+        {
+            if (X < 0xFBU)
+            {
+                return Signal.Valid;
+            }
 
-			else if (X < 0xFCU)
-			{
-				return Signal.ParameterSpecificIndicator;
-			}
+            else if (X < 0xFCU)
+            {
+                return Signal.ParameterSpecificIndicator;
+            }
 
-			else if (X < 0xFEU)
-			{
-				return Signal.Reserved;
-			}
+            else if (X < 0xFEU)
+            {
+                return Signal.Reserved;
+            }
 
-			else if (X < 0xFFU)
-			{
-				return Signal.Error;
-			}
+            else if (X < 0xFFU)
+            {
+                return Signal.Error;
+            }
 
-			else
-			{
-				return Signal.NotAvailable;
-			}
-		}
+            else
+            {
+                return Signal.NotAvailable;
+            }
+        }
 
-		public static Signal GetSignal(this ushort X)
-		{
-			if (X < 0xFB00U)
-			{
-				return Signal.Valid;
-			}
+        public static Signal GetSignal(this ushort X)
+        {
+            if (X < 0xFB00U)
+            {
+                return Signal.Valid;
+            }
 
-			else if (X < 0xFC00U)
-			{
-				return Signal.ParameterSpecificIndicator;
-			}
+            else if (X < 0xFC00U)
+            {
+                return Signal.ParameterSpecificIndicator;
+            }
 
-			else if (X < 0xFE00U)
-			{
-				return Signal.Reserved;
-			}
+            else if (X < 0xFE00U)
+            {
+                return Signal.Reserved;
+            }
 
-			else if (X < 0xFF00U)
-			{
-				return Signal.Error;
-			}
+            else if (X < 0xFF00U)
+            {
+                return Signal.Error;
+            }
 
-			else
-			{
-				return Signal.NotAvailable;
-			}
-		}
+            else
+            {
+                return Signal.NotAvailable;
+            }
+        }
 
-		public static Signal GetSignal(this uint X)
-		{
-			if (X < 0xFB000000U)
-			{
-				return Signal.Valid;
-			}
+        public static Signal GetSignal(this uint X)
+        {
+            if (X < 0xFB000000U)
+            {
+                return Signal.Valid;
+            }
 
-			else if (X < 0xFC000000U)
-			{
-				return Signal.ParameterSpecificIndicator;
-			}
+            else if (X < 0xFC000000U)
+            {
+                return Signal.ParameterSpecificIndicator;
+            }
 
-			else if (X < 0xFE000000U)
-			{
-				return Signal.Reserved;
-			}
+            else if (X < 0xFE000000U)
+            {
+                return Signal.Reserved;
+            }
 
-			else if (X < 0xFF000000U)
-			{
-				return Signal.Error;
-			}
+            else if (X < 0xFF000000U)
+            {
+                return Signal.Error;
+            }
 
-			else
-			{
-				return Signal.NotAvailable;
-			}
-		}
+            else
+            {
+                return Signal.NotAvailable;
+            }
+        }
 
-		public static byte[] Resize(this byte[] B1, int N2)
-		{
-			var B2 = new byte[N2];
+        public static byte[] Resize(this byte[] B1, int N2)
+        {
+            var B2 = new byte[N2];
 
-			if (B1 != null)
-			{
-				var N1 = B1.Length;
+            if (B1 != null)
+            {
+                var N1 = B1.Length;
 
-				var N = Math.Min(N1, N2);
+                var N = Math.Min(N1, N2);
 
-				for (var I = 0; I < N; I++)
-				{
-					B2[I] = B1[I];
-				}
-			}
+                for (var I = 0; I < N; I++)
+                {
+                    B2[I] = B1[I];
+                }
+            }
 
-			return B2;
-		}
+            return B2;
+        }
 
-		public static byte[] Reverse(this byte[] B1)
-		{
-			if (B1 == null)
-			{
-				return null;
-			}
+        public static byte[] Reverse(this byte[] B1)
+        {
+            if (B1 == null)
+            {
+                return null;
+            }
 
-			else
-			{
-				var N = B1.Length;
+            else
+            {
+                var N = B1.Length;
 
-				var B2 = new byte[N];
+                var B2 = new byte[N];
 
-				for (var I = 0; I < N; I++)
-				{
-					B2[I] = B1[N - 1 - I];
-				}
+                for (var I = 0; I < N; I++)
+                {
+                    B2[I] = B1[N - 1 - I];
+                }
 
-				return B2;
-			}
-		}
-	}
+                return B2;
+            }
+        }
+    }
 }

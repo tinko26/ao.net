@@ -25,34 +25,34 @@ using System;
 
 namespace Ao.Geometry
 {
-	public class Surface3
-	{
-		#region Methods
+    public class Surface3
+    {
+        #region Methods
 
-		public Vector3 Normal(double u, double v) => Vector3.Cross(PartialDerivativeU1(u, v), PartialDerivativeV1(u, v));
+        public Vector3 Normal(double u, double v) => Vector3.Cross(PartialDerivativeU1(u, v), PartialDerivativeV1(u, v));
 
-		public Plane3 TangentPlane(double u, double v) => Plane3.FromPointNormal(Position(u, v), Normal(u, v));
+        public Plane3 TangentPlane(double u, double v) => Plane3.FromPointNormal(Position(u, v), Normal(u, v));
 
-		public Vector3 UnitNormal(double u, double v) => Normal(u, v).Normalized;
+        public Vector3 UnitNormal(double u, double v) => Normal(u, v).Normalized;
 
-		#endregion
+        #endregion
 
-		#region Properties
+        #region Properties
 
-		public Func<double, double, Vector3> PartialDerivativeU1 { get; set; }
+        public Func<double, double, Vector3> PartialDerivativeU1 { get; set; }
 
-		public Func<double, double, Vector3> PartialDerivativeU2 { get; set; }
+        public Func<double, double, Vector3> PartialDerivativeU2 { get; set; }
 
-		public Func<double, double, Vector3> PartialDerivativeU3 { get; set; }
+        public Func<double, double, Vector3> PartialDerivativeU3 { get; set; }
 
-		public Func<double, double, Vector3> PartialDerivativeV1 { get; set; }
+        public Func<double, double, Vector3> PartialDerivativeV1 { get; set; }
 
-		public Func<double, double, Vector3> PartialDerivativeV2 { get; set; }
+        public Func<double, double, Vector3> PartialDerivativeV2 { get; set; }
 
-		public Func<double, double, Vector3> PartialDerivativeV3 { get; set; }
+        public Func<double, double, Vector3> PartialDerivativeV3 { get; set; }
 
-		public Func<double, double, Point3> Position { get; set; }
+        public Func<double, double, Point3> Position { get; set; }
 
-		#endregion
-	}
+        #endregion
+    }
 }

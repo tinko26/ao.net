@@ -22,16 +22,16 @@
 
 namespace Ao.J1939
 {
-	public enum TPCMMode
-	{
-		Abort = 0xFF,
+    public enum TPCMMode
+    {
+        Abort = 0xFF,
 
-		BAM = 0x20,
+        BAM = 0x20,
 
-		CTS = 0x11,
+        CTS = 0x11,
 
-		EOM = 0x13,
+        EOM = 0x13,
 
-		RTS = 0x10,
-	}
+        RTS = 0x10,
+    }
 }

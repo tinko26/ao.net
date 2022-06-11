@@ -24,16 +24,16 @@ using System;
 
 namespace Ao.Mathematics
 {
-	public struct Quadratic : IEquatable<Quadratic>
-	{
+    public struct Quadratic : IEquatable<Quadratic>
+    {
         #region Construction
 
         public Quadratic(double a, double b, double c)
-		{
+        {
             A = a;
             B = b;
             C = c;
-		}
+        }
 
         #endregion
 
@@ -41,12 +41,12 @@ namespace Ao.Mathematics
 
         public bool Equals(Quadratic x) => this == x;
 
-		#endregion
+        #endregion
 
-		#region Methods (Override)
+        #region Methods (Override)
 
-		public override bool Equals(object x)
-		{
+        public override bool Equals(object x)
+        {
             if (x == null) return false;
 
             if (!(x is Quadratic)) return false;
@@ -54,7 +54,7 @@ namespace Ao.Mathematics
             var y = (Quadratic)x;
 
             return this == y;
-		}
+        }
 
         public override int GetHashCode() =>
             A.GetHashCode() ^

@@ -24,10 +24,10 @@ using System;
 
 namespace Ao.Serial
 {
-	public sealed class PortEventArgs : EventArgs
-	{
-		public PortEventArgs(string name) => Name = name;
+    public sealed class PortEventArgs : EventArgs
+    {
+        public PortEventArgs(string name) => Name = name;
 
-		public string Name { get; }
-	}
+        public string Name { get; }
+    }
 }

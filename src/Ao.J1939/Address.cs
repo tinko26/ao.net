@@ -22,12 +22,12 @@
 
 namespace Ao.J1939
 {
-	public static class Address
-	{
-		public const byte Broadcast = 0xFF;
+    public static class Address
+    {
+        public const byte Broadcast = 0xFF;
 
-		public const byte Global = 0xFF;
+        public const byte Global = 0xFF;
 
-		public const byte Null = 0xFE;
-	}
+        public const byte Null = 0xFE;
+    }
 }

@@ -25,73 +25,73 @@ using System.IO;
 
 namespace Ao.Logging
 {
-	public sealed class LogFile
-	{
-		#region Construction
+    public sealed class LogFile
+    {
+        #region Construction
 
-		public LogFile(string path) => Path = path;
+        public LogFile(string path) => Path = path;
 
-		public LogFile(string path, string fileName) => Path = string.Format("{0}{1}{2}", path, System.IO.Path.DirectorySeparatorChar, fileName);
+        public LogFile(string path, string fileName) => Path = string.Format("{0}{1}{2}", path, System.IO.Path.DirectorySeparatorChar, fileName);
 
-		#endregion
+        #endregion
 
-		#region Methods
+        #region Methods
 
-		public void Append()
-		{
-			var F = new FileInfo(Path);
+        public void Append()
+        {
+            var F = new FileInfo(Path);
 
-			var D = F.Directory;
+            var D = F.Directory;
 
-			D.Create();
+            D.Create();
 
-			File.AppendAllLines(Path, Lines);
+            File.AppendAllLines(Path, Lines);
 
-			Lines.Clear();
-		}
+            Lines.Clear();
+        }
 
-		public void Delete()
-		{
-			if (Exists)
-			{
-				File.Delete(Path);
-			}
-		}
+        public void Delete()
+        {
+            if (Exists)
+            {
+                File.Delete(Path);
+            }
+        }
 
-		public void Read()
-		{
-			Lines.Clear();
+        public void Read()
+        {
+            Lines.Clear();
 
-			var L = File.ReadAllLines(Path);
+            var L = File.ReadAllLines(Path);
 
-			Lines.Capacity = L.Length;
+            Lines.Capacity = L.Length;
 
-			Lines.AddRange(L);
-		}
+            Lines.AddRange(L);
+        }
 
-		public void Write()
-		{
-			var F = new FileInfo(Path);
+        public void Write()
+        {
+            var F = new FileInfo(Path);
 
-			var D = F.Directory;
+            var D = F.Directory;
 
-			D.Create();
+            D.Create();
 
-			File.WriteAllLines(Path, Lines);
+            File.WriteAllLines(Path, Lines);
 
-			Lines.Clear();
-		}
+            Lines.Clear();
+        }
 
-		#endregion
+        #endregion
 
-		#region Properties
+        #region Properties
 
-		public bool Exists => File.Exists(Path);
+        public bool Exists => File.Exists(Path);
 
-		public List<string> Lines { get; } = new List<string>();
+        public List<string> Lines { get; } = new List<string>();
 
-		public string Path { get; }
+        public string Path { get; }
 
-		#endregion
-	}
+        #endregion
+    }
 }

@@ -27,308 +27,308 @@ using System.Threading;
 
 namespace Ao.Serial
 {
-	public sealed class Port
-	{
-		#region Events
+    public sealed class Port
+    {
+        #region Events
 
-		public event PortDataEventHandler Received;
+        public event PortDataEventHandler Received;
 
-		#endregion
+        #endregion
 
-		#region Fields
+        #region Fields
 
-		private readonly PortCounter CounterReceive = new PortCounter();
+        private readonly PortCounter CounterReceive = new PortCounter();
 
-		private readonly PortCounter CounterSend = new PortCounter();
+        private readonly PortCounter CounterSend = new PortCounter();
 
-		private SerialPort P;
+        private SerialPort P;
 
-		private readonly object Sync = new object();
+        private readonly object Sync = new object();
 
-		#endregion
+        #endregion
 
-		#region Methods
+        #region Methods
 
-		public void Receive(byte x) => Receive(new byte[1] { x });
+        public void Receive(byte x) => Receive(new byte[1] { x });
 
-		public void Receive(byte[] buffer) => Received?.Invoke(this, new PortDataEventArgs(buffer));
+        public void Receive(byte[] buffer) => Received?.Invoke(this, new PortDataEventArgs(buffer));
 
-		public void Receive(byte[] buffer, int offset) => Received?.Invoke(this, new PortDataEventArgs(buffer, offset));
+        public void Receive(byte[] buffer, int offset) => Received?.Invoke(this, new PortDataEventArgs(buffer, offset));
 
-		public void Receive(byte[] buffer, int offset, int count)
-		{
-			if (count > 0)
-			{
-				lock (Sync)
-				{
-					if (Running)
-					{
-						CounterReceive.Next(count);
+        public void Receive(byte[] buffer, int offset, int count)
+        {
+            if (count > 0)
+            {
+                lock (Sync)
+                {
+                    if (Running)
+                    {
+                        CounterReceive.Next(count);
 
-						Received?.Invoke(this, new PortDataEventArgs(buffer, offset, count));
-					}
-				}
-			}
-		}
+                        Received?.Invoke(this, new PortDataEventArgs(buffer, offset, count));
+                    }
+                }
+            }
+        }
 
-		public void Send(byte x) => Send(new byte[1] { x }, 0, 1);
+        public void Send(byte x) => Send(new byte[1] { x }, 0, 1);
 
-		public void Send(byte[] buffer) => Send(buffer, 0, buffer.Length);
+        public void Send(byte[] buffer) => Send(buffer, 0, buffer.Length);
 
-		public void Send(byte[] buffer, int offset) => Send(buffer, offset, buffer.Length - offset);
+        public void Send(byte[] buffer, int offset) => Send(buffer, offset, buffer.Length - offset);
 
-		public void Send(byte[] buffer, int offset, int count)
-		{
-			if (count > 0)
-			{
-				lock (Sync)
-				{
-					if (Running)
-					{
-						CounterSend.Next(count);
+        public void Send(byte[] buffer, int offset, int count)
+        {
+            if (count > 0)
+            {
+                lock (Sync)
+                {
+                    if (Running)
+                    {
+                        CounterSend.Next(count);
 
-						if (P != null)
-						{
-							try
-							{
-								if (P.IsOpen)
-								{
-									P.Write(buffer, offset, count);
-								}
-							}
-
-							catch { }
-						}
-					}
-				}
-			}
-		}
-
-		public void Start()
-		{
-			lock (Sync)
-			{
-				if (!Running)
-				{
-					Running = true;
-
-					RunningName = Name;
-
-					if (RunningName == null)
-					{
-						RunningName = PortManager.Ports.FirstOrDefault();
-					}
+                        if (P != null)
+                        {
+                            try
+                            {
+                                if (P.IsOpen)
+                                {
+                                    P.Write(buffer, offset, count);
+                                }
+                            }
+
+                            catch { }
+                        }
+                    }
+                }
+            }
+        }
+
+        public void Start()
+        {
+            lock (Sync)
+            {
+                if (!Running)
+                {
+                    Running = true;
+
+                    RunningName = Name;
+
+                    if (RunningName == null)
+                    {
+                        RunningName = PortManager.Ports.FirstOrDefault();
+                    }
 
-					PortManager.PortConnected += PortConnected;
+                    PortManager.PortConnected += PortConnected;
 
-					PortManager.PortDisconnected += PortDisconnected;
+                    PortManager.PortDisconnected += PortDisconnected;
 
-					StartPort();
-				}
-			}
-		}
+                    StartPort();
+                }
+            }
+        }
 
-		public void Stop()
-		{
-			lock (Sync)
-			{
-				if (Running)
-				{
-					StopPort();
+        public void Stop()
+        {
+            lock (Sync)
+            {
+                if (Running)
+                {
+                    StopPort();
 
-					PortManager.PortConnected -= PortConnected;
+                    PortManager.PortConnected -= PortConnected;
 
-					PortManager.PortDisconnected -= PortDisconnected;
+                    PortManager.PortDisconnected -= PortDisconnected;
 
-					Running = false;
-				}
-			}
-		}
+                    Running = false;
+                }
+            }
+        }
 
-		#endregion
+        #endregion
 
-		#region Methods (Private)
+        #region Methods (Private)
 
-		private void Data(object sender, SerialDataReceivedEventArgs e) => Data(sender as SerialPort);
+        private void Data(object sender, SerialDataReceivedEventArgs e) => Data(sender as SerialPort);
 
-		private void Data(SerialPort P)
-		{
-			while (true)
-			{
-				try
-				{
-					if (P.IsOpen)
-					{
-						var N = P.BytesToRead;
+        private void Data(SerialPort P)
+        {
+            while (true)
+            {
+                try
+                {
+                    if (P.IsOpen)
+                    {
+                        var N = P.BytesToRead;
 
-						if (N > 0)
-						{
-							var B = new byte[N];
+                        if (N > 0)
+                        {
+                            var B = new byte[N];
 
-							var C = P.Read(B, 0, N);
+                            var C = P.Read(B, 0, N);
 
-							Receive(B, 0, C);
+                            Receive(B, 0, C);
 
-							continue;
-						}
-					}
-				}
+                            continue;
+                        }
+                    }
+                }
 
-				catch { }
+                catch { }
 
-				break;
-			}
-		}
+                break;
+            }
+        }
 
-		private void PortConnected(object sender, PortEventArgs e)
-		{
-			lock (Sync)
-			{
-				if (Running && RunningName == e.Name)
-				{
-					StartPort();
-				}
-			}
-		}
+        private void PortConnected(object sender, PortEventArgs e)
+        {
+            lock (Sync)
+            {
+                if (Running && RunningName == e.Name)
+                {
+                    StartPort();
+                }
+            }
+        }
 
-		private void PortDisconnected(object sender, PortEventArgs e)
-		{
-			lock (Sync)
-			{
-				if (Running && RunningName == e.Name)
-				{
-					StopPort();
-				}
-			}
-		}
+        private void PortDisconnected(object sender, PortEventArgs e)
+        {
+            lock (Sync)
+            {
+                if (Running && RunningName == e.Name)
+                {
+                    StopPort();
+                }
+            }
+        }
 
-		private void StartPort()
-		{
-			if (P == null)
-			{
-				var TR = ReadTimeout.Milliseconds;
+        private void StartPort()
+        {
+            if (P == null)
+            {
+                var TR = ReadTimeout.Milliseconds;
 
-				var TW = WriteTimeout.Milliseconds;
+                var TW = WriteTimeout.Milliseconds;
 
-				P = new SerialPort
-				{
-					BaudRate = Baud,
+                P = new SerialPort
+                {
+                    BaudRate = Baud,
 
-					DataBits = DataBits,
+                    DataBits = DataBits,
 
-					Handshake = Handshake,
+                    Handshake = Handshake,
 
-					Parity = Parity,
+                    Parity = Parity,
 
-					PortName = RunningName,
+                    PortName = RunningName,
 
-					ReadBufferSize = ReadBufferSize,
+                    ReadBufferSize = ReadBufferSize,
 
-					ReadTimeout = TR > int.MaxValue ? Timeout.Infinite : (int)TR,
+                    ReadTimeout = TR > int.MaxValue ? Timeout.Infinite : (int)TR,
 
-					ReceivedBytesThreshold = ReceivedBytesThreshold,
+                    ReceivedBytesThreshold = ReceivedBytesThreshold,
 
-					StopBits = StopBits,
+                    StopBits = StopBits,
 
-					WriteBufferSize = WriteBufferSize,
+                    WriteBufferSize = WriteBufferSize,
 
-					WriteTimeout = TW > int.MaxValue ? Timeout.Infinite : (int)TW
-				};
+                    WriteTimeout = TW > int.MaxValue ? Timeout.Infinite : (int)TW
+                };
 
-				P.DataReceived += Data;
+                P.DataReceived += Data;
 
-				try
-				{
-					P.Open();
+                try
+                {
+                    P.Open();
 
-					if (P.IsOpen)
-					{
-						P.DiscardInBuffer();
+                    if (P.IsOpen)
+                    {
+                        P.DiscardInBuffer();
 
-						P.DiscardOutBuffer();
-					}
-				}
+                        P.DiscardOutBuffer();
+                    }
+                }
 
-				catch { }
-			}
-		}
+                catch { }
+            }
+        }
 
-		private void StopPort()
-		{
-			if (P != null)
-			{
-				try
-				{
-					if (P.IsOpen)
-					{
-						P.DiscardInBuffer();
+        private void StopPort()
+        {
+            if (P != null)
+            {
+                try
+                {
+                    if (P.IsOpen)
+                    {
+                        P.DiscardInBuffer();
 
-						P.DiscardOutBuffer();
+                        P.DiscardOutBuffer();
 
-						P.Close();
-					}
-				}
+                        P.Close();
+                    }
+                }
 
-				catch { }
+                catch { }
 
-				P.DataReceived -= Data;
-			}
+                P.DataReceived -= Data;
+            }
 
-			P = null;
+            P = null;
 
-			CounterReceive.Reset();
+            CounterReceive.Reset();
 
-			CounterSend.Reset();
-		}
+            CounterSend.Reset();
+        }
 
-		#endregion
+        #endregion
 
-		#region Properties
+        #region Properties
 
-		public int Baud { get; set; } = 921600;
+        public int Baud { get; set; } = 921600;
 
-		public double BaudReceive => CounterReceive.Rate.Hertz * BitsPerByte;
+        public double BaudReceive => CounterReceive.Rate.Hertz * BitsPerByte;
 
-		public double BaudSend => CounterSend.Rate.Hertz * BitsPerByte;
+        public double BaudSend => CounterSend.Rate.Hertz * BitsPerByte;
 
-		public int BitsPerByte => BitsStart + BitsData + BitsParity + BitsStop;
+        public int BitsPerByte => BitsStart + BitsData + BitsParity + BitsStop;
 
-		private int BitsData => DataBits;
+        private int BitsData => DataBits;
 
-		private int BitsParity => Parity == Parity.None ? 0 : 1;
+        private int BitsParity => Parity == Parity.None ? 0 : 1;
 
-		private int BitsStart => 1;
+        private int BitsStart => 1;
 
-		private int BitsStop => StopBits == StopBits.One ? 1 : 2;
+        private int BitsStop => StopBits == StopBits.One ? 1 : 2;
 
-		public int DataBits { get; set; } = 8;
+        public int DataBits { get; set; } = 8;
 
-		public Handshake Handshake { get; set; } = Handshake.None;
+        public Handshake Handshake { get; set; } = Handshake.None;
 
-		public double LoadReceive => BaudReceive / Baud;
+        public double LoadReceive => BaudReceive / Baud;
 
-		public double LoadSend => BaudSend / Baud;
+        public double LoadSend => BaudSend / Baud;
 
-		public string Name { get; set; }
+        public string Name { get; set; }
 
-		public Parity Parity { get; set; } = Parity.None;
+        public Parity Parity { get; set; } = Parity.None;
 
-		public int ReadBufferSize { get; set; } = 12800;
+        public int ReadBufferSize { get; set; } = 12800;
 
-		public Time ReadTimeout { get; set; } = Time.PositiveInfinity;
+        public Time ReadTimeout { get; set; } = Time.PositiveInfinity;
 
-		public int ReceivedBytesThreshold { get; set; } = 16;
+        public int ReceivedBytesThreshold { get; set; } = 16;
 
-		public bool Running { get; private set; }
+        public bool Running { get; private set; }
 
-		public string RunningName { get; private set; }
+        public string RunningName { get; private set; }
 
-		public StopBits StopBits { get; set; } = StopBits.One;
+        public StopBits StopBits { get; set; } = StopBits.One;
 
-		public int WriteBufferSize { get; set; } = 12800;
+        public int WriteBufferSize { get; set; } = 12800;
 
-		public Time WriteTimeout { get; set; } = Time.PositiveInfinity;
+        public Time WriteTimeout { get; set; } = Time.PositiveInfinity;
 
-		#endregion
-	}
+        #endregion
+    }
 }

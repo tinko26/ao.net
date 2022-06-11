@@ -25,8 +25,8 @@ using System;
 
 namespace Ao.Geometry
 {
-	public struct Line2
-	{
+    public struct Line2
+    {
         #region Construction
 
         public Line2(Point2 @base, Vector2 direction)

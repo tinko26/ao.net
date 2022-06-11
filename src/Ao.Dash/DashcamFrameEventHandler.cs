@@ -22,5 +22,5 @@
 
 namespace Ao.Dash
 {
-	public delegate void DashcamFrameEventHandler(object sender, DashcamFrameEventArgs e);
+    public delegate void DashcamFrameEventHandler(object sender, DashcamFrameEventArgs e);
 }

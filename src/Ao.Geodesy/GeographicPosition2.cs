@@ -25,82 +25,82 @@ using System;
 
 namespace Ao.Geodesy
 {
-	public struct GeographicPosition2 : IEquatable<GeographicPosition2>
-	{
-		#region Construction
+    public struct GeographicPosition2 : IEquatable<GeographicPosition2>
+    {
+        #region Construction
 
-		public GeographicPosition2(Angle latitude, Angle longitude)
-		{
-			Latitude = latitude;
+        public GeographicPosition2(Angle latitude, Angle longitude)
+        {
+            Latitude = latitude;
 
-			Longitude = longitude;
-		}
+            Longitude = longitude;
+        }
 
-		#endregion
+        #endregion
 
-		#region Methods
+        #region Methods
 
-		public bool Equals(GeographicPosition2 x) => this == x;
+        public bool Equals(GeographicPosition2 x) => this == x;
 
-		#endregion
+        #endregion
 
-		#region Methods (Override)
+        #region Methods (Override)
 
-		public override bool Equals(object x)
-		{
-			if (x == null) return false;
+        public override bool Equals(object x)
+        {
+            if (x == null) return false;
 
-			if (!(x is GeographicPosition2)) return false;
+            if (!(x is GeographicPosition2)) return false;
 
-			var y = (GeographicPosition2)x;
+            var y = (GeographicPosition2)x;
 
-			return this == y;
-		}
+            return this == y;
+        }
 
-		public override int GetHashCode() =>
-			Latitude.GetHashCode() ^
-			Longitude.GetHashCode();
+        public override int GetHashCode() =>
+            Latitude.GetHashCode() ^
+            Longitude.GetHashCode();
 
-		#endregion
+        #endregion
 
-		#region Operators
+        #region Operators
 
-		public static bool operator ==(GeographicPosition2 x, GeographicPosition2 y) => x.Latitude == y.Latitude && x.Longitude == y.Longitude;
+        public static bool operator ==(GeographicPosition2 x, GeographicPosition2 y) => x.Latitude == y.Latitude && x.Longitude == y.Longitude;
 
-		public static bool operator !=(GeographicPosition2 x, GeographicPosition2 y) => x.Latitude != y.Latitude || x.Longitude != y.Longitude;
+        public static bool operator !=(GeographicPosition2 x, GeographicPosition2 y) => x.Latitude != y.Latitude || x.Longitude != y.Longitude;
 
-		#endregion
+        #endregion
 
-		#region Properties
+        #region Properties
 
-		public bool IsAntimeridian => IsEasternAntimeridian || IsWesternAntimeridian;
+        public bool IsAntimeridian => IsEasternAntimeridian || IsWesternAntimeridian;
 
-		public bool IsEasternAntimeridian => Longitude == GeographicCoordinates.EasternAntimeridian;
+        public bool IsEasternAntimeridian => Longitude == GeographicCoordinates.EasternAntimeridian;
 
-		public bool IsEasternHemisphere => GeographicCoordinates.PrimeMeridian < Longitude && Longitude <= GeographicCoordinates.EasternAntimeridian;
+        public bool IsEasternHemisphere => GeographicCoordinates.PrimeMeridian < Longitude && Longitude <= GeographicCoordinates.EasternAntimeridian;
 
-		public bool IsEquator => Latitude == GeographicCoordinates.Equator;
+        public bool IsEquator => Latitude == GeographicCoordinates.Equator;
 
-		public bool IsNorthernHemisphere => GeographicCoordinates.Equator < Latitude && Latitude <= GeographicCoordinates.NorthPole;
+        public bool IsNorthernHemisphere => GeographicCoordinates.Equator < Latitude && Latitude <= GeographicCoordinates.NorthPole;
 
-		public bool IsNorthPole => Latitude == GeographicCoordinates.NorthPole;
+        public bool IsNorthPole => Latitude == GeographicCoordinates.NorthPole;
 
-		public bool IsPole => IsNorthPole || IsSouthPole;
+        public bool IsPole => IsNorthPole || IsSouthPole;
 
-		public bool IsPrimeMeridian => Longitude == GeographicCoordinates.PrimeMeridian;
+        public bool IsPrimeMeridian => Longitude == GeographicCoordinates.PrimeMeridian;
 
-		public bool IsSouthernHemisphere => GeographicCoordinates.Equator > Latitude && Latitude >= GeographicCoordinates.SouthPole;
+        public bool IsSouthernHemisphere => GeographicCoordinates.Equator > Latitude && Latitude >= GeographicCoordinates.SouthPole;
 
-		public bool IsSouthPole => Latitude == GeographicCoordinates.SouthPole;
+        public bool IsSouthPole => Latitude == GeographicCoordinates.SouthPole;
 
-		public bool IsWesternAntimeridian => Longitude == GeographicCoordinates.WesternAntimeridian;
+        public bool IsWesternAntimeridian => Longitude == GeographicCoordinates.WesternAntimeridian;
 
-		public bool IsWesternHemisphere => GeographicCoordinates.PrimeMeridian > Longitude && Longitude >= GeographicCoordinates.WesternAntimeridian;
+        public bool IsWesternHemisphere => GeographicCoordinates.PrimeMeridian > Longitude && Longitude >= GeographicCoordinates.WesternAntimeridian;
 
-		public Angle Latitude { get; set; }
+        public Angle Latitude { get; set; }
 
-		public Angle Longitude { get; set; }
+        public Angle Longitude { get; set; }
 
-		#endregion
-	}
+        #endregion
+    }
 }

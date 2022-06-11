@@ -24,10 +24,10 @@ using System;
 
 namespace Ao.Can
 {
-	public sealed class CANEventArgs : EventArgs
-	{
-		public CANEventArgs(CANEvent E) => Event = E;
+    public sealed class CANEventArgs : EventArgs
+    {
+        public CANEventArgs(CANEvent E) => Event = E;
 
-		public CANEvent Event { get; }
-	}
+        public CANEvent Event { get; }
+    }
 }

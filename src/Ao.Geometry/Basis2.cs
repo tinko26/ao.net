@@ -25,65 +25,65 @@ using System;
 
 namespace Ao.Geometry
 {
-	public struct Basis2 : IEquatable<Basis2>
-	{
-		#region Constants
+    public struct Basis2 : IEquatable<Basis2>
+    {
+        #region Constants
 
-		public static readonly Basis2 Cartesian = new Basis2(Vector2.Unit1, Vector2.Unit2);
+        public static readonly Basis2 Cartesian = new Basis2(Vector2.Unit1, Vector2.Unit2);
 
-		#endregion
+        #endregion
 
-		#region Construction
+        #region Construction
 
-		public Basis2(Vector2 base1, Vector2 base2)
-		{
-			Base1 = base1;
-			Base2 = base2;
-		}
+        public Basis2(Vector2 base1, Vector2 base2)
+        {
+            Base1 = base1;
+            Base2 = base2;
+        }
 
-		#endregion
+        #endregion
 
-		#region Methods
+        #region Methods
 
-		public bool Equals(Basis2 x) => this == x;
+        public bool Equals(Basis2 x) => this == x;
 
-		#endregion
+        #endregion
 
-		#region Methods (Override)
+        #region Methods (Override)
 
-		public override bool Equals(object x)
-		{
-			if (x == null) return false;
+        public override bool Equals(object x)
+        {
+            if (x == null) return false;
 
-			if (!(x is Basis2)) return false;
+            if (!(x is Basis2)) return false;
 
-			var y = (Basis2)x;
+            var y = (Basis2)x;
 
-			return this == y;
-		}
+            return this == y;
+        }
 
-		public override int GetHashCode() =>
-			Base1.GetHashCode() ^
-			Base2.GetHashCode();
+        public override int GetHashCode() =>
+            Base1.GetHashCode() ^
+            Base2.GetHashCode();
 
-		#endregion
+        #endregion
 
-		#region Operators
+        #region Operators
 
-		public static bool operator ==(Basis2 a, Basis2 b) => a.Base1 == b.Base1 && a.Base2 == b.Base2;
+        public static bool operator ==(Basis2 a, Basis2 b) => a.Base1 == b.Base1 && a.Base2 == b.Base2;
 
-		public static bool operator !=(Basis2 a, Basis2 b) => a.Base1 != b.Base1 || a.Base2 != b.Base2;
+        public static bool operator !=(Basis2 a, Basis2 b) => a.Base1 != b.Base1 || a.Base2 != b.Base2;
 
-		#endregion
+        #endregion
 
-		#region Properties
+        #region Properties
 
-		public Vector2 Base1 { get; set; }
+        public Vector2 Base1 { get; set; }
 
-		public Vector2 Base2 { get; set; }
+        public Vector2 Base2 { get; set; }
 
-		public Basis2 Normalized => new Basis2(Base1.Normalized, Base2.Normalized);
+        public Basis2 Normalized => new Basis2(Base1.Normalized, Base2.Normalized);
 
-		#endregion
-	}
+        #endregion
+    }
 }

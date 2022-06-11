@@ -25,118 +25,118 @@ using System.Collections.Generic;
 
 namespace Ao.Logging
 {
-	public class Log
-	{
-		#region Construction
+    public class Log
+    {
+        #region Construction
 
-		public Log(string path)
-		{
-			Path = path;
+        public Log(string path)
+        {
+            Path = path;
 
-			Control = new LogControl();
+            Control = new LogControl();
 
-			Control.Started += Started;
-			Control.Stopped += Stopped;
-		}
+            Control.Started += Started;
+            Control.Stopped += Stopped;
+        }
 
-		public Log(string path, LogControl control)
-		{
-			Path = path;
+        public Log(string path, LogControl control)
+        {
+            Path = path;
 
-			Control = control ?? throw new ArgumentNullException();
+            Control = control ?? throw new ArgumentNullException();
 
-			Control.Started += Started;
-			Control.Stopped += Stopped;
-		}
+            Control.Started += Started;
+            Control.Stopped += Stopped;
+        }
 
-		#endregion
+        #endregion
 
-		#region Fields
+        #region Fields
 
-		private Dictionary<string, LogFile> Files;
+        private Dictionary<string, LogFile> Files;
 
-		#endregion
+        #endregion
 
-		#region Methods
+        #region Methods
 
-		public void Add(string fileName, string line)
-		{
-			var F = File(fileName);
+        public void Add(string fileName, string line)
+        {
+            var F = File(fileName);
 
-			if (F != null)
-			{
-				F.Lines.Add(line);
+            if (F != null)
+            {
+                F.Lines.Add(line);
 
-				if (F.Lines.Count >= FileLineBufferSize)
-				{
-					F.Append();
-				}
-			}
-		}
+                if (F.Lines.Count >= FileLineBufferSize)
+                {
+                    F.Append();
+                }
+            }
+        }
 
-		public void Start() => Control.Start();
+        public void Start() => Control.Start();
 
-		public void Stop() => Control.Stop();
+        public void Stop() => Control.Stop();
 
-		#endregion
+        #endregion
 
-		#region Methods (Protected)
+        #region Methods (Protected)
 
-		protected virtual void Started(object sender, EventArgs e)
-		{
-			Files = new Dictionary<string, LogFile>();
-		}
+        protected virtual void Started(object sender, EventArgs e)
+        {
+            Files = new Dictionary<string, LogFile>();
+        }
 
-		protected virtual void Stopped(object sender, EventArgs e)
-		{
-			foreach (var X in Files.Values)
-			{
-				X.Append();
-			}
+        protected virtual void Stopped(object sender, EventArgs e)
+        {
+            foreach (var X in Files.Values)
+            {
+                X.Append();
+            }
 
-			Files = null;
-		}
+            Files = null;
+        }
 
-		#endregion
+        #endregion
 
-		#region Methods (Private)
+        #region Methods (Private)
 
-		private LogFile File(string F)
-		{
-			var X = Files;
+        private LogFile File(string F)
+        {
+            var X = Files;
 
-			if (X != null)
-			{
-				if (!X.ContainsKey(F))
-				{
-					var P = string.Format("{0}{1}{2}", Path, System.IO.Path.DirectorySeparatorChar, F);
+            if (X != null)
+            {
+                if (!X.ContainsKey(F))
+                {
+                    var P = string.Format("{0}{1}{2}", Path, System.IO.Path.DirectorySeparatorChar, F);
 
-					X[F] = new LogFile(P);
+                    X[F] = new LogFile(P);
 
-					X[F].Delete();
-				}
+                    X[F].Delete();
+                }
 
-				return X[F];
-			}
+                return X[F];
+            }
 
-			else
-			{
-				return null;
-			}
-		}
+            else
+            {
+                return null;
+            }
+        }
 
-		#endregion
+        #endregion
 
-		#region Properties
+        #region Properties
 
-		public LogControl Control { get; }
+        public LogControl Control { get; }
 
-		public int FileLineBufferSize { get; set; } = 10000;
+        public int FileLineBufferSize { get; set; } = 10000;
 
-		public string Path { get; }
+        public string Path { get; }
 
-		public bool Running => Control.Running;
+        public bool Running => Control.Running;
 
-		#endregion
-	}
+        #endregion
+    }
 }

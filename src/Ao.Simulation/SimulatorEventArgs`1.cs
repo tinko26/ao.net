@@ -24,10 +24,10 @@ using System;
 
 namespace Ao.Simulation
 {
-	public sealed class SimulatorEventArgs<T> : EventArgs
-	{
-		public SimulatorEventArgs(T E) => Event = E;
+    public sealed class SimulatorEventArgs<T> : EventArgs
+    {
+        public SimulatorEventArgs(T E) => Event = E;
 
-		public T Event { get; }
-	}
+        public T Event { get; }
+    }
 }

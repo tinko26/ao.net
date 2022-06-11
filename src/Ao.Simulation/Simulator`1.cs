@@ -25,66 +25,66 @@ using System;
 
 namespace Ao.Simulation
 {
-	public class Simulator<T>
-	{
-		#region Construction
+    public class Simulator<T>
+    {
+        #region Construction
 
-		public Simulator(EventQueue<T> eventQueue, Func<Time> now)
-		{
-			EventQueue = eventQueue ?? throw new ArgumentNullException();
+        public Simulator(EventQueue<T> eventQueue, Func<Time> now)
+        {
+            EventQueue = eventQueue ?? throw new ArgumentNullException();
 
-			Now = now ?? throw new ArgumentNullException();
-		}
+            Now = now ?? throw new ArgumentNullException();
+        }
 
-		#endregion
+        #endregion
 
-		#region Events
+        #region Events
 
-		public event SimulatorEventHandler<T> Event;
+        public event SimulatorEventHandler<T> Event;
 
-		#endregion
+        #endregion
 
-		#region Methods
+        #region Methods
 
-		public void Run()
-		{
-			bool b;
+        public void Run()
+        {
+            bool b;
 
-			var Q = EventQueue;
+            var Q = EventQueue;
 
-			var T = Now();
+            var T = Now();
 
-			do
-			{
-				b = false;
+            do
+            {
+                b = false;
 
-				if (Q.Count > 0)
-				{
-					var P = Q.Peek();
+                if (Q.Count > 0)
+                {
+                    var P = Q.Peek();
 
-					var TP = Q.GetEventTime(P);
+                    var TP = Q.GetEventTime(P);
 
-					if (TP < T)
-					{
-						Q.Pop();
+                    if (TP < T)
+                    {
+                        Q.Pop();
 
-						Event?.Invoke(this, new SimulatorEventArgs<T>(P));
+                        Event?.Invoke(this, new SimulatorEventArgs<T>(P));
 
-						b = true;
-					}
-				}
-			}
-			while (b);
-		}
+                        b = true;
+                    }
+                }
+            }
+            while (b);
+        }
 
-		#endregion
+        #endregion
 
-		#region Properties
+        #region Properties
 
-		public EventQueue<T> EventQueue { get; }
+        public EventQueue<T> EventQueue { get; }
 
-		public Func<Time> Now { get; }
+        public Func<Time> Now { get; }
 
-		#endregion
-	}
+        #endregion
+    }
 }

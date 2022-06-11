@@ -24,18 +24,18 @@ using Ao.Measurements;
 
 namespace Ao.Geodesy
 {
-	public static class GeographicCoordinates
-	{
-		public static readonly Angle EasternAntimeridian = Angle.Pi;
+    public static class GeographicCoordinates
+    {
+        public static readonly Angle EasternAntimeridian = Angle.Pi;
 
-		public static readonly Angle Equator = Angle.Zero;
+        public static readonly Angle Equator = Angle.Zero;
 
-		public static readonly Angle NorthPole = Angle.PiHalf;
+        public static readonly Angle NorthPole = Angle.PiHalf;
 
-		public static readonly Angle PrimeMeridian = Angle.Zero;
+        public static readonly Angle PrimeMeridian = Angle.Zero;
 
-		public static readonly Angle SouthPole = -Angle.PiHalf;
+        public static readonly Angle SouthPole = -Angle.PiHalf;
 
-		public static readonly Angle WesternAntimeridian = -Angle.Pi;
-	}
+        public static readonly Angle WesternAntimeridian = -Angle.Pi;
+    }
 }

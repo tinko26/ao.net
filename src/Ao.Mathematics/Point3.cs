@@ -24,141 +24,141 @@ using System;
 
 namespace Ao.Mathematics
 {
-	public struct Point3 : IEquatable<Point3>
-	{
-		#region Constants
+    public struct Point3 : IEquatable<Point3>
+    {
+        #region Constants
 
-		public static readonly Point3 Origin = new Point3();
+        public static readonly Point3 Origin = new Point3();
 
-		#endregion
+        #endregion
 
-		#region Construction
+        #region Construction
 
-		public Point3(double m1, double m2, double m3)
-		{
-			M1 = m1;
-			M2 = m2;
-			M3 = m3;
-		}
+        public Point3(double m1, double m2, double m3)
+        {
+            M1 = m1;
+            M2 = m2;
+            M3 = m3;
+        }
 
-		#endregion
+        #endregion
 
-		#region Methods
+        #region Methods
 
-		public double Distance(Point3 point) => (this - point).Length;
+        public double Distance(Point3 point) => (this - point).Length;
 
-		public double DistanceSqr(Point3 point) => (this - point).LengthSqr;
+        public double DistanceSqr(Point3 point) => (this - point).LengthSqr;
 
-		public bool Equals(Point3 x) => this == x;
+        public bool Equals(Point3 x) => this == x;
 
-		public Cylindrical ToCylindrical()
-		{
-			var r = Math.Sqrt(M1 * M1 + M2 * M2);
+        public Cylindrical ToCylindrical()
+        {
+            var r = Math.Sqrt(M1 * M1 + M2 * M2);
 
-			var a = Math.Atan2(M2, M1);
+            var a = Math.Atan2(M2, M1);
 
-			return new Cylindrical(r, a, M3);
-		}
+            return new Cylindrical(r, a, M3);
+        }
 
-		public Spherical ToSpherical()
-		{
-			var t = M1 * M1 + M2 * M2;
+        public Spherical ToSpherical()
+        {
+            var t = M1 * M1 + M2 * M2;
 
-			var r = Math.Sqrt(t + M3 * M3);
+            var r = Math.Sqrt(t + M3 * M3);
 
-			var a = Math.Atan2(M2, M1);
+            var a = Math.Atan2(M2, M1);
 
-			var i = 0.5 * Math.PI - Math.Atan2(M3, Math.Sqrt(t));
+            var i = 0.5 * Math.PI - Math.Atan2(M3, Math.Sqrt(t));
 
-			return new Spherical(r, a, i);
-		}
+            return new Spherical(r, a, i);
+        }
 
-		public Vector3 ToVector() => new Vector3(M1, M2, M3);
+        public Vector3 ToVector() => new Vector3(M1, M2, M3);
 
-		#endregion
+        #endregion
 
-		#region Methods (Override)
+        #region Methods (Override)
 
-		public override bool Equals(object x)
-		{
-			if (x == null) return false;
+        public override bool Equals(object x)
+        {
+            if (x == null) return false;
 
-			if (!(x is Point3)) return false;
+            if (!(x is Point3)) return false;
 
-			var y = (Point3)x;
+            var y = (Point3)x;
 
-			return this == y;
-		}
+            return this == y;
+        }
 
-		public override int GetHashCode() =>
-			M1.GetHashCode() ^
-			M2.GetHashCode() ^
-			M3.GetHashCode();
+        public override int GetHashCode() =>
+            M1.GetHashCode() ^
+            M2.GetHashCode() ^
+            M3.GetHashCode();
 
-		#endregion
+        #endregion
 
-		#region Methods (Static)
+        #region Methods (Static)
 
-		public static Point3 FromCylindrical(Cylindrical cylindrical) => cylindrical.ToPoint();
+        public static Point3 FromCylindrical(Cylindrical cylindrical) => cylindrical.ToPoint();
 
-		public static Point3 FromSpherical(Spherical spherical) => spherical.ToPoint();
+        public static Point3 FromSpherical(Spherical spherical) => spherical.ToPoint();
 
-		public static Point3 FromVector(Vector3 vector) => vector.ToPoint();
+        public static Point3 FromVector(Vector3 vector) => vector.ToPoint();
 
-		#endregion
+        #endregion
 
-		#region Operators
+        #region Operators
 
-		public static Point3 operator +(Point3 a, Point3 b) => new Point3(a.M1 + b.M1, a.M2 + b.M2, a.M3 + b.M3);
+        public static Point3 operator +(Point3 a, Point3 b) => new Point3(a.M1 + b.M1, a.M2 + b.M2, a.M3 + b.M3);
 
-		public static Point3 operator +(Point3 a, Vector3 b) => new Point3(a.M1 + b.M1, a.M2 + b.M2, a.M3 + b.M3);
+        public static Point3 operator +(Point3 a, Vector3 b) => new Point3(a.M1 + b.M1, a.M2 + b.M2, a.M3 + b.M3);
 
-		public static Point3 operator -(Point3 a, Vector3 b) => new Point3(a.M1 - b.M1, a.M2 - b.M2, a.M3 - b.M3);
+        public static Point3 operator -(Point3 a, Vector3 b) => new Point3(a.M1 - b.M1, a.M2 - b.M2, a.M3 - b.M3);
 
-		public static Vector3 operator -(Point3 a, Point3 b) => new Vector3(a.M1 - b.M1, a.M2 - b.M2, a.M3 - b.M3);
+        public static Vector3 operator -(Point3 a, Point3 b) => new Vector3(a.M1 - b.M1, a.M2 - b.M2, a.M3 - b.M3);
 
-		public static Point3 operator *(Point3 a, double b) => new Point3(a.M1 * b, a.M2 * b, a.M3 * b);
+        public static Point3 operator *(Point3 a, double b) => new Point3(a.M1 * b, a.M2 * b, a.M3 * b);
 
-		public static Point3 operator *(double a, Point3 b) => new Point3(a * b.M1, a * b.M2, a * b.M3);
+        public static Point3 operator *(double a, Point3 b) => new Point3(a * b.M1, a * b.M2, a * b.M3);
 
-		public static Point3 operator /(Point3 a, double b) => new Point3(a.M1 / b, a.M2 / b, a.M3 / b);
+        public static Point3 operator /(Point3 a, double b) => new Point3(a.M1 / b, a.M2 / b, a.M3 / b);
 
-		#endregion
+        #endregion
 
-		#region Operators
+        #region Operators
 
-		public static bool operator ==(Point3 a, Point3 b) => a.M1 == b.M1 && a.M2 == b.M2 && a.M3 == b.M3;
+        public static bool operator ==(Point3 a, Point3 b) => a.M1 == b.M1 && a.M2 == b.M2 && a.M3 == b.M3;
 
-		public static bool operator !=(Point3 a, Point3 b) => a.M1 != b.M1 || a.M2 != b.M2 || a.M3 != b.M3;
+        public static bool operator !=(Point3 a, Point3 b) => a.M1 != b.M1 || a.M2 != b.M2 || a.M3 != b.M3;
 
-		#endregion
+        #endregion
 
-		#region Properties
+        #region Properties
 
-		public double M1 { get; set; }
+        public double M1 { get; set; }
 
-		public double M2 { get; set; }
+        public double M2 { get; set; }
 
-		public double M3 { get; set; }
+        public double M3 { get; set; }
 
-		public double X
-		{
-			get => M1;
-			set => M1 = value;
-		}
+        public double X
+        {
+            get => M1;
+            set => M1 = value;
+        }
 
-		public double Y
-		{
-			get => M2;
-			set => M2 = value;
-		}
+        public double Y
+        {
+            get => M2;
+            set => M2 = value;
+        }
 
-		public double Z
-		{
-			get => M3;
-			set => M3 = value;
-		}
+        public double Z
+        {
+            get => M3;
+            set => M3 = value;
+        }
 
-		#endregion
-	}
+        #endregion
+    }
 }

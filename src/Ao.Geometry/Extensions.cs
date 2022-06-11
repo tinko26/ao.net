@@ -24,8 +24,8 @@ using Ao.Mathematics;
 
 namespace Ao.Geometry
 {
-	public static class Extensions
-	{
+    public static class Extensions
+    {
         #region Point2
 
         public static double Distance(this Point2 P, General2 G) => G.Distance(P);

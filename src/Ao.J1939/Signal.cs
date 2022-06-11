@@ -22,16 +22,16 @@
 
 namespace Ao.J1939
 {
-	public enum Signal
-	{
-		Valid,
+    public enum Signal
+    {
+        Valid,
 
-		ParameterSpecificIndicator,
+        ParameterSpecificIndicator,
 
-		Reserved,
+        Reserved,
 
-		Error,
+        Error,
 
-		NotAvailable
-	}
+        NotAvailable
+    }
 }

@@ -24,59 +24,59 @@ using System;
 
 namespace Ao.J1939
 {
-	public sealed class RQST : PG
-	{
-		public override string Acronym => "RQST";
+    public sealed class RQST : PG
+    {
+        public override string Acronym => "RQST";
 
-		public override byte[] Data
-		{
-			get
-			{
-				var B = BitConverter.GetBytes(RequestedPGN.Value);
+        public override byte[] Data
+        {
+            get
+            {
+                var B = BitConverter.GetBytes(RequestedPGN.Value);
 
-				if (!BitConverter.IsLittleEndian)
-				{
-					B = B.Reverse();
-				}
+                if (!BitConverter.IsLittleEndian)
+                {
+                    B = B.Reverse();
+                }
 
-				return B.Resize(3);
-			}
-			set
-			{
-				var B = value;
+                return B.Resize(3);
+            }
+            set
+            {
+                var B = value;
 
-				B = B.Resize(3);
+                B = B.Resize(3);
 
-				B = B.Resize(4);
+                B = B.Resize(4);
 
-				if (!BitConverter.IsLittleEndian)
-				{
-					B = B.Reverse();
-				}
+                if (!BitConverter.IsLittleEndian)
+                {
+                    B = B.Reverse();
+                }
 
-				RequestedPGN = new PGN
-				{
-					Value = BitConverter.ToUInt32(B, 0)
-				};
-			}
-		}
+                RequestedPGN = new PGN
+                {
+                    Value = BitConverter.ToUInt32(B, 0)
+                };
+            }
+        }
 
-		public override int DataLength => 3;
+        public override int DataLength => 3;
 
-		public override DataPage DataPage => DataPage.DataPage0;
+        public override DataPage DataPage => DataPage.DataPage0;
 
-		public override DataPage DataPageExtended => DataPage.DataPage0;
+        public override DataPage DataPageExtended => DataPage.DataPage0;
 
-		public override byte GroupExtension => 0;
+        public override byte GroupExtension => 0;
 
-		public override bool IsDataLengthVariable => false;
+        public override bool IsDataLengthVariable => false;
 
-		public override bool IsMultipacket => false;
+        public override bool IsMultipacket => false;
 
-		public override string Label => "Request";
+        public override string Label => "Request";
 
-		public override byte PF => 0xEA;
+        public override byte PF => 0xEA;
 
-		public PGN RequestedPGN { get; set; }
-	}
+        public PGN RequestedPGN { get; set; }
+    }
 }

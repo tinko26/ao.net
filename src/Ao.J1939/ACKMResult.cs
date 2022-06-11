@@ -22,14 +22,14 @@
 
 namespace Ao.J1939
 {
-	public enum ACKMResult
-	{
-		AccessDenied = 2,
+    public enum ACKMResult
+    {
+        AccessDenied = 2,
 
-		Busy = 3,
+        Busy = 3,
 
-		Negative = 1,
+        Negative = 1,
 
-		Positive = 0
-	}
+        Positive = 0
+    }
 }

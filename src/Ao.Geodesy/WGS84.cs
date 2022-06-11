@@ -24,37 +24,37 @@ using Ao.Measurements;
 
 namespace Ao.Geodesy
 {
-	public static class WGS84
-	{
-		#region Constants
+    public static class WGS84
+    {
+        #region Constants
 
-		public static readonly Length EquatorialRadius = new Length(6378137.0);
+        public static readonly Length EquatorialRadius = new Length(6378137.0);
 
-		public static readonly Length MeanRadius;
+        public static readonly Length MeanRadius;
 
-		public static readonly Length PolarRadius = new Length(6356752.31424518);
+        public static readonly Length PolarRadius = new Length(6356752.31424518);
 
-		#endregion
+        #endregion
 
-		#region Initialization
+        #region Initialization
 
-		static WGS84()
-		{
-			MeanRadius = (2.0 * EquatorialRadius + PolarRadius) / 3.0;
+        static WGS84()
+        {
+            MeanRadius = (2.0 * EquatorialRadius + PolarRadius) / 3.0;
 
-			SphericalEarth = new SphericalEarth(MeanRadius);
+            SphericalEarth = new SphericalEarth(MeanRadius);
 
-			SpheroidalEarth = new SpheroidalEarth(EquatorialRadius, PolarRadius);
-		}
+            SpheroidalEarth = new SpheroidalEarth(EquatorialRadius, PolarRadius);
+        }
 
-		#endregion
+        #endregion
 
-		#region Properties
+        #region Properties
 
-		public static SphericalEarth SphericalEarth { get; }
+        public static SphericalEarth SphericalEarth { get; }
 
-		public static SpheroidalEarth SpheroidalEarth { get; }
+        public static SpheroidalEarth SpheroidalEarth { get; }
 
-		#endregion
-	}
+        #endregion
+    }
 }

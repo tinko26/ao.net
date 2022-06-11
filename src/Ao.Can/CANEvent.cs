@@ -24,10 +24,10 @@ using Ao.Measurements;
 
 namespace Ao.Can
 {
-	public sealed class CANEvent
-	{
-		public CAN CAN { get; set; }
+    public sealed class CANEvent
+    {
+        public CAN CAN { get; set; }
 
-		public Time Time { get; set; }
-	}
+        public Time Time { get; set; }
+    }
 }

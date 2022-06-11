@@ -26,82 +26,82 @@ using System.Management;
 
 namespace Ao.Serial
 {
-	public static class PortManager
-	{
-		#region Events
+    public static class PortManager
+    {
+        #region Events
 
-		public static event PortEventHandler PortConnected;
+        public static event PortEventHandler PortConnected;
 
-		public static event PortEventHandler PortDisconnected;
+        public static event PortEventHandler PortDisconnected;
 
-		#endregion
+        #endregion
 
-		#region Fields
+        #region Fields
 
-		private static readonly object Sync = new object();
+        private static readonly object Sync = new object();
 
-		private static readonly ManagementEventWatcher Watcher;
+        private static readonly ManagementEventWatcher Watcher;
 
-		#endregion
+        #endregion
 
-		#region Initialization
+        #region Initialization
 
-		static PortManager()
-		{
-			Watcher = new ManagementEventWatcher();
+        static PortManager()
+        {
+            Watcher = new ManagementEventWatcher();
 
-			Watcher.Query = new WqlEventQuery("SELECT * FROM Win32_DeviceChangeEvent WHERE EventType = 2 OR EventType = 3");
+            Watcher.Query = new WqlEventQuery("SELECT * FROM Win32_DeviceChangeEvent WHERE EventType = 2 OR EventType = 3");
 
-			Watcher.EventArrived += Update;
+            Watcher.EventArrived += Update;
 
-			Watcher.Start();
+            Watcher.Start();
 
-			Update();
-		}
+            Update();
+        }
 
-		#endregion
+        #endregion
 
-		#region Methods
+        #region Methods
 
-		private static void Update()
-		{
-			lock (Sync)
-			{
-				var P1 = new HashSet<string>(Ports);
+        private static void Update()
+        {
+            lock (Sync)
+            {
+                var P1 = new HashSet<string>(Ports);
 
-				var P2 = new HashSet<string>();
+                var P2 = new HashSet<string>();
 
-				var P3 = SerialPort.GetPortNames();
+                var P3 = SerialPort.GetPortNames();
 
-				foreach (var x in P3)
-				{
-					if (P1.Contains(x))
-					{
-						P1.Remove(x);
-					}
+                foreach (var x in P3)
+                {
+                    if (P1.Contains(x))
+                    {
+                        P1.Remove(x);
+                    }
 
-					else
-					{
-						P2.Add(x);
-					}
-				}
+                    else
+                    {
+                        P2.Add(x);
+                    }
+                }
 
-				Ports = new HashSet<string>(P3);
+                Ports = new HashSet<string>(P3);
 
-				foreach (var x in P1) PortDisconnected?.Invoke(null, new PortEventArgs(x));
+                foreach (var x in P1) PortDisconnected?.Invoke(null, new PortEventArgs(x));
 
-				foreach (var x in P2) PortConnected?.Invoke(null, new PortEventArgs(x));
-			}
-		}
+                foreach (var x in P2) PortConnected?.Invoke(null, new PortEventArgs(x));
+            }
+        }
 
-		private static void Update(object sender, EventArrivedEventArgs e) => Update();
+        private static void Update(object sender, EventArrivedEventArgs e) => Update();
 
-		#endregion
+        #endregion
 
-		#region Properties
+        #region Properties
 
-		public static HashSet<string> Ports { get; private set; } = new HashSet<string>();
+        public static HashSet<string> Ports { get; private set; } = new HashSet<string>();
 
-		#endregion
-	}
+        #endregion
+    }
 }

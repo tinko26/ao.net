@@ -24,8 +24,8 @@ using System;
 
 namespace Ao.Mathematics
 {
-	public struct Cylindrical : IEquatable<Cylindrical>
-	{
+    public struct Cylindrical : IEquatable<Cylindrical>
+    {
         #region Construction
 
         public Cylindrical(double radius, double azimuth, double z)
@@ -62,9 +62,9 @@ namespace Ao.Mathematics
             return this == y;
         }
 
-        public override int GetHashCode() => 
-            Radius.GetHashCode() ^ 
-            Azimuth.GetHashCode() ^ 
+        public override int GetHashCode() =>
+            Radius.GetHashCode() ^
+            Azimuth.GetHashCode() ^
             Z.GetHashCode();
 
         #endregion

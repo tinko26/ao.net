@@ -25,123 +25,123 @@ using System;
 
 namespace Ao.Serial
 {
-	sealed class PortCounter
-	{
-		#region Constants
+    sealed class PortCounter
+    {
+        #region Constants
 
-		public const int Capacity = 128;
+        public const int Capacity = 128;
 
-		#endregion
+        #endregion
 
-		#region Fields
+        #region Fields
 
-		private readonly int[] C = new int[Capacity];
+        private readonly int[] C = new int[Capacity];
 
-		private int I;
+        private int I;
 
-		private int N;
+        private int N;
 
-		private readonly Time[] T = new Time[Capacity];
+        private readonly Time[] T = new Time[Capacity];
 
-		#endregion
+        #endregion
 
-		#region Methods
+        #region Methods
 
-		public void Next() => Next(1);
+        public void Next() => Next(1);
 
-		public void Next(int c)
-		{
-			var t = Now();
+        public void Next(int c)
+        {
+            var t = Now();
 
-			if (N == 0)
-			{
-				I = 0;
+            if (N == 0)
+            {
+                I = 0;
 
-				C[I] = c;
+                C[I] = c;
 
-				T[I] = t;
+                T[I] = t;
 
-				I = (I + 1) % Capacity;
+                I = (I + 1) % Capacity;
 
-				N++;
+                N++;
 
-				Total = c;
+                Total = c;
 
-				Rate = Frequency.Zero;
-			}
+                Rate = Frequency.Zero;
+            }
 
-			else if (N < Capacity)
-			{
-				C[I] = c;
+            else if (N < Capacity)
+            {
+                C[I] = c;
 
-				T[I] = t;
+                T[I] = t;
 
-				I = (I + 1) % Capacity;
+                I = (I + 1) % Capacity;
 
-				N++;
+                N++;
 
-				Total += c;
+                Total += c;
 
-				Rate = Total / TT;
-			}
+                Rate = Total / TT;
+            }
 
-			else
-			{
-				Total -= CB;
+            else
+            {
+                Total -= CB;
 
-				Total += c;
+                Total += c;
 
-				C[I] = c;
+                C[I] = c;
 
-				T[I] = t;
+                T[I] = t;
 
-				I = (I + 1) % Capacity;
+                I = (I + 1) % Capacity;
 
-				Rate = Total / TT;
-			}
-		}
+                Rate = Total / TT;
+            }
+        }
 
-		public void Reset()
-		{
-			N = 0;
+        public void Reset()
+        {
+            N = 0;
 
-			Total = 0;
+            Total = 0;
 
-			Rate = Frequency.Zero;
-		}
+            Rate = Frequency.Zero;
+        }
 
-		#endregion
+        #endregion
 
-		#region Methods (Private)
+        #region Methods (Private)
 
-		private Time Now() => new Time((double)DateTime.Now.Ticks / TimeSpan.TicksPerSecond);
+        private Time Now() => new Time((double)DateTime.Now.Ticks / TimeSpan.TicksPerSecond);
 
-		#endregion
+        #endregion
 
-		#region Properties
+        #region Properties
 
-		public Frequency Rate { get; private set; }
+        public Frequency Rate { get; private set; }
 
-		public int Total { get; private set; }
+        public int Total { get; private set; }
 
-		#endregion
+        #endregion
 
-		#region Properties (Private)
+        #region Properties (Private)
 
-		private int B => (I + Capacity - N) % Capacity;
+        private int B => (I + Capacity - N) % Capacity;
 
-		private int CB => C[B];
+        private int CB => C[B];
 
-		private int CE => C[E];
+        private int CE => C[E];
 
-		private int E => (I + Capacity - 1) % Capacity;
+        private int E => (I + Capacity - 1) % Capacity;
 
-		private Time TB => T[B];
+        private Time TB => T[B];
 
-		private Time TE => T[E];
+        private Time TE => T[E];
 
-		private Time TT => TE - TB;
+        private Time TT => TE - TB;
 
-		#endregion
-	}
+        #endregion
+    }
 }

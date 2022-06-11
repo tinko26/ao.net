@@ -22,53 +22,53 @@
 
 namespace Ao.J1939
 {
-	public abstract class PG
-	{
-		public abstract string Acronym { get; }
+    public abstract class PG
+    {
+        public abstract string Acronym { get; }
 
-		public abstract byte[] Data { get; set; }
+        public abstract byte[] Data { get; set; }
 
-		public abstract int DataLength { get; }
+        public abstract int DataLength { get; }
 
-		public abstract DataPage DataPage { get; }
+        public abstract DataPage DataPage { get; }
 
-		public abstract DataPage DataPageExtended { get; }
+        public abstract DataPage DataPageExtended { get; }
 
-		public byte DestinationAddress { get; set; }
+        public byte DestinationAddress { get; set; }
 
-		public abstract byte GroupExtension { get; }
+        public abstract byte GroupExtension { get; }
 
-		public bool IsBroadcast => PF >= 0xF0;
+        public bool IsBroadcast => PF >= 0xF0;
 
-		public abstract bool IsDataLengthVariable { get; }
+        public abstract bool IsDataLengthVariable { get; }
 
-		public abstract bool IsMultipacket { get; }
+        public abstract bool IsMultipacket { get; }
 
-		public bool IsProprietary => PF == 0xEF || PF == 0xFF;
+        public bool IsProprietary => PF == 0xEF || PF == 0xFF;
 
-		public bool IsStandard => !IsProprietary;
+        public bool IsStandard => !IsProprietary;
 
-		public bool IsUnicast => !IsBroadcast;
+        public bool IsUnicast => !IsBroadcast;
 
-		public abstract string Label { get; }
+        public abstract string Label { get; }
 
-		public abstract byte PF { get; }
+        public abstract byte PF { get; }
 
-		public PGN PGN => new PGN
-		{
-			DataPage = DataPage,
+        public PGN PGN => new PGN
+        {
+            DataPage = DataPage,
 
-			DataPageExtended = DataPageExtended,
+            DataPageExtended = DataPageExtended,
 
-			PF = PF,
+            PF = PF,
 
-			PS = PS
-		};
+            PS = PS
+        };
 
-		public Priority Priority { get; set; }
+        public Priority Priority { get; set; }
 
-		public byte PS => IsBroadcast ? GroupExtension : DestinationAddress;
+        public byte PS => IsBroadcast ? GroupExtension : DestinationAddress;
 
-		public byte SourceAddress { get; set; }
-	}
+        public byte SourceAddress { get; set; }
+    }
 }

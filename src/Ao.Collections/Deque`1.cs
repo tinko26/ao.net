@@ -25,70 +25,70 @@ using System.Collections.Generic;
 
 namespace Ao.Collections
 {
-	public class Deque<T> : IEnumerable<T>
-	{
-		#region Fields
+    public class Deque<T> : IEnumerable<T>
+    {
+        #region Fields
 
-		private readonly LinkedList<T> List = new LinkedList<T>();
+        private readonly LinkedList<T> List = new LinkedList<T>();
 
-		#endregion
+        #endregion
 
-		#region Methods
+        #region Methods
 
-		public void Clear() => List.Clear();
+        public void Clear() => List.Clear();
 
-		public void Contains(T x) => List.Contains(x);
+        public void Contains(T x) => List.Contains(x);
 
-		public void CopyTo(T[] array, int index) => List.CopyTo(array, index);
+        public void CopyTo(T[] array, int index) => List.CopyTo(array, index);
 
-		public IEnumerator<T> GetEnumerator() => List.GetEnumerator();
+        public IEnumerator<T> GetEnumerator() => List.GetEnumerator();
 
-		IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
+        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
-		public T PopBack()
-		{
-			var x = Back;
+        public T PopBack()
+        {
+            var x = Back;
 
-			RemoveBack();
+            RemoveBack();
 
-			return x;
-		}
+            return x;
+        }
 
-		public T PopFront()
-		{
-			var x = Front;
+        public T PopFront()
+        {
+            var x = Front;
 
-			RemoveFront();
+            RemoveFront();
 
-			return x;
-		}
+            return x;
+        }
 
-		public void PushBack(T x) => List.AddLast(x);
+        public void PushBack(T x) => List.AddLast(x);
 
-		public void PushFront(T x) => List.AddFirst(x);
+        public void PushFront(T x) => List.AddFirst(x);
 
-		public void RemoveBack() => List.RemoveLast();
+        public void RemoveBack() => List.RemoveLast();
 
-		public void RemoveFront() => List.RemoveFirst();
+        public void RemoveFront() => List.RemoveFirst();
 
-		#endregion
+        #endregion
 
-		#region Properties
+        #region Properties
 
-		public T Back
-		{
-			get => List.Last.Value;
-			set => List.Last.Value = value;
-		}
+        public T Back
+        {
+            get => List.Last.Value;
+            set => List.Last.Value = value;
+        }
 
-		public int Count => List.Count;
+        public int Count => List.Count;
 
-		public T Front
-		{
-			get => List.First.Value;
-			set => List.First.Value = value;
-		}
+        public T Front
+        {
+            get => List.First.Value;
+            set => List.First.Value = value;
+        }
 
-		#endregion
-	}
+        #endregion
+    }
 }

@@ -24,33 +24,33 @@ using System;
 
 namespace Ao.Serial
 {
-	public sealed class PortDataEventArgs : EventArgs
-	{
-		#region Construction
+    public sealed class PortDataEventArgs : EventArgs
+    {
+        #region Construction
 
-		public PortDataEventArgs(byte[] buffer) : this(buffer, 0, buffer.Length) { }
+        public PortDataEventArgs(byte[] buffer) : this(buffer, 0, buffer.Length) { }
 
-		public PortDataEventArgs(byte[] buffer, int offset) : this(buffer, offset, buffer.Length - offset) { }
+        public PortDataEventArgs(byte[] buffer, int offset) : this(buffer, offset, buffer.Length - offset) { }
 
-		public PortDataEventArgs(byte[] buffer, int offset, int count)
-		{
-			Buffer = buffer;
+        public PortDataEventArgs(byte[] buffer, int offset, int count)
+        {
+            Buffer = buffer;
 
-			Offset = offset;
+            Offset = offset;
 
-			Count = count;
-		}
+            Count = count;
+        }
 
-		#endregion
+        #endregion
 
-		#region Properties
+        #region Properties
 
-		public byte[] Buffer { get; }
+        public byte[] Buffer { get; }
 
-		public int Count { get; }
+        public int Count { get; }
 
-		public int Offset { get; }
+        public int Offset { get; }
 
-		#endregion
-	}
+        #endregion
+    }
 }

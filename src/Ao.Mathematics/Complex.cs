@@ -24,162 +24,162 @@ using System;
 
 namespace Ao.Mathematics
 {
-	public struct Complex : IEquatable<Complex>
-	{
-		#region Constants
+    public struct Complex : IEquatable<Complex>
+    {
+        #region Constants
 
-		public static readonly Complex I = new Complex(0, 1);
+        public static readonly Complex I = new Complex(0, 1);
 
-		#endregion
+        #endregion
 
-		#region Construction
+        #region Construction
 
-		public Complex(double real)
-		{
-			Real = real;
+        public Complex(double real)
+        {
+            Real = real;
 
-			Imaginary = 0;
-		}
+            Imaginary = 0;
+        }
 
-		public Complex(double real, double imaginary)
-		{
-			Real = real;
+        public Complex(double real, double imaginary)
+        {
+            Real = real;
 
-			Imaginary = imaginary;
-		}
+            Imaginary = imaginary;
+        }
 
-		#endregion
+        #endregion
 
-		#region Methods
+        #region Methods
 
-		public bool Equals(Complex x) => this == x;
+        public bool Equals(Complex x) => this == x;
 
-		public Point2 ToPoint() => new Point2(Real, Imaginary);
+        public Point2 ToPoint() => new Point2(Real, Imaginary);
 
-		public Polar ToPolar() => new Polar(Modulus, Argument);
+        public Polar ToPolar() => new Polar(Modulus, Argument);
 
-		public Vector2 ToVector() => new Vector2(Real, Imaginary);
+        public Vector2 ToVector() => new Vector2(Real, Imaginary);
 
-		#endregion
+        #endregion
 
-		#region Methods (Override)
+        #region Methods (Override)
 
-		public override bool Equals(object x)
-		{
-			if (x == null) return false;
+        public override bool Equals(object x)
+        {
+            if (x == null) return false;
 
-			if (!(x is Complex)) return false;
+            if (!(x is Complex)) return false;
 
-			var y = (Complex)x;
+            var y = (Complex)x;
 
-			return this == y;
-		}
+            return this == y;
+        }
 
-		public override int GetHashCode() => 
-			Real.GetHashCode() ^ 
-			Imaginary.GetHashCode();
+        public override int GetHashCode() =>
+            Real.GetHashCode() ^
+            Imaginary.GetHashCode();
 
-		#endregion
+        #endregion
 
-		#region Methods (Static)
+        #region Methods (Static)
 
-		public static Complex FromImaginary(double imaginary) => new Complex(0, imaginary);
+        public static Complex FromImaginary(double imaginary) => new Complex(0, imaginary);
 
-		public static Complex FromPoint(Point2 point) => point.ToComplex();
+        public static Complex FromPoint(Point2 point) => point.ToComplex();
 
-		public static Complex FromPolar(Polar polar) => polar.ToComplex();
+        public static Complex FromPolar(Polar polar) => polar.ToComplex();
 
-		public static Complex FromReal(double real) => new Complex(real);
+        public static Complex FromReal(double real) => new Complex(real);
 
-		public static Complex FromVector(Vector2 vector) => vector.ToComplex();
+        public static Complex FromVector(Vector2 vector) => vector.ToComplex();
 
-		public static Complex Rotation(double angle) => new Complex(Math.Cos(angle), Math.Sin(angle));
+        public static Complex Rotation(double angle) => new Complex(Math.Cos(angle), Math.Sin(angle));
 
-		#endregion
+        #endregion
 
-		#region Operators
+        #region Operators
 
-		public static Complex operator +(Complex a) => a;
+        public static Complex operator +(Complex a) => a;
 
-		public static Complex operator +(Complex a, Complex b) => new Complex(a.Real + b.Real, a.Imaginary + b.Imaginary);
+        public static Complex operator +(Complex a, Complex b) => new Complex(a.Real + b.Real, a.Imaginary + b.Imaginary);
 
-		public static Complex operator +(Complex a, double b) => new Complex(a.Real + b, a.Imaginary);
+        public static Complex operator +(Complex a, double b) => new Complex(a.Real + b, a.Imaginary);
 
-		public static Complex operator +(double a, Complex b) => new Complex(a + b.Real, b.Imaginary);
+        public static Complex operator +(double a, Complex b) => new Complex(a + b.Real, b.Imaginary);
 
-		public static Complex operator -(Complex a) => new Complex(-a.Real, -a.Imaginary);
+        public static Complex operator -(Complex a) => new Complex(-a.Real, -a.Imaginary);
 
-		public static Complex operator -(Complex a, Complex b) => new Complex(a.Real - b.Real, a.Imaginary - b.Imaginary);
+        public static Complex operator -(Complex a, Complex b) => new Complex(a.Real - b.Real, a.Imaginary - b.Imaginary);
 
-		public static Complex operator -(Complex a, double b) => new Complex(a.Real - b, a.Imaginary);
+        public static Complex operator -(Complex a, double b) => new Complex(a.Real - b, a.Imaginary);
 
-		public static Complex operator -(double a, Complex b) => new Complex(a - b.Real, -b.Imaginary);
+        public static Complex operator -(double a, Complex b) => new Complex(a - b.Real, -b.Imaginary);
 
-		public static Complex operator *(Complex a, Complex b)
-		{
-			return new Complex
-			(
-				a.Real * b.Real - a.Imaginary * b.Imaginary,
-				a.Imaginary * b.Real + a.Real * b.Imaginary
-			);
-		}
+        public static Complex operator *(Complex a, Complex b)
+        {
+            return new Complex
+            (
+                a.Real * b.Real - a.Imaginary * b.Imaginary,
+                a.Imaginary * b.Real + a.Real * b.Imaginary
+            );
+        }
 
-		public static Complex operator *(Complex a, double b) => new Complex(a.Real * b, a.Imaginary * b);
+        public static Complex operator *(Complex a, double b) => new Complex(a.Real * b, a.Imaginary * b);
 
-		public static Complex operator *(double a, Complex b) => new Complex(a * b.Real, a * b.Imaginary);
+        public static Complex operator *(double a, Complex b) => new Complex(a * b.Real, a * b.Imaginary);
 
-		public static Complex operator /(Complex a, Complex b)
-		{
-			double d = b.Real * b.Real + b.Imaginary * b.Imaginary;
+        public static Complex operator /(Complex a, Complex b)
+        {
+            double d = b.Real * b.Real + b.Imaginary * b.Imaginary;
 
-			return new Complex
-			(
-				(a.Real * b.Real + a.Imaginary * b.Imaginary) / d,
-				(a.Imaginary * b.Real - a.Real * b.Imaginary) / d
-			);
-		}
+            return new Complex
+            (
+                (a.Real * b.Real + a.Imaginary * b.Imaginary) / d,
+                (a.Imaginary * b.Real - a.Real * b.Imaginary) / d
+            );
+        }
 
-		public static Complex operator /(Complex a, double b) => new Complex(a.Real / b, a.Imaginary / b);
+        public static Complex operator /(Complex a, double b) => new Complex(a.Real / b, a.Imaginary / b);
 
-		public static Complex operator /(double a, Complex b)
-		{
-			double d = b.Real * b.Real + b.Imaginary * b.Imaginary;
+        public static Complex operator /(double a, Complex b)
+        {
+            double d = b.Real * b.Real + b.Imaginary * b.Imaginary;
 
-			return new Complex(a * b.Real / d, -a * b.Imaginary / d);
-		}
+            return new Complex(a * b.Real / d, -a * b.Imaginary / d);
+        }
 
-		#endregion
+        #endregion
 
-		#region Operators
+        #region Operators
 
-		public static bool operator ==(Complex a, Complex b) => a.Real == b.Real && a.Imaginary == b.Imaginary;
+        public static bool operator ==(Complex a, Complex b) => a.Real == b.Real && a.Imaginary == b.Imaginary;
 
-		public static bool operator ==(Complex a, double b) => a.Real == b && a.Imaginary == 0;
+        public static bool operator ==(Complex a, double b) => a.Real == b && a.Imaginary == 0;
 
-		public static bool operator ==(double a, Complex b) => a == b.Real && 0 == b.Imaginary;
+        public static bool operator ==(double a, Complex b) => a == b.Real && 0 == b.Imaginary;
 
-		public static bool operator !=(Complex a, Complex b) => a.Real != b.Real || a.Imaginary != b.Imaginary;
+        public static bool operator !=(Complex a, Complex b) => a.Real != b.Real || a.Imaginary != b.Imaginary;
 
-		public static bool operator !=(Complex a, double b) => a.Real != b || a.Imaginary != 0;
+        public static bool operator !=(Complex a, double b) => a.Real != b || a.Imaginary != 0;
 
-		public static bool operator !=(double a, Complex b) => a != b.Real || 0 != b.Imaginary;
+        public static bool operator !=(double a, Complex b) => a != b.Real || 0 != b.Imaginary;
 
-		#endregion
+        #endregion
 
-		#region Properties
+        #region Properties
 
-		public double Argument => Math.Atan2(Imaginary, Real);
+        public double Argument => Math.Atan2(Imaginary, Real);
 
-		public Complex Conjugate => new Complex(Real, -Imaginary);
+        public Complex Conjugate => new Complex(Real, -Imaginary);
 
-		public double Imaginary { get; set; }
+        public double Imaginary { get; set; }
 
-		public double Modulus => Math.Sqrt(ModulusSqr);
+        public double Modulus => Math.Sqrt(ModulusSqr);
 
-		public double ModulusSqr => Real * Real + Imaginary * Imaginary;
+        public double ModulusSqr => Real * Real + Imaginary * Imaginary;
 
-		public double Real { get; set; }
+        public double Real { get; set; }
 
-		#endregion
-	}
+        #endregion
+    }
 }

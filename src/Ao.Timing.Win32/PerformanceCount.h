@@ -26,100 +26,101 @@
 
 namespace Ao
 {
-	namespace Timing
-	{
-		namespace Win32
-		{
-			public value struct PerformanceCount : 
-				public System::IComparable<PerformanceCount>,
-				public System::IEquatable<PerformanceCount>
-			{
-				public:
+    namespace Timing
+    {
+        namespace Win32
+        {
+            public value struct PerformanceCount :
+                public System::IComparable<PerformanceCount>,
+                public System::IEquatable<PerformanceCount>
+            {
 
-				PerformanceCount(long long value)
-				{
-					this->value = value;
-				}
+            public:
 
-				private:
+                PerformanceCount(long long value)
+                {
+                    this->value = value;
+                }
 
-				long long value;
+            private:
 
-				public:
+                long long value;
 
-				virtual int CompareTo(PerformanceCount x)
-				{
-					if (*this < x)
-					{
-						return -1;
-					}
+            public:
 
-					else if (*this > x)
-					{
-						return 1;
-					}
+                virtual int CompareTo(PerformanceCount x)
+                {
+                    if (*this < x)
+                    {
+                        return -1;
+                    }
 
-					else
-					{
-						return 0;
-					}
-				}
+                    else if (*this > x)
+                    {
+                        return 1;
+                    }
 
-				virtual bool Equals(PerformanceCount x)
-				{
-					return *this == x;
-				}
+                    else
+                    {
+                        return 0;
+                    }
+                }
 
-				virtual bool Equals(System::Object^ x) override
-				{
-					if (x == nullptr) return false;
+                virtual bool Equals(PerformanceCount x)
+                {
+                    return *this == x;
+                }
 
-					if (x->GetType() != PerformanceCount::typeid) return false;
+                virtual bool Equals(System::Object^ x) override
+                {
+                    if (x == nullptr) return false;
 
-					PerformanceCount y = safe_cast<PerformanceCount>(x);
+                    if (x->GetType() != PerformanceCount::typeid) return false;
 
-					return *this == y;
-				}
+                    PerformanceCount y = safe_cast<PerformanceCount>(x);
 
-				virtual int GetHashCode() override
-				{
-					return value.GetHashCode();
-				}
+                    return *this == y;
+                }
 
-				public:
+                virtual int GetHashCode() override
+                {
+                    return value.GetHashCode();
+                }
 
-				static bool operator ==(PerformanceCount a, PerformanceCount b) { return a.value == b.value; }
+            public:
 
-				static bool operator !=(PerformanceCount a, PerformanceCount b) { return a.value != b.value; }
+                static bool operator ==(PerformanceCount a, PerformanceCount b) { return a.value == b.value; }
 
-				static bool operator >(PerformanceCount a, PerformanceCount b) { return a.value > b.value; }
+                static bool operator !=(PerformanceCount a, PerformanceCount b) { return a.value != b.value; }
 
-				static bool operator >=(PerformanceCount a, PerformanceCount b) { return a.value >= b.value; }
+                static bool operator >(PerformanceCount a, PerformanceCount b) { return a.value > b.value; }
 
-				static bool operator <(PerformanceCount a, PerformanceCount b) { return a.value < b.value; }
+                static bool operator >=(PerformanceCount a, PerformanceCount b) { return a.value >= b.value; }
 
-				static bool operator <=(PerformanceCount a, PerformanceCount b) { return a.value <= b.value; }
+                static bool operator <(PerformanceCount a, PerformanceCount b) { return a.value < b.value; }
 
-				public:
+                static bool operator <=(PerformanceCount a, PerformanceCount b) { return a.value <= b.value; }
 
-				property long long Value
-				{
-					long long get() 
-					{ 
-						return value; 
-					}
-					void set(long long x)
-					{
-						value = x;
-					}
-				}
+            public:
 
-				property Ao::Measurements::Time Time
-				{
-					Ao::Measurements::Time get();
-				}
+                property long long Value
+                {
+                    long long get()
+                    {
+                        return value;
+                    }
+                    void set(long long x)
+                    {
+                        value = x;
+                    }
+                }
 
-			};
-		}
-	}
+                property Ao::Measurements::Time Time
+                {
+                    Ao::Measurements::Time get();
+                }
+
+            };
+        }
+    }
 }

@@ -24,8 +24,8 @@ using System;
 
 namespace Ao.Mathematics
 {
-	public struct Spherical : IEquatable<Spherical>
-	{
+    public struct Spherical : IEquatable<Spherical>
+    {
         #region Construction
 
         public Spherical(double radius, double azimuth, double inclination)
@@ -88,9 +88,9 @@ namespace Ao.Mathematics
             return this == y;
         }
 
-        public override int GetHashCode() => 
-            Radius.GetHashCode() ^ 
-            Azimuth.GetHashCode() ^ 
+        public override int GetHashCode() =>
+            Radius.GetHashCode() ^
+            Azimuth.GetHashCode() ^
             Inclination.GetHashCode();
 
         #endregion

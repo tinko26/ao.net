@@ -24,276 +24,276 @@ using System;
 
 namespace Ao.Mathematics
 {
-	public struct Vector3 : IEquatable<Vector3>
-	{
-		#region Constants
+    public struct Vector3 : IEquatable<Vector3>
+    {
+        #region Constants
 
-		public static readonly Vector3 Unit1 = new Vector3(1, 0, 0);
+        public static readonly Vector3 Unit1 = new Vector3(1, 0, 0);
 
-		public static readonly Vector3 Unit2 = new Vector3(0, 1, 0);
+        public static readonly Vector3 Unit2 = new Vector3(0, 1, 0);
 
-		public static readonly Vector3 Unit3 = new Vector3(0, 0, 1);
+        public static readonly Vector3 Unit3 = new Vector3(0, 0, 1);
 
-		public static readonly Vector3 Zero = new Vector3();
+        public static readonly Vector3 Zero = new Vector3();
 
-		#endregion
+        #endregion
 
-		#region Construction
+        #region Construction
 
-		public Vector3(double m1, double m2, double m3)
-		{
-			M1 = m1;
-			M2 = m2;
-			M3 = m3;
-		}
+        public Vector3(double m1, double m2, double m3)
+        {
+            M1 = m1;
+            M2 = m2;
+            M3 = m3;
+        }
 
-		#endregion
+        #endregion
 
-		#region Methods
+        #region Methods
 
-		public bool Equals(Vector3 x) => this == x;
+        public bool Equals(Vector3 x) => this == x;
 
-		public double Norm(double p)
-		{
-			var s1 = Math.Pow(Math.Abs(M1), p);
-			var s2 = Math.Pow(Math.Abs(M2), p);
-			var s3 = Math.Pow(Math.Abs(M3), p);
+        public double Norm(double p)
+        {
+            var s1 = Math.Pow(Math.Abs(M1), p);
+            var s2 = Math.Pow(Math.Abs(M2), p);
+            var s3 = Math.Pow(Math.Abs(M3), p);
 
-			var s = s1 + s2 + s3;
+            var s = s1 + s2 + s3;
 
-			return Math.Pow(s, 1 / p);
-		}
+            return Math.Pow(s, 1 / p);
+        }
 
-		public Point2 ToAffinePoint() => new Point2(M1 / M3, M2 / M3);
+        public Point2 ToAffinePoint() => new Point2(M1 / M3, M2 / M3);
 
-		public Vector2 ToAffineVector() => new Vector2(M1, M2);
+        public Vector2 ToAffineVector() => new Vector2(M1, M2);
 
-		public Cylindrical ToCylindrical()
-		{
-			var r = Math.Sqrt(M1 * M1 + M2 * M2);
+        public Cylindrical ToCylindrical()
+        {
+            var r = Math.Sqrt(M1 * M1 + M2 * M2);
 
-			var a = Math.Atan2(M2, M1);
+            var a = Math.Atan2(M2, M1);
 
-			return new Cylindrical(r, a, M3);
-		}
+            return new Cylindrical(r, a, M3);
+        }
 
-		public Point3 ToPoint() => new Point3(M1, M2, M3);
+        public Point3 ToPoint() => new Point3(M1, M2, M3);
 
-		public Spherical ToSpherical()
-		{
-			var t = M1 * M1 + M2 * M2;
+        public Spherical ToSpherical()
+        {
+            var t = M1 * M1 + M2 * M2;
 
-			var r = Math.Sqrt(t + M3 * M3);
+            var r = Math.Sqrt(t + M3 * M3);
 
-			var a = Math.Atan2(M2, M1);
+            var a = Math.Atan2(M2, M1);
 
-			var i = 0.5 * Math.PI - Math.Atan2(Z, Math.Sqrt(t));
+            var i = 0.5 * Math.PI - Math.Atan2(Z, Math.Sqrt(t));
 
-			return new Spherical(r, a, i);
-		}
+            return new Spherical(r, a, i);
+        }
 
-		#endregion
+        #endregion
 
-		#region Methods (Override)
+        #region Methods (Override)
 
-		public override bool Equals(object x)
-		{
-			if (x == null) return false;
+        public override bool Equals(object x)
+        {
+            if (x == null) return false;
 
-			if (!(x is Vector3)) return false;
+            if (!(x is Vector3)) return false;
 
-			var y = (Vector3)x;
+            var y = (Vector3)x;
 
-			return this == y;
-		}
+            return this == y;
+        }
 
-		public override int GetHashCode() =>
-			M1.GetHashCode() ^
-			M2.GetHashCode() ^
-			M3.GetHashCode();
+        public override int GetHashCode() =>
+            M1.GetHashCode() ^
+            M2.GetHashCode() ^
+            M3.GetHashCode();
 
-		#endregion
+        #endregion
 
-		#region Methods (Static)
+        #region Methods (Static)
 
-		public static double Angle(Vector3 a, Vector3 b)
-		{
-			var t = a * b / Math.Sqrt(a.LengthSqr * b.LengthSqr);
+        public static double Angle(Vector3 a, Vector3 b)
+        {
+            var t = a * b / Math.Sqrt(a.LengthSqr * b.LengthSqr);
 
-			if (t <= -1)
-			{
-				return Math.PI;
-			}
+            if (t <= -1)
+            {
+                return Math.PI;
+            }
 
-			else if (t >= +1)
-			{
-				return 0;
-			}
+            else if (t >= +1)
+            {
+                return 0;
+            }
 
-			else
-			{
-				return Math.Acos(t);
-			}
-		}
+            else
+            {
+                return Math.Acos(t);
+            }
+        }
 
-		public static double Area(Vector3 a, Vector3 b) => (a % b).Length;
+        public static double Area(Vector3 a, Vector3 b) => (a % b).Length;
 
-		public static Vector3 Cross(Vector3 a, Vector3 b) => a % b;
+        public static Vector3 Cross(Vector3 a, Vector3 b) => a % b;
 
-		public static double Determinant(Vector3 a, Vector3 b, Vector3 c) => a % b * c;
+        public static double Determinant(Vector3 a, Vector3 b, Vector3 c) => a % b * c;
 
-		public static Vector3 FromAffinePoint(Point2 point) => new Vector3(point.X, point.Y, 1);
+        public static Vector3 FromAffinePoint(Point2 point) => new Vector3(point.X, point.Y, 1);
 
-		public static Vector3 FromAffineVector(Vector2 vector) => new Vector3(vector.M1, vector.M2, 0);
+        public static Vector3 FromAffineVector(Vector2 vector) => new Vector3(vector.M1, vector.M2, 0);
 
-		public static Vector3 FromCylindrical(Cylindrical cylindrical) => cylindrical.ToVector();
+        public static Vector3 FromCylindrical(Cylindrical cylindrical) => cylindrical.ToVector();
 
-		public static Vector3 FromPoint(Point3 point) => point.ToVector();
+        public static Vector3 FromPoint(Point3 point) => point.ToVector();
 
-		public static Vector3 FromSpherical(Spherical spherical) => spherical.ToVector();
+        public static Vector3 FromSpherical(Spherical spherical) => spherical.ToVector();
 
-		public static Vector3 Project(Vector3 a, Vector3 b) => a * b / b.LengthSqr * b;
+        public static Vector3 Project(Vector3 a, Vector3 b) => a * b / b.LengthSqr * b;
 
-		public static double Triple(Vector3 a, Vector3 b, Vector3 c) => a % b * c;
+        public static double Triple(Vector3 a, Vector3 b, Vector3 c) => a % b * c;
 
-		public static double Volume(Vector3 a, Vector3 b, Vector3 c) => Math.Abs(a % b * c);
+        public static double Volume(Vector3 a, Vector3 b, Vector3 c) => Math.Abs(a % b * c);
 
-		#endregion
+        #endregion
 
-		#region Operators
+        #region Operators
 
-		public static Vector3 operator +(Vector3 a) => a;
+        public static Vector3 operator +(Vector3 a) => a;
 
-		public static Vector3 operator +(Vector3 a, Vector3 b) => new Vector3(a.M1 + b.M1, a.M2 + b.M2, a.M3 + b.M3);
+        public static Vector3 operator +(Vector3 a, Vector3 b) => new Vector3(a.M1 + b.M1, a.M2 + b.M2, a.M3 + b.M3);
 
-		public static Vector3 operator -(Vector3 a) => new Vector3(-a.M1, -a.M2, -a.M3);
+        public static Vector3 operator -(Vector3 a) => new Vector3(-a.M1, -a.M2, -a.M3);
 
-		public static Vector3 operator -(Vector3 a, Vector3 b) => new Vector3(a.M1 - b.M1, a.M2 - b.M2, a.M3 - b.M3);
+        public static Vector3 operator -(Vector3 a, Vector3 b) => new Vector3(a.M1 - b.M1, a.M2 - b.M2, a.M3 - b.M3);
 
-		public static double operator *(Vector3 a, Vector3 b) => a.M1 * b.M1 + a.M2 * b.M2 + a.M3 * b.M3;
+        public static double operator *(Vector3 a, Vector3 b) => a.M1 * b.M1 + a.M2 * b.M2 + a.M3 * b.M3;
 
-		public static Vector3 operator *(Vector3 a, double b) => new Vector3(a.M1 * b, a.M2 * b, a.M3 * b);
+        public static Vector3 operator *(Vector3 a, double b) => new Vector3(a.M1 * b, a.M2 * b, a.M3 * b);
 
-		public static Vector3 operator *(double a, Vector3 b) => new Vector3(a * b.M1, a * b.M2, a * b.M3);
+        public static Vector3 operator *(double a, Vector3 b) => new Vector3(a * b.M1, a * b.M2, a * b.M3);
 
-		public static Vector3 operator /(Vector3 a, double b) => new Vector3(a.M1 / b, a.M2 / b, a.M3 / b);
+        public static Vector3 operator /(Vector3 a, double b) => new Vector3(a.M1 / b, a.M2 / b, a.M3 / b);
 
-		public static Vector3 operator %(Vector3 a, Vector3 b)
-		{
-			return new Vector3
-			(
-				a.M2 * b.M3 - b.M2 * a.M3,
-				a.M3 * b.M1 - b.M3 * a.M1,
-				a.M1 * b.M2 - b.M1 * a.M2
-			);
-		}
+        public static Vector3 operator %(Vector3 a, Vector3 b)
+        {
+            return new Vector3
+            (
+                a.M2 * b.M3 - b.M2 * a.M3,
+                a.M3 * b.M1 - b.M3 * a.M1,
+                a.M1 * b.M2 - b.M1 * a.M2
+            );
+        }
 
-		#endregion
+        #endregion
 
-		#region Operators
+        #region Operators
 
-		public static bool operator ==(Vector3 a, Vector3 b) => a.M1 == b.M1 && a.M2 == b.M2 && a.M3 == b.M3;
+        public static bool operator ==(Vector3 a, Vector3 b) => a.M1 == b.M1 && a.M2 == b.M2 && a.M3 == b.M3;
 
-		public static bool operator !=(Vector3 a, Vector3 b) => a.M1 != b.M1 || a.M2 != b.M2 || a.M3 != b.M3;
+        public static bool operator !=(Vector3 a, Vector3 b) => a.M1 != b.M1 || a.M2 != b.M2 || a.M3 != b.M3;
 
-		#endregion
+        #endregion
 
-		#region Properties
+        #region Properties
 
-		public double Chebyshev =>
-			Math.Max
-			(
-				Math.Max
-				(
-					Math.Abs(M1),
-					Math.Abs(M2)
-				),
-				Math.Abs(M3)
-			);
+        public double Chebyshev =>
+            Math.Max
+            (
+                Math.Max
+                (
+                    Math.Abs(M1),
+                    Math.Abs(M2)
+                ),
+                Math.Abs(M3)
+            );
 
-		public double Length => Math.Sqrt(LengthSqr);
+        public double Length => Math.Sqrt(LengthSqr);
 
-		public double LengthSqr =>
-			M1 * M1 +
-			M2 * M2 +
-			M3 * M3;
+        public double LengthSqr =>
+            M1 * M1 +
+            M2 * M2 +
+            M3 * M3;
 
-		public double M1 { get; set; }
+        public double M1 { get; set; }
 
-		public double M2 { get; set; }
+        public double M2 { get; set; }
 
-		public double M3 { get; set; }
+        public double M3 { get; set; }
 
-		public double Manhattan =>
-			Math.Abs(M1) +
-			Math.Abs(M2) +
-			Math.Abs(M3);
+        public double Manhattan =>
+            Math.Abs(M1) +
+            Math.Abs(M2) +
+            Math.Abs(M3);
 
-		public Vector3 Negated => -this;
+        public Vector3 Negated => -this;
 
-		public Vector3 Normalized => this / Length;
+        public Vector3 Normalized => this / Length;
 
-		public Vector3 Orthogonal
-		{
-			get
-			{
-				var m1 = Math.Abs(M1);
-				var m2 = Math.Abs(M2);
-				var m3 = Math.Abs(M3);
+        public Vector3 Orthogonal
+        {
+            get
+            {
+                var m1 = Math.Abs(M1);
+                var m2 = Math.Abs(M2);
+                var m3 = Math.Abs(M3);
 
-				if (m1 < m2 && m1 < m3)
-				{
-					return Orthogonal1;
-				}
+                if (m1 < m2 && m1 < m3)
+                {
+                    return Orthogonal1;
+                }
 
-				else if (m2 < m1 && m2 < m3)
-				{
-					return Orthogonal2;
-				}
+                else if (m2 < m1 && m2 < m3)
+                {
+                    return Orthogonal2;
+                }
 
-				else
-				{
-					return Orthogonal3;
-				}
-			}
-		}
+                else
+                {
+                    return Orthogonal3;
+                }
+            }
+        }
 
-		public Vector3 Orthogonal1 => new Vector3(0, M3, -M2);
+        public Vector3 Orthogonal1 => new Vector3(0, M3, -M2);
 
-		public Vector3 Orthogonal2 => new Vector3(-M3, 0, M1);
+        public Vector3 Orthogonal2 => new Vector3(-M3, 0, M1);
 
-		public Vector3 Orthogonal3 => new Vector3(M2, -M1, 0);
+        public Vector3 Orthogonal3 => new Vector3(M2, -M1, 0);
 
-		public Vector3 TowardsNegative1 => M1 < 0 ? this : -this;
+        public Vector3 TowardsNegative1 => M1 < 0 ? this : -this;
 
-		public Vector3 TowardsNegative2 => M2 < 0 ? this : -this;
+        public Vector3 TowardsNegative2 => M2 < 0 ? this : -this;
 
-		public Vector3 TowardsNegative3 => M3 < 0 ? this : -this;
+        public Vector3 TowardsNegative3 => M3 < 0 ? this : -this;
 
-		public Vector3 TowardsPositive1 => M1 > 0 ? this : -this;
+        public Vector3 TowardsPositive1 => M1 > 0 ? this : -this;
 
-		public Vector3 TowardsPositive2 => M2 > 0 ? this : -this;
+        public Vector3 TowardsPositive2 => M2 > 0 ? this : -this;
 
-		public Vector3 TowardsPositive3 => M3 > 0 ? this : -this;
+        public Vector3 TowardsPositive3 => M3 > 0 ? this : -this;
 
-		public double X
-		{
-			get => M1;
-			set => M1 = value;
-		}
+        public double X
+        {
+            get => M1;
+            set => M1 = value;
+        }
 
-		public double Y
-		{
-			get => M2;
-			set => M2 = value;
-		}
+        public double Y
+        {
+            get => M2;
+            set => M2 = value;
+        }
 
-		public double Z
-		{
-			get => M3;
-			set => M3 = value;
-		}
+        public double Z
+        {
+            get => M3;
+            set => M3 = value;
+        }
 
-		#endregion
-	}
+        #endregion
+    }
 }

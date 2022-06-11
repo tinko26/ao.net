@@ -22,12 +22,12 @@
 
 namespace Ao.J1939
 {
-	public enum TPCMAbortReason
-	{
-		NodeIsAlreadyEngagedInAnotherSessionAndCannotMaintainAnotherConnection = 1,
+    public enum TPCMAbortReason
+    {
+        NodeIsAlreadyEngagedInAnotherSessionAndCannotMaintainAnotherConnection = 1,
 
-		NodeIsLackingTheNecessaryResources = 2,
+        NodeIsLackingTheNecessaryResources = 2,
 
-		Timeout = 3
-	}
+        Timeout = 3
+    }
 }

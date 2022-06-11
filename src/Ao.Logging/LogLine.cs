@@ -25,48 +25,48 @@ using System.Globalization;
 
 namespace Ao.Logging
 {
-	public class LogLine
-	{
-		#region Methods
+    public class LogLine
+    {
+        #region Methods
 
-		public string Print(bool X) => X ? "1" : "0";
+        public string Print(bool X) => X ? "1" : "0";
 
-		public string Print(byte X) => X.ToString();
+        public string Print(byte X) => X.ToString();
 
-		public string Print(decimal X) => X.ToString(Culture);
+        public string Print(decimal X) => X.ToString(Culture);
 
-		public string Print(double X) => X.ToString(Culture);
+        public string Print(double X) => X.ToString(Culture);
 
-		public string Print(Enum X) => X.ToString();
+        public string Print(Enum X) => X.ToString();
 
-		public string Print(float X) => X.ToString(Culture);
+        public string Print(float X) => X.ToString(Culture);
 
-		public string Print(int X) => X.ToString();
+        public string Print(int X) => X.ToString();
 
-		public string Print(long X) => X.ToString();
+        public string Print(long X) => X.ToString();
 
-		public string Print(params string[] X) => string.Join(Separator, X);
+        public string Print(params string[] X) => string.Join(Separator, X);
 
-		public string Print(sbyte X) => X.ToString();
+        public string Print(sbyte X) => X.ToString();
 
-		public string Print(short X) => X.ToString();
+        public string Print(short X) => X.ToString();
 
-		public string Print(string X) => X;
+        public string Print(string X) => X;
 
-		public string Print(uint X) => X.ToString();
+        public string Print(uint X) => X.ToString();
 
-		public string Print(ulong X) => X.ToString();
+        public string Print(ulong X) => X.ToString();
 
-		public string Print(ushort X) => X.ToString();
+        public string Print(ushort X) => X.ToString();
 
-		#endregion
+        #endregion
 
-		#region Properties
+        #region Properties
 
-		public CultureInfo Culture { get; set; } = new CultureInfo("de");
+        public CultureInfo Culture { get; set; } = new CultureInfo("de");
 
-		public string Separator { get; set; } = ";";
+        public string Separator { get; set; } = ";";
 
-		#endregion
-	}
+        #endregion
+    }
 }

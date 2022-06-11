@@ -47,8 +47,8 @@ namespace Ao.Geometry
 
         #region Methods (Override)
 
-        public override int GetHashCode() => 
-            Width.GetHashCode() ^ 
+        public override int GetHashCode() =>
+            Width.GetHashCode() ^
             Height.GetHashCode();
 
         #endregion
@@ -67,7 +67,7 @@ namespace Ao.Geometry
 
         public static Dim2 operator /(Dim2 D, double S) => new Dim2(D.Width / S, D.Height / S);
 
-		#endregion
+        #endregion
 
         #region Properties
 

@@ -24,31 +24,31 @@ using Ao.Measurements;
 
 namespace Ao.Can
 {
-	public sealed class CANStat
-	{
-		#region Methods
+    public sealed class CANStat
+    {
+        #region Methods
 
-		public void Add(Time T, CAN C)
-		{
-			if (C.IDE)
-			{
-				Extended.Add(T, C);
-			}
+        public void Add(Time T, CAN C)
+        {
+            if (C.IDE)
+            {
+                Extended.Add(T, C);
+            }
 
-			else
-			{
-				Standard.Add(T, C);
-			}
-		}
+            else
+            {
+                Standard.Add(T, C);
+            }
+        }
 
-		#endregion
+        #endregion
 
-		#region Properties
+        #region Properties
 
-		public CANStatExtended Extended { get; } = new CANStatExtended();
+        public CANStatExtended Extended { get; } = new CANStatExtended();
 
-		public CANStatStandard Standard { get; } = new CANStatStandard();
+        public CANStatStandard Standard { get; } = new CANStatStandard();
 
-		#endregion
-	}
+        #endregion
+    }
 }

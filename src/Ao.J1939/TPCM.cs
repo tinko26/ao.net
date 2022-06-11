@@ -25,273 +25,273 @@ using System;
 
 namespace Ao.J1939
 {
-	public sealed class TPCM : PG
-	{
-		#region Fields
-
-		private ulong Value;
-
-		#endregion
-
-		#region Properties
-
-		public TPCMAbortReason AbortReason
-		{
-			get => (TPCMAbortReason)Value.GetBits(8, 8);
-			set
-			{
-				var T = Value;
+    public sealed class TPCM : PG
+    {
+        #region Fields
+
+        private ulong Value;
+
+        #endregion
+
+        #region Properties
+
+        public TPCMAbortReason AbortReason
+        {
+            get => (TPCMAbortReason)Value.GetBits(8, 8);
+            set
+            {
+                var T = Value;
 
-				Value.SetBits(8, 8, (ulong)value);
+                Value.SetBits(8, 8, (ulong)value);
 
-				Value = T;
-			}
-		}
+                Value = T;
+            }
+        }
 
-		public int AbortReasonValue
-		{
-			get => (int)Value.GetBits(8, 8);
-			set
-			{
-				var T = Value;
+        public int AbortReasonValue
+        {
+            get => (int)Value.GetBits(8, 8);
+            set
+            {
+                var T = Value;
 
-				T.SetBits(8, 8, (ulong)value);
+                T.SetBits(8, 8, (ulong)value);
 
-				Value = T;
-			}
-		}
+                Value = T;
+            }
+        }
 
-		public override string Acronym => "TP.CM";
+        public override string Acronym => "TP.CM";
 
-		public int BAMMessagePackages
-		{
-			get => (int)Value.GetBits(24, 8);
-			set
-			{
-				var T = Value;
+        public int BAMMessagePackages
+        {
+            get => (int)Value.GetBits(24, 8);
+            set
+            {
+                var T = Value;
 
-				T.SetBits(24, 8, (ulong)value);
+                T.SetBits(24, 8, (ulong)value);
 
-				Value = T;
-			}
-		}
+                Value = T;
+            }
+        }
 
-		public int BAMMessageSize
-		{
-			get => (int)Value.GetBits(8, 16);
-			set
-			{
-				var T = Value;
+        public int BAMMessageSize
+        {
+            get => (int)Value.GetBits(8, 16);
+            set
+            {
+                var T = Value;
 
-				T.SetBits(8, 16, (ulong)value);
+                T.SetBits(8, 16, (ulong)value);
 
-				Value = T;
-			}
-		}
+                Value = T;
+            }
+        }
 
-		public int CTSMessagePackageNext
-		{
-			get => (int)Value.GetBits(16, 8);
-			set
-			{
-				var T = Value;
+        public int CTSMessagePackageNext
+        {
+            get => (int)Value.GetBits(16, 8);
+            set
+            {
+                var T = Value;
 
-				T.SetBits(16, 8, (ulong)value);
+                T.SetBits(16, 8, (ulong)value);
 
-				Value = T;
-			}
-		}
+                Value = T;
+            }
+        }
 
-		public int CTSMessagePackages
-		{
-			get => (int)Value.GetBits(8, 8);
-			set
-			{
-				var T = Value;
+        public int CTSMessagePackages
+        {
+            get => (int)Value.GetBits(8, 8);
+            set
+            {
+                var T = Value;
 
-				T.SetBits(8, 8, (ulong)value);
+                T.SetBits(8, 8, (ulong)value);
 
-				Value = T;
-			}
-		}
+                Value = T;
+            }
+        }
 
-		public override byte[] Data
-		{
-			get
-			{
-				var B = BitConverter.GetBytes(Value);
+        public override byte[] Data
+        {
+            get
+            {
+                var B = BitConverter.GetBytes(Value);
 
-				if (!BitConverter.IsLittleEndian)
-				{
-					B = B.Reverse();
-				}
+                if (!BitConverter.IsLittleEndian)
+                {
+                    B = B.Reverse();
+                }
 
-				switch (Mode)
-				{
-					case TPCMMode.BAM:
-					case TPCMMode.EOM:
+                switch (Mode)
+                {
+                    case TPCMMode.BAM:
+                    case TPCMMode.EOM:
 
-						B[4] = 0xFF;
+                        B[4] = 0xFF;
 
-						break;
+                        break;
 
-					case TPCMMode.CTS:
+                    case TPCMMode.CTS:
 
-						B[3] = 0xFF;
-						B[4] = 0xFF;
+                        B[3] = 0xFF;
+                        B[4] = 0xFF;
 
-						break;
+                        break;
 
-					case TPCMMode.Abort:
+                    case TPCMMode.Abort:
 
-						B[2] = 0xFF;
-						B[3] = 0xFF;
-						B[4] = 0xFF;
+                        B[2] = 0xFF;
+                        B[3] = 0xFF;
+                        B[4] = 0xFF;
 
-						break;
+                        break;
 
-					default:
+                    default:
 
-						break;
-				}
+                        break;
+                }
 
-				return B;
-			}
-			set
-			{
-				var B = value;
+                return B;
+            }
+            set
+            {
+                var B = value;
 
-				B = B.Resize(8);
+                B = B.Resize(8);
 
-				if (!BitConverter.IsLittleEndian)
-				{
-					B = B.Reverse();
-				}
+                if (!BitConverter.IsLittleEndian)
+                {
+                    B = B.Reverse();
+                }
 
-				Value = BitConverter.ToUInt64(B, 0);
-			}
-		}
+                Value = BitConverter.ToUInt64(B, 0);
+            }
+        }
 
-		public override int DataLength => 8;
+        public override int DataLength => 8;
 
-		public override DataPage DataPage => DataPage.DataPage0;
+        public override DataPage DataPage => DataPage.DataPage0;
 
-		public override DataPage DataPageExtended => DataPage.DataPage0;
+        public override DataPage DataPageExtended => DataPage.DataPage0;
 
-		public int EOMMessagePackages
-		{
-			get => (int)Value.GetBits(24, 8);
-			set
-			{
-				var T = Value;
+        public int EOMMessagePackages
+        {
+            get => (int)Value.GetBits(24, 8);
+            set
+            {
+                var T = Value;
 
-				T.SetBits(24, 8, (ulong)value);
+                T.SetBits(24, 8, (ulong)value);
 
-				Value = T;
-			}
-		}
+                Value = T;
+            }
+        }
 
-		public int EOMMessageSize
-		{
-			get => (int)Value.GetBits(8, 16);
-			set
-			{
-				var T = Value;
+        public int EOMMessageSize
+        {
+            get => (int)Value.GetBits(8, 16);
+            set
+            {
+                var T = Value;
 
-				T.SetBits(8, 16, (ulong)value);
+                T.SetBits(8, 16, (ulong)value);
 
-				Value = T;
-			}
-		}
+                Value = T;
+            }
+        }
 
-		public override byte GroupExtension => 0;
+        public override byte GroupExtension => 0;
 
-		public bool IsAbort => Mode == TPCMMode.Abort;
+        public bool IsAbort => Mode == TPCMMode.Abort;
 
-		public bool IsBAM => Mode == TPCMMode.BAM;
+        public bool IsBAM => Mode == TPCMMode.BAM;
 
-		public bool IsCTS => Mode == TPCMMode.CTS;
+        public bool IsCTS => Mode == TPCMMode.CTS;
 
-		public override bool IsDataLengthVariable => false;
+        public override bool IsDataLengthVariable => false;
 
-		public bool IsEOM => Mode == TPCMMode.EOM;
+        public bool IsEOM => Mode == TPCMMode.EOM;
 
-		public override bool IsMultipacket => false;
+        public override bool IsMultipacket => false;
 
-		public bool IsRTS => Mode == TPCMMode.RTS;
+        public bool IsRTS => Mode == TPCMMode.RTS;
 
-		public override string Label => "Transport Protocol - Connection Management";
+        public override string Label => "Transport Protocol - Connection Management";
 
-		public PGN MessagePGN
-		{
-			get => new PGN
-			{
-				Value = (uint)Value.GetBits(40, 24)
-			};
-			set
-			{
-				var T = Value;
+        public PGN MessagePGN
+        {
+            get => new PGN
+            {
+                Value = (uint)Value.GetBits(40, 24)
+            };
+            set
+            {
+                var T = Value;
 
-				T.SetBits(40, 24, value.Value);
+                T.SetBits(40, 24, value.Value);
 
-				Value = T;
-			}
-		}
+                Value = T;
+            }
+        }
 
-		public TPCMMode Mode
-		{
-			get => (TPCMMode)Value.GetBits(0, 8);
-			set
-			{
-				var T = Value;
+        public TPCMMode Mode
+        {
+            get => (TPCMMode)Value.GetBits(0, 8);
+            set
+            {
+                var T = Value;
 
-				Value.SetBits(0, 8, (ulong)value);
+                Value.SetBits(0, 8, (ulong)value);
 
-				Value = T;
-			}
-		}
+                Value = T;
+            }
+        }
 
-		public override byte PF => 0xEC;
+        public override byte PF => 0xEC;
 
-		public int RTSMessagePackagesMax
-		{
-			get => (int)Value.GetBits(32, 8);
-			set
-			{
-				var T = Value;
+        public int RTSMessagePackagesMax
+        {
+            get => (int)Value.GetBits(32, 8);
+            set
+            {
+                var T = Value;
 
-				T.SetBits(32, 8, (ulong)value);
+                T.SetBits(32, 8, (ulong)value);
 
-				Value = T;
-			}
-		}
+                Value = T;
+            }
+        }
 
-		public int RTSMessagePackagesTotal
-		{
-			get => (int)Value.GetBits(24, 8);
-			set
-			{
-				var T = Value;
+        public int RTSMessagePackagesTotal
+        {
+            get => (int)Value.GetBits(24, 8);
+            set
+            {
+                var T = Value;
 
-				T.SetBits(24, 8, (ulong)value);
+                T.SetBits(24, 8, (ulong)value);
 
-				Value = T;
-			}
-		}
+                Value = T;
+            }
+        }
 
-		public int RTSMessageSize
-		{
-			get => (int)Value.GetBits(8, 16);
-			set
-			{
-				var T = Value;
+        public int RTSMessageSize
+        {
+            get => (int)Value.GetBits(8, 16);
+            set
+            {
+                var T = Value;
 
-				T.SetBits(8, 16, (ulong)value);
+                T.SetBits(8, 16, (ulong)value);
 
-				Value = T;
-			}
-		}
+                Value = T;
+            }
+        }
 
-		#endregion
-	}
+        #endregion
+    }
 }

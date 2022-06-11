@@ -25,8 +25,8 @@ using System;
 
 namespace Ao.Geometry
 {
-	public struct Circle2
-	{
+    public struct Circle2
+    {
         #region Construction
 
         public Circle2(Point2 center, double radius)

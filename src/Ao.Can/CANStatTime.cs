@@ -27,42 +27,42 @@ using System.Linq;
 
 namespace Ao.Can
 {
-	public sealed class CANStatTime
-	{
-		#region Methods
+    public sealed class CANStatTime
+    {
+        #region Methods
 
-		public void Add(Time T)
-		{
-			if (HasTime)
-			{
-				Timespans.Add(new Tuple<Time, Time>(T, T - TimeLast));
-			}
+        public void Add(Time T)
+        {
+            if (HasTime)
+            {
+                Timespans.Add(new Tuple<Time, Time>(T, T - TimeLast));
+            }
 
-			Times.Add(T);
-		}
+            Times.Add(T);
+        }
 
-		#endregion
+        #endregion
 
-		#region Properties
+        #region Properties
 
-		public bool HasTime => Times.Count > 0;
+        public bool HasTime => Times.Count > 0;
 
-		public bool HasTimespan => Timespans.Count > 0;
+        public bool HasTimespan => Timespans.Count > 0;
 
-		public Time TimeLast => Times.Last();
+        public Time TimeLast => Times.Last();
 
-		public List<Time> Times { get; } = new List<Time>();
+        public List<Time> Times { get; } = new List<Time>();
 
-		public Time TimespanAverage => new Time { Seconds = Timespans.Average(x => x.Item2.Seconds) };
+        public Time TimespanAverage => new Time { Seconds = Timespans.Average(x => x.Item2.Seconds) };
 
-		public Time TimespanLast => Timespans.Last().Item2;
+        public Time TimespanLast => Timespans.Last().Item2;
 
-		public Time TimespanMax => new Time { Seconds = Timespans.Max(x => x.Item2.Seconds) };
+        public Time TimespanMax => new Time { Seconds = Timespans.Max(x => x.Item2.Seconds) };
 
-		public Time TimespanMin => new Time { Seconds = Timespans.Min(x => x.Item2.Seconds) };
+        public Time TimespanMin => new Time { Seconds = Timespans.Min(x => x.Item2.Seconds) };
 
-		public List<Tuple<Time, Time>> Timespans { get; } = new List<Tuple<Time, Time>>();
+        public List<Tuple<Time, Time>> Timespans { get; } = new List<Tuple<Time, Time>>();
 
-		#endregion
-	}
+        #endregion
+    }
 }

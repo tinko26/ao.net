@@ -26,62 +26,63 @@
 
 namespace Ao
 {
-	namespace Timing
-	{
-		namespace Win32
-		{
-			public ref class MultimediaTimer abstract sealed
-			{
-				private:
+    namespace Timing
+    {
+        namespace Win32
+        {
+            public ref class MultimediaTimer abstract sealed
+            {
 
-				static MultimediaTimer()
-				{
-					TIMECAPS caps;
+            private:
 
-					UINT result = ::timeGetDevCaps(&caps, sizeof(TIMECAPS));
+                static MultimediaTimer()
+                {
+                    TIMECAPS caps;
 
-					if (result != TIMERR_NOERROR)
-					{
-						MinResolutionMs = 0;
-						MaxResolutionMs = 0;
-					}
+                    UINT result = ::timeGetDevCaps(&caps, sizeof(TIMECAPS));
 
-					else
-					{
-						MinResolutionMs = caps.wPeriodMin;
-						MaxResolutionMs = caps.wPeriodMax;
-					}
+                    if (result != TIMERR_NOERROR)
+                    {
+                        MinResolutionMs = 0;
+                        MaxResolutionMs = 0;
+                    }
 
-					Ao::Measurements::Time t;
+                    else
+                    {
+                        MinResolutionMs = caps.wPeriodMin;
+                        MaxResolutionMs = caps.wPeriodMax;
+                    }
 
-					t.Milliseconds = MaxDelayMs; MaxDelay = t;
-					t.Milliseconds = MinDelayMs; MinDelay = t;
+                    Ao::Measurements::Time t;
 
-					t.Milliseconds = MaxResolutionMs; MaxResolution = t;
-					t.Milliseconds = MinResolutionMs; MinResolution = t;
-				}
+                    t.Milliseconds = MaxDelayMs; MaxDelay = t;
+                    t.Milliseconds = MinDelayMs; MinDelay = t;
 
-				public:
+                    t.Milliseconds = MaxResolutionMs; MaxResolution = t;
+                    t.Milliseconds = MinResolutionMs; MinResolution = t;
+                }
 
-				static initonly Ao::Measurements::Time MaxDelay;
+            public:
 
-				static initonly Ao::Measurements::Time MaxResolution;
+                static initonly Ao::Measurements::Time MaxDelay;
 
-				static initonly Ao::Measurements::Time MinDelay;
+                static initonly Ao::Measurements::Time MaxResolution;
 
-				static initonly Ao::Measurements::Time MinResolution;
+                static initonly Ao::Measurements::Time MinDelay;
 
-				public:
+                static initonly Ao::Measurements::Time MinResolution;
 
-				static initonly UINT MaxDelayMs = UINT::MaxValue;
+            public:
 
-				static initonly UINT MaxResolutionMs;
+                static initonly UINT MaxDelayMs = UINT::MaxValue;
 
-				static initonly UINT MinDelayMs = 0;
+                static initonly UINT MaxResolutionMs;
 
-				static initonly UINT MinResolutionMs;
+                static initonly UINT MinDelayMs = 0;
 
-			};
-		}
-	}
+                static initonly UINT MinResolutionMs;
+
+            };
+        }
+    }
 }

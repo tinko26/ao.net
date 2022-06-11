@@ -25,8 +25,8 @@ using System;
 
 namespace Ao.Geometry
 {
-	public struct Plane3
-	{
+    public struct Plane3
+    {
         #region Constants
 
         public static readonly Plane3 X = FromPointNormal(Point3.Origin, Vector3.Unit1);
@@ -77,7 +77,7 @@ namespace Ao.Geometry
         #region Methods (Static)
 
         public static Plane3 FromGeneral(General3 G)
-		{
+        {
             var N = G.Normal;
 
             var B = Point3.Origin - G.D * N;
@@ -90,7 +90,7 @@ namespace Ao.Geometry
         }
 
         public static Plane3 FromHesse(Hesse3 H)
-		{
+        {
             var N = H.Normal;
 
             var B = Point3.Origin + H.D * N;

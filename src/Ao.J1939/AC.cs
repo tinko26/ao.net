@@ -24,57 +24,57 @@ using System;
 
 namespace Ao.J1939
 {
-	public sealed class AC : PG
-	{
-		public override string Acronym => "AC";
+    public sealed class AC : PG
+    {
+        public override string Acronym => "AC";
 
-		public override byte[] Data
-		{
-			get
-			{
-				var B = BitConverter.GetBytes(NAME.Value);
+        public override byte[] Data
+        {
+            get
+            {
+                var B = BitConverter.GetBytes(NAME.Value);
 
-				if (!BitConverter.IsLittleEndian)
-				{
-					B = B.Reverse();
-				}
+                if (!BitConverter.IsLittleEndian)
+                {
+                    B = B.Reverse();
+                }
 
-				return B;
-			}
-			set
-			{
-				var B = value;
+                return B;
+            }
+            set
+            {
+                var B = value;
 
-				B = B.Resize(8);
+                B = B.Resize(8);
 
-				if (!BitConverter.IsLittleEndian)
-				{
-					B = B.Reverse();
-				}
+                if (!BitConverter.IsLittleEndian)
+                {
+                    B = B.Reverse();
+                }
 
-				NAME = new NAME
-				{
-					Value = BitConverter.ToUInt64(B, 0)
-				};
-			}
-		}
+                NAME = new NAME
+                {
+                    Value = BitConverter.ToUInt64(B, 0)
+                };
+            }
+        }
 
-		public override int DataLength => 8;
+        public override int DataLength => 8;
 
-		public override DataPage DataPage => DataPage.DataPage0;
+        public override DataPage DataPage => DataPage.DataPage0;
 
-		public override DataPage DataPageExtended => DataPage.DataPage0;
+        public override DataPage DataPageExtended => DataPage.DataPage0;
 
-		public override byte GroupExtension => 0;
+        public override byte GroupExtension => 0;
 
-		public override bool IsDataLengthVariable => false;
+        public override bool IsDataLengthVariable => false;
 
-		public override bool IsMultipacket => false;
+        public override bool IsMultipacket => false;
 
-		public override string Label => "Address Claimed";
+        public override string Label => "Address Claimed";
 
-		public NAME NAME { get; set; }
+        public NAME NAME { get; set; }
 
-		public override byte PF => 0xEE;
-	}
+        public override byte PF => 0xEE;
+    }
 }

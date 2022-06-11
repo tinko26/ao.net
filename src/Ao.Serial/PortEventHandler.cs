@@ -22,5 +22,5 @@
 
 namespace Ao.Serial
 {
-	public delegate void PortEventHandler(object sender, PortEventArgs e);
+    public delegate void PortEventHandler(object sender, PortEventArgs e);
 }

@@ -22,10 +22,10 @@
 
 namespace Ao.J1939
 {
-	public enum DataPage
-	{
-		DataPage0 = 0,
+    public enum DataPage
+    {
+        DataPage0 = 0,
 
-		DataPage1 = 1
-	}
+        DataPage1 = 1
+    }
 }

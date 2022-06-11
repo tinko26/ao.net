@@ -24,60 +24,60 @@ using System;
 
 namespace Ao.Mathematics
 {
-	public struct Matrix2x6 : IEquatable<Matrix2x6>
-	{
-		#region Constants
+    public struct Matrix2x6 : IEquatable<Matrix2x6>
+    {
+        #region Constants
 
-		public static readonly Matrix2x6 Zero = new Matrix2x6();
+        public static readonly Matrix2x6 Zero = new Matrix2x6();
 
-		#endregion
+        #endregion
 
-		#region Construction
+        #region Construction
 
-		public Matrix2x6
-		(
-			double m11, double m12, double m13, double m14, double m15, double m16,
-			double m21, double m22, double m23, double m24, double m25, double m26
-		)
-		{
-			M11 = m11;
-			M12 = m12;
-			M13 = m13;
-			M14 = m14;
-			M15 = m15;
-			M16 = m16;
-			M21 = m21;
-			M22 = m22;
-			M23 = m23;
-			M24 = m24;
-			M25 = m25;
-			M26 = m26;
-		}
+        public Matrix2x6
+        (
+            double m11, double m12, double m13, double m14, double m15, double m16,
+            double m21, double m22, double m23, double m24, double m25, double m26
+        )
+        {
+            M11 = m11;
+            M12 = m12;
+            M13 = m13;
+            M14 = m14;
+            M15 = m15;
+            M16 = m16;
+            M21 = m21;
+            M22 = m22;
+            M23 = m23;
+            M24 = m24;
+            M25 = m25;
+            M26 = m26;
+        }
 
-		#endregion
+        #endregion
 
-		#region Methods
+        #region Methods
 
-		public bool Equals(Matrix2x6 x) => this == x;
+        public bool Equals(Matrix2x6 x) => this == x;
 
         #endregion
 
         #region Methods (Override)
 
         public override bool Equals(object x)
-		{
-			if (x == null) return false;
+        {
+            if (x == null) return false;
 
-			if (!(x is Matrix2x6)) return false;
+            if (!(x is Matrix2x6)) return false;
 
-			var y = (Matrix2x6)x;
+            var y = (Matrix2x6)x;
 
-			return this == y;
-		}
+            return this == y;
+        }
 
-		public override int GetHashCode() =>
-			M11.GetHashCode() ^ M12.GetHashCode() ^ M13.GetHashCode() ^ M14.GetHashCode() ^ M15.GetHashCode() ^ M16.GetHashCode() ^
-			M21.GetHashCode() ^ M22.GetHashCode() ^ M23.GetHashCode() ^ M24.GetHashCode() ^ M25.GetHashCode() ^ M26.GetHashCode();
+        public override int GetHashCode() =>
+            M11.GetHashCode() ^ M12.GetHashCode() ^ M13.GetHashCode() ^ M14.GetHashCode() ^ M15.GetHashCode() ^ M16.GetHashCode() ^
+            M21.GetHashCode() ^ M22.GetHashCode() ^ M23.GetHashCode() ^ M24.GetHashCode() ^ M25.GetHashCode() ^ M26.GetHashCode();
 
         #endregion
 
@@ -291,12 +291,12 @@ namespace Ao.Mathematics
         #region Operators
 
         public static bool operator ==(Matrix2x6 a, Matrix2x6 b) =>
-			a.M11 == b.M11 && a.M12 == b.M12 && a.M13 == b.M13 && a.M14 == b.M14 && a.M15 == b.M15 && a.M16 == b.M16 &&
-			a.M21 == b.M21 && a.M22 == b.M22 && a.M23 == b.M23 && a.M24 == b.M24 && a.M25 == b.M25 && a.M26 == b.M26;
+            a.M11 == b.M11 && a.M12 == b.M12 && a.M13 == b.M13 && a.M14 == b.M14 && a.M15 == b.M15 && a.M16 == b.M16 &&
+            a.M21 == b.M21 && a.M22 == b.M22 && a.M23 == b.M23 && a.M24 == b.M24 && a.M25 == b.M25 && a.M26 == b.M26;
 
-		public static bool operator !=(Matrix2x6 a, Matrix2x6 b) =>
-			a.M11 != b.M11 || a.M12 != b.M12 || a.M13 != b.M13 || a.M14 != b.M14 || a.M15 != b.M15 || a.M16 != b.M16 ||
-			a.M21 != b.M21 || a.M22 != b.M22 || a.M23 != b.M23 || a.M24 != b.M24 || a.M25 != b.M25 || a.M26 != b.M26;
+        public static bool operator !=(Matrix2x6 a, Matrix2x6 b) =>
+            a.M11 != b.M11 || a.M12 != b.M12 || a.M13 != b.M13 || a.M14 != b.M14 || a.M15 != b.M15 || a.M16 != b.M16 ||
+            a.M21 != b.M21 || a.M22 != b.M22 || a.M23 != b.M23 || a.M24 != b.M24 || a.M25 != b.M25 || a.M26 != b.M26;
 
         #endregion
 

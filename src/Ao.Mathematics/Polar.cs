@@ -24,8 +24,8 @@ using System;
 
 namespace Ao.Mathematics
 {
-	public struct Polar : IEquatable<Polar>
-	{
+    public struct Polar : IEquatable<Polar>
+    {
         #region Construction
 
         public Polar(double radius, double azimuth)
@@ -62,8 +62,8 @@ namespace Ao.Mathematics
             return this == y;
         }
 
-        public override int GetHashCode() => 
-            Radius.GetHashCode() ^ 
+        public override int GetHashCode() =>
+            Radius.GetHashCode() ^
             Azimuth.GetHashCode();
 
         #endregion

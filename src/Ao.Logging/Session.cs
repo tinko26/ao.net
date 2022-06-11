@@ -22,10 +22,10 @@
 
 namespace Ao.Logging
 {
-	public sealed class Session
-	{
-		public Session(string path) => Path = path;
+    public sealed class Session
+    {
+        public Session(string path) => Path = path;
 
-		public string Path { get; }
-	}
+        public string Path { get; }
+    }
 }

@@ -24,64 +24,64 @@ using System;
 
 namespace Ao.Mathematics
 {
-	public struct Matrix4x3 : IEquatable<Matrix4x3>
-	{
-		#region Constants
+    public struct Matrix4x3 : IEquatable<Matrix4x3>
+    {
+        #region Constants
 
-		public static readonly Matrix4x3 Zero = new Matrix4x3();
+        public static readonly Matrix4x3 Zero = new Matrix4x3();
 
-		#endregion
+        #endregion
 
-		#region Construction
+        #region Construction
 
-		public Matrix4x3
-		(
-			double m11, double m12, double m13,
-			double m21, double m22, double m23,
-			double m31, double m32, double m33,
-			double m41, double m42, double m43
-		)
-		{
-			M11 = m11;
-			M12 = m12;
-			M13 = m13;
-			M21 = m21;
-			M22 = m22;
-			M23 = m23;
-			M31 = m31;
-			M32 = m32;
-			M33 = m33;
-			M41 = m41;
-			M42 = m42;
-			M43 = m43;
-		}
+        public Matrix4x3
+        (
+            double m11, double m12, double m13,
+            double m21, double m22, double m23,
+            double m31, double m32, double m33,
+            double m41, double m42, double m43
+        )
+        {
+            M11 = m11;
+            M12 = m12;
+            M13 = m13;
+            M21 = m21;
+            M22 = m22;
+            M23 = m23;
+            M31 = m31;
+            M32 = m32;
+            M33 = m33;
+            M41 = m41;
+            M42 = m42;
+            M43 = m43;
+        }
 
-		#endregion
+        #endregion
 
-		#region Methods
+        #region Methods
 
-		public bool Equals(Matrix4x3 x) => this == x;
+        public bool Equals(Matrix4x3 x) => this == x;
 
-		#endregion
+        #endregion
 
-		#region Methods (Override)
+        #region Methods (Override)
 
-		public override bool Equals(object x)
-		{
-			if (x == null) return false;
+        public override bool Equals(object x)
+        {
+            if (x == null) return false;
 
-			if (!(x is Matrix4x3)) return false;
+            if (!(x is Matrix4x3)) return false;
 
-			var y = (Matrix4x3)x;
+            var y = (Matrix4x3)x;
 
-			return this == y;
-		}
+            return this == y;
+        }
 
-		public override int GetHashCode() =>
-			M11.GetHashCode() ^ M12.GetHashCode() ^ M13.GetHashCode() ^ 
-			M21.GetHashCode() ^ M22.GetHashCode() ^ M23.GetHashCode() ^ 
-			M31.GetHashCode() ^ M32.GetHashCode() ^ M33.GetHashCode() ^ 
-			M41.GetHashCode() ^ M42.GetHashCode() ^ M43.GetHashCode();
+        public override int GetHashCode() =>
+            M11.GetHashCode() ^ M12.GetHashCode() ^ M13.GetHashCode() ^
+            M21.GetHashCode() ^ M22.GetHashCode() ^ M23.GetHashCode() ^
+            M31.GetHashCode() ^ M32.GetHashCode() ^ M33.GetHashCode() ^
+            M41.GetHashCode() ^ M42.GetHashCode() ^ M43.GetHashCode();
 
         #endregion
 
@@ -360,16 +360,16 @@ namespace Ao.Mathematics
         #region Operators
 
         public static bool operator ==(Matrix4x3 a, Matrix4x3 b) =>
-			a.M11 == b.M11 && a.M12 == b.M12 && a.M13 == b.M13 && 
-			a.M21 == b.M21 && a.M22 == b.M22 && a.M23 == b.M23 && 
-			a.M31 == b.M31 && a.M32 == b.M32 && a.M33 == b.M33 && 
-			a.M41 == b.M41 && a.M42 == b.M42 && a.M43 == b.M43;
+            a.M11 == b.M11 && a.M12 == b.M12 && a.M13 == b.M13 &&
+            a.M21 == b.M21 && a.M22 == b.M22 && a.M23 == b.M23 &&
+            a.M31 == b.M31 && a.M32 == b.M32 && a.M33 == b.M33 &&
+            a.M41 == b.M41 && a.M42 == b.M42 && a.M43 == b.M43;
 
-		public static bool operator !=(Matrix4x3 a, Matrix4x3 b) =>
-			a.M11 != b.M11 || a.M12 != b.M12 || a.M13 != b.M13 || 
-			a.M21 != b.M21 || a.M22 != b.M22 || a.M23 != b.M23 || 
-			a.M31 != b.M31 || a.M32 != b.M32 || a.M33 != b.M33 || 
-			a.M41 != b.M41 || a.M42 != b.M42 || a.M43 != b.M43;
+        public static bool operator !=(Matrix4x3 a, Matrix4x3 b) =>
+            a.M11 != b.M11 || a.M12 != b.M12 || a.M13 != b.M13 ||
+            a.M21 != b.M21 || a.M22 != b.M22 || a.M23 != b.M23 ||
+            a.M31 != b.M31 || a.M32 != b.M32 || a.M33 != b.M33 ||
+            a.M41 != b.M41 || a.M42 != b.M42 || a.M43 != b.M43;
 
         #endregion
 

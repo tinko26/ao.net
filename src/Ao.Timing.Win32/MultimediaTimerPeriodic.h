@@ -28,247 +28,248 @@
 
 namespace Ao
 {
-	namespace Timing
-	{
-		namespace Win32
-		{
-			VOID CALLBACK MultimediaTimerPeriodicCallback
-			(
-				UINT id,
-				UINT reserved1,
-				DWORD_PTR reserved2,
-				DWORD_PTR reserved3,
-				DWORD_PTR reserved4
-			);
+    namespace Timing
+    {
+        namespace Win32
+        {
+            VOID CALLBACK MultimediaTimerPeriodicCallback
+            (
+                UINT id,
+                UINT reserved1,
+                DWORD_PTR reserved2,
+                DWORD_PTR reserved3,
+                DWORD_PTR reserved4
+            );
 
-			public ref class MultimediaTimerPeriodic sealed
-			{
-				public:
+            public ref class MultimediaTimerPeriodic sealed
+            {
 
-				MultimediaTimerPeriodic(System::Func<Ao::Measurements::Time>^ t)
-				{
-					if (t == nullptr) throw gcnew System::ArgumentNullException();
+            public:
 
-					timestamp = t;
-				}
+                MultimediaTimerPeriodic(System::Func<Ao::Measurements::Time>^ t)
+                {
+                    if (t == nullptr) throw gcnew System::ArgumentNullException();
 
-				private:
+                    timestamp = t;
+                }
 
-				UINT delay = 0;
+            private:
 
-				UINT id = 0;
+                UINT delay = 0;
 
-				UINT resolution = MultimediaTimer::MaxResolutionMs;
+                UINT id = 0;
 
-				UINT resolutionBegun;
+                UINT resolution = MultimediaTimer::MaxResolutionMs;
 
-				initonly System::Func<Ao::Measurements::Time>^ timestamp;
+                UINT resolutionBegun;
 
-				private:
+                initonly System::Func<Ao::Measurements::Time>^ timestamp;
 
-				static initonly System::Collections::Generic::Dictionary<UINT, MultimediaTimerPeriodic^>^ Instances = gcnew System::Collections::Generic::Dictionary<UINT, MultimediaTimerPeriodic^>();
+            private:
 
-				static initonly System::Object^ InstancesSync = gcnew System::Object();
+                static initonly System::Collections::Generic::Dictionary<UINT, MultimediaTimerPeriodic^>^ Instances = gcnew System::Collections::Generic::Dictionary<UINT, MultimediaTimerPeriodic^>();
 
-				private:
+                static initonly System::Object^ InstancesSync = gcnew System::Object();
 
-				void Callback()
-				{
-					Elapsed(this, gcnew TimerEventArgs(Now));
-				}
+            private:
 
-				private:
+                void Callback()
+                {
+                    Elapsed(this, gcnew TimerEventArgs(Now));
+                }
 
-				static void InstancesAdd(UINT id, MultimediaTimerPeriodic^ x)
-				{
-					::msclr::lock lock(InstancesSync);
+            private:
 
-					if (x != nullptr)
-					{
-						Instances[id] = x;
-					}
-				}
+                static void InstancesAdd(UINT id, MultimediaTimerPeriodic^ x)
+                {
+                    ::msclr::lock lock(InstancesSync);
 
-				static MultimediaTimerPeriodic^ InstancesGet(UINT id)
-				{
-					::msclr::lock lock(InstancesSync);
+                    if (x != nullptr)
+                    {
+                        Instances[id] = x;
+                    }
+                }
 
-					if (Instances->ContainsKey(id))
-					{
-						return Instances[id];
-					}
+                static MultimediaTimerPeriodic^ InstancesGet(UINT id)
+                {
+                    ::msclr::lock lock(InstancesSync);
 
-					else
-					{
-						return nullptr;
-					}
-				}
+                    if (Instances->ContainsKey(id))
+                    {
+                        return Instances[id];
+                    }
 
-				static void InstancesRemove(UINT id)
-				{
-					::msclr::lock lock(InstancesSync);
+                    else
+                    {
+                        return nullptr;
+                    }
+                }
 
-					Instances->Remove(id);
-				}
+                static void InstancesRemove(UINT id)
+                {
+                    ::msclr::lock lock(InstancesSync);
 
-				internal:
+                    Instances->Remove(id);
+                }
 
-				static void InstancesCallback(UINT id)
-				{
-					MultimediaTimerPeriodic^ x = InstancesGet(id);
+            internal:
 
-					if (x != nullptr)
-					{
-						x->Callback();
-					}
-				}
+                static void InstancesCallback(UINT id)
+                {
+                    MultimediaTimerPeriodic^ x = InstancesGet(id);
 
-				public:
+                    if (x != nullptr)
+                    {
+                        x->Callback();
+                    }
+                }
 
-				void Reset()
-				{
-					if (id != 0)
-					{
-						Stop();
-						Start();
-					}
-				}
+            public:
 
-				void Start()
-				{
-					if (id == 0)
-					{
-						UINT r = resolution;
+                void Reset()
+                {
+                    if (id != 0)
+                    {
+                        Stop();
+                        Start();
+                    }
+                }
 
-						UINT b = ::timeBeginPeriod(r);
+                void Start()
+                {
+                    if (id == 0)
+                    {
+                        UINT r = resolution;
 
-						if (TIMERR_NOERROR == b)
-						{
-							resolutionBegun = r;
+                        UINT b = ::timeBeginPeriod(r);
 
-							id = ::timeSetEvent
-							(
-								delay,
-								r,
-								MultimediaTimerPeriodicCallback,
-								NULL,
-								TIME_CALLBACK_FUNCTION |
-								TIME_PERIODIC
-							);
+                        if (TIMERR_NOERROR == b)
+                        {
+                            resolutionBegun = r;
 
-							if (id == 0)
-							{
-								::timeEndPeriod(r);
-							}
+                            id = ::timeSetEvent
+                            (
+                                delay,
+                                r,
+                                MultimediaTimerPeriodicCallback,
+                                NULL,
+                                TIME_CALLBACK_FUNCTION |
+                                TIME_PERIODIC
+                            );
 
-							else
-							{
-								InstancesAdd(id, this);
-							}
-						}
-					}
-				}
+                            if (id == 0)
+                            {
+                                ::timeEndPeriod(r);
+                            }
 
-				void Stop()
-				{
-					if (id != 0)
-					{
-						InstancesRemove(id);
+                            else
+                            {
+                                InstancesAdd(id, this);
+                            }
+                        }
+                    }
+                }
 
-						::timeKillEvent(id);
+                void Stop()
+                {
+                    if (id != 0)
+                    {
+                        InstancesRemove(id);
 
-						::timeEndPeriod(resolutionBegun);
+                        ::timeKillEvent(id);
 
-						id = 0;
-					}
-				}
+                        ::timeEndPeriod(resolutionBegun);
 
-				public:
+                        id = 0;
+                    }
+                }
 
-				event TimerEventHandler^ Elapsed;
+            public:
 
-				public:
+                event TimerEventHandler^ Elapsed;
 
-				property Ao::Measurements::Time Delay
-				{
-					Ao::Measurements::Time get()
-					{
-						Ao::Measurements::Time x;
+            public:
 
-						x.Milliseconds = DelayMs;
+                property Ao::Measurements::Time Delay
+                {
+                    Ao::Measurements::Time get()
+                    {
+                        Ao::Measurements::Time x;
 
-						return x;
-					}
-					void set(Ao::Measurements::Time x)
-					{
-						DelayMs = static_cast<UINT>(x.Milliseconds);
-					}
-				}
+                        x.Milliseconds = DelayMs;
 
-				property UINT DelayMs
-				{
-					UINT get()
-					{
-						return delay;
-					}
-					void set(UINT x)
-					{
-						x = System::Math::Min(x, MultimediaTimer::MaxDelayMs);
+                        return x;
+                    }
+                    void set(Ao::Measurements::Time x)
+                    {
+                        DelayMs = static_cast<UINT>(x.Milliseconds);
+                    }
+                }
 
-						x = System::Math::Max(x, MultimediaTimer::MinDelayMs);
+                property UINT DelayMs
+                {
+                    UINT get()
+                    {
+                        return delay;
+                    }
+                    void set(UINT x)
+                    {
+                        x = System::Math::Min(x, MultimediaTimer::MaxDelayMs);
 
-						delay = x;
-					}
-				}
+                        x = System::Math::Max(x, MultimediaTimer::MinDelayMs);
 
-				property bool IsRunning
-				{
-					bool get() { return id != 0; }
-				}
+                        delay = x;
+                    }
+                }
 
-				property Ao::Measurements::Time Now
-				{
-					Ao::Measurements::Time get() { return timestamp(); }
-				}
+                property bool IsRunning
+                {
+                    bool get() { return id != 0; }
+                }
 
-				property Ao::Measurements::Time Resolution
-				{
-					Ao::Measurements::Time get()
-					{
-						Ao::Measurements::Time x;
+                property Ao::Measurements::Time Now
+                {
+                    Ao::Measurements::Time get() { return timestamp(); }
+                }
 
-						x.Milliseconds = ResolutionMs;
+                property Ao::Measurements::Time Resolution
+                {
+                    Ao::Measurements::Time get()
+                    {
+                        Ao::Measurements::Time x;
 
-						return x;
-					}
-					void set(Ao::Measurements::Time x)
-					{
-						ResolutionMs = static_cast<UINT>(x.Milliseconds);
-					}
-				}
+                        x.Milliseconds = ResolutionMs;
 
-				property UINT ResolutionMs
-				{
-					UINT get()
-					{
-						return resolution;
-					}
-					void set(UINT x)
-					{
-						x = System::Math::Min(x, MultimediaTimer::MaxResolutionMs);
+                        return x;
+                    }
+                    void set(Ao::Measurements::Time x)
+                    {
+                        ResolutionMs = static_cast<UINT>(x.Milliseconds);
+                    }
+                }
 
-						x = System::Math::Max(x, MultimediaTimer::MinResolutionMs);
+                property UINT ResolutionMs
+                {
+                    UINT get()
+                    {
+                        return resolution;
+                    }
+                    void set(UINT x)
+                    {
+                        x = System::Math::Min(x, MultimediaTimer::MaxResolutionMs);
 
-						resolution = x;
-					}
-				}
+                        x = System::Math::Max(x, MultimediaTimer::MinResolutionMs);
 
-				property System::Func<Ao::Measurements::Time>^ Timestamp
-				{
-					System::Func<Ao::Measurements::Time>^ get() { return timestamp; }
-				}
+                        resolution = x;
+                    }
+                }
 
-			};
-		}
-	}
+                property System::Func<Ao::Measurements::Time>^ Timestamp
+                {
+                    System::Func<Ao::Measurements::Time>^ get() { return timestamp; }
+                }
+
+            };
+        }
+    }
 }

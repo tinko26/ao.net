@@ -25,104 +25,104 @@ using System;
 
 namespace Ao.Timing
 {
-	public sealed class StopWatch
-	{
-		#region Construction
+    public sealed class StopWatch
+    {
+        #region Construction
 
-		public StopWatch(Func<Time> timestamp) => Now = timestamp ?? throw new ArgumentNullException();
+        public StopWatch(Func<Time> timestamp) => Now = timestamp ?? throw new ArgumentNullException();
 
-		#endregion
+        #endregion
 
-		#region Fields
+        #region Fields
 
-		private bool enabled = false;
+        private bool enabled = false;
 
-		private Time end = Time.Zero;
+        private Time end = Time.Zero;
 
-		private Time elapsed = Time.Zero;
+        private Time elapsed = Time.Zero;
 
-		private readonly Func<Time> Now;
+        private readonly Func<Time> Now;
 
-		private Time start = Time.Zero;
+        private Time start = Time.Zero;
 
-		#endregion
+        #endregion
 
-		#region Methods
+        #region Methods
 
-		public Time Cycle()
-		{
-			if (Enabled)
-			{
-				Enabled = false;
+        public Time Cycle()
+        {
+            if (Enabled)
+            {
+                Enabled = false;
 
-				var c = end - start;
+                var c = end - start;
 
-				Enabled = true;
+                Enabled = true;
 
-				return c;
-			}
+                return c;
+            }
 
-			else
-			{
-				return Time.Zero;
-			}
-		}
+            else
+            {
+                return Time.Zero;
+            }
+        }
 
-		public void Disable() => Enabled = false;
+        public void Disable() => Enabled = false;
 
-		public void Enable() => Enabled = true;
+        public void Enable() => Enabled = true;
 
-		public void Reset()
-		{
-			elapsed = Time.Zero;
+        public void Reset()
+        {
+            elapsed = Time.Zero;
 
-			start = Now();
+            start = Now();
 
-			end = start;
-		}
+            end = start;
+        }
 
-		public void Restart()
-		{
-			Stop();
-			Reset();
-			Start();
-		}
+        public void Restart()
+        {
+            Stop();
+            Reset();
+            Start();
+        }
 
-		public void Start() => Enabled = true;
+        public void Start() => Enabled = true;
 
-		public void Stop() => Enabled = false;
+        public void Stop() => Enabled = false;
 
-		#endregion
+        #endregion
 
-		#region Properties
+        #region Properties
 
-		public Time Elapsed => elapsed + ElapsedCycle;
+        public Time Elapsed => elapsed + ElapsedCycle;
 
-		public Time ElapsedCycle => enabled ? Now() - start : end - start;
+        public Time ElapsedCycle => enabled ? Now() - start : end - start;
 
-		public bool Enabled
-		{
-			get => enabled;
-			set
-			{
-				if (value == enabled) return;
+        public bool Enabled
+        {
+            get => enabled;
+            set
+            {
+                if (value == enabled) return;
 
-				if (value)
-				{
-					start = Now();
-				}
+                if (value)
+                {
+                    start = Now();
+                }
 
-				else
-				{
-					end = Now();
+                else
+                {
+                    end = Now();
 
-					elapsed += end - start;
-				}
+                    elapsed += end - start;
+                }
 
-				enabled = value;
-			}
-		}
+                enabled = value;
+            }
+        }
 
-		#endregion
-	}
+        #endregion
+    }
 }

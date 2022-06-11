@@ -100,14 +100,14 @@ namespace Ao.Geometry
 
         public static Affinity3 Reflect(Vector3 Normal) => new Affinity3(Matrix3x3.Householder(Normal.Normalized));
 
-        public static Affinity3 RollPitchYaw(double Roll, double Pitch, double Yaw) => 
-            RotateZ(Yaw) * 
-            RotateY(Pitch) * 
+        public static Affinity3 RollPitchYaw(double Roll, double Pitch, double Yaw) =>
+            RotateZ(Yaw) *
+            RotateY(Pitch) *
             RotateX(Roll);
 
-        public static Affinity3 RollPitchYaw(double Roll, double Pitch, double Yaw, Basis3 B) => 
-            Rotate(Yaw, B.Base3) * 
-            Rotate(Pitch, B.Base2) * 
+        public static Affinity3 RollPitchYaw(double Roll, double Pitch, double Yaw, Basis3 B) =>
+            Rotate(Yaw, B.Base3) *
+            Rotate(Pitch, B.Base2) *
             Rotate(Roll, B.Base1);
 
         public static Affinity3 Rotate(double Angle, Vector3 Axis)

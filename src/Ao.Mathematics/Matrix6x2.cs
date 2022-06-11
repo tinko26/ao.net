@@ -24,68 +24,68 @@ using System;
 
 namespace Ao.Mathematics
 {
-	public struct Matrix6x2 : IEquatable<Matrix6x2>
-	{
-		#region Constants
+    public struct Matrix6x2 : IEquatable<Matrix6x2>
+    {
+        #region Constants
 
-		public static readonly Matrix6x2 Zero = new Matrix6x2();
+        public static readonly Matrix6x2 Zero = new Matrix6x2();
 
-		#endregion
+        #endregion
 
-		#region Construction
+        #region Construction
 
-		public Matrix6x2
-		(
-			double m11, double m12,
-			double m21, double m22,
-			double m31, double m32,
-			double m41, double m42,
-			double m51, double m52,
-			double m61, double m62
-		)
-		{
-			M11 = m11;
-			M12 = m12;
-			M21 = m21;
-			M22 = m22;
-			M31 = m31;
-			M32 = m32;
-			M41 = m41;
-			M42 = m42;
-			M51 = m51;
-			M52 = m52;
-			M61 = m61;
-			M62 = m62;
-		}
+        public Matrix6x2
+        (
+            double m11, double m12,
+            double m21, double m22,
+            double m31, double m32,
+            double m41, double m42,
+            double m51, double m52,
+            double m61, double m62
+        )
+        {
+            M11 = m11;
+            M12 = m12;
+            M21 = m21;
+            M22 = m22;
+            M31 = m31;
+            M32 = m32;
+            M41 = m41;
+            M42 = m42;
+            M51 = m51;
+            M52 = m52;
+            M61 = m61;
+            M62 = m62;
+        }
 
-		#endregion
+        #endregion
 
-		#region Methods
+        #region Methods
 
-		public bool Equals(Matrix6x2 x) => this == x;
+        public bool Equals(Matrix6x2 x) => this == x;
 
-		#endregion
+        #endregion
 
-		#region Methods (Override)
+        #region Methods (Override)
 
-		public override bool Equals(object x)
-		{
-			if (x == null) return false;
+        public override bool Equals(object x)
+        {
+            if (x == null) return false;
 
-			if (!(x is Matrix6x2)) return false;
+            if (!(x is Matrix6x2)) return false;
 
-			var y = (Matrix6x2)x;
+            var y = (Matrix6x2)x;
 
-			return this == y;
-		}
+            return this == y;
+        }
 
-		public override int GetHashCode() =>
-			M11.GetHashCode() ^ M12.GetHashCode() ^ 
-			M21.GetHashCode() ^ M22.GetHashCode() ^ 
-			M31.GetHashCode() ^ M32.GetHashCode() ^ 
-			M41.GetHashCode() ^ M42.GetHashCode() ^ 
-			M51.GetHashCode() ^ M52.GetHashCode() ^ 
-			M61.GetHashCode() ^ M62.GetHashCode();
+        public override int GetHashCode() =>
+            M11.GetHashCode() ^ M12.GetHashCode() ^
+            M21.GetHashCode() ^ M22.GetHashCode() ^
+            M31.GetHashCode() ^ M32.GetHashCode() ^
+            M41.GetHashCode() ^ M42.GetHashCode() ^
+            M51.GetHashCode() ^ M52.GetHashCode() ^
+            M61.GetHashCode() ^ M62.GetHashCode();
 
         #endregion
 
@@ -431,20 +431,20 @@ namespace Ao.Mathematics
         #region Operators
 
         public static bool operator ==(Matrix6x2 a, Matrix6x2 b) =>
-			a.M11 == b.M11 && a.M12 == b.M12 && 
-			a.M21 == b.M21 && a.M22 == b.M22 && 
-			a.M31 == b.M31 && a.M32 == b.M32 && 
-			a.M41 == b.M41 && a.M42 == b.M42 && 
-			a.M51 == b.M51 && a.M52 == b.M52 && 
-			a.M61 == b.M61 && a.M62 == b.M62;
+            a.M11 == b.M11 && a.M12 == b.M12 &&
+            a.M21 == b.M21 && a.M22 == b.M22 &&
+            a.M31 == b.M31 && a.M32 == b.M32 &&
+            a.M41 == b.M41 && a.M42 == b.M42 &&
+            a.M51 == b.M51 && a.M52 == b.M52 &&
+            a.M61 == b.M61 && a.M62 == b.M62;
 
-		public static bool operator !=(Matrix6x2 a, Matrix6x2 b) =>
-			a.M11 != b.M11 || a.M12 != b.M12 || 
-			a.M21 != b.M21 || a.M22 != b.M22 || 
-			a.M31 != b.M31 || a.M32 != b.M32 || 
-			a.M41 != b.M41 || a.M42 != b.M42 || 
-			a.M51 != b.M51 || a.M52 != b.M52 || 
-			a.M61 != b.M61 || a.M62 != b.M62;
+        public static bool operator !=(Matrix6x2 a, Matrix6x2 b) =>
+            a.M11 != b.M11 || a.M12 != b.M12 ||
+            a.M21 != b.M21 || a.M22 != b.M22 ||
+            a.M31 != b.M31 || a.M32 != b.M32 ||
+            a.M41 != b.M41 || a.M42 != b.M42 ||
+            a.M51 != b.M51 || a.M52 != b.M52 ||
+            a.M61 != b.M61 || a.M62 != b.M62;
 
         #endregion
 

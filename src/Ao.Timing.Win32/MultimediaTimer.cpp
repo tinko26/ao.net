@@ -29,19 +29,19 @@
 
 namespace Ao
 {
-	namespace Timing
-	{
-		namespace Win32
-		{
-			VOID CALLBACK MultimediaTimerOneShotCallback(UINT id, UINT reserved1, DWORD_PTR reserved2, DWORD_PTR reserved3, DWORD_PTR reserved4)
-			{
-				MultimediaTimerOneShot::InstancesCallback(id);
-			}
+    namespace Timing
+    {
+        namespace Win32
+        {
+            VOID CALLBACK MultimediaTimerOneShotCallback(UINT id, UINT reserved1, DWORD_PTR reserved2, DWORD_PTR reserved3, DWORD_PTR reserved4)
+            {
+                MultimediaTimerOneShot::InstancesCallback(id);
+            }
 
-			VOID CALLBACK MultimediaTimerPeriodicCallback(UINT id, UINT reserved1, DWORD_PTR reserved2, DWORD_PTR reserved3, DWORD_PTR reserved4)
-			{
-				MultimediaTimerPeriodic::InstancesCallback(id);
-			}
-		}
-	}
+            VOID CALLBACK MultimediaTimerPeriodicCallback(UINT id, UINT reserved1, DWORD_PTR reserved2, DWORD_PTR reserved3, DWORD_PTR reserved4)
+            {
+                MultimediaTimerPeriodic::InstancesCallback(id);
+            }
+        }
+    }
 }

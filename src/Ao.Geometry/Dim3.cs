@@ -51,9 +51,9 @@ namespace Ao.Geometry
 
         #region Methods (Override)
 
-        public override int GetHashCode() => 
-            Width.GetHashCode() ^ 
-            Height.GetHashCode() ^ 
+        public override int GetHashCode() =>
+            Width.GetHashCode() ^
+            Height.GetHashCode() ^
             Depth.GetHashCode();
 
         #endregion

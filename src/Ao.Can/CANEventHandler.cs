@@ -22,5 +22,5 @@
 
 namespace Ao.Can
 {
-	public delegate void CANEventHandler(object sender, CANEventArgs e);
+    public delegate void CANEventHandler(object sender, CANEventArgs e);
 }

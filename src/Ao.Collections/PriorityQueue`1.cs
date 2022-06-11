@@ -25,340 +25,340 @@ using System.Collections.Generic;
 
 namespace Ao.Collections
 {
-	public class PriorityQueue<T>
-	{
-		#region Construction
+    public class PriorityQueue<T>
+    {
+        #region Construction
 
-		public PriorityQueue() => Comparer = Comparer<T>.Default;
+        public PriorityQueue() => Comparer = Comparer<T>.Default;
 
-		public PriorityQueue(IComparer<T> comparer) => Comparer = comparer ?? throw new ArgumentNullException();
+        public PriorityQueue(IComparer<T> comparer) => Comparer = comparer ?? throw new ArgumentNullException();
 
-		#endregion
+        #endregion
 
-		#region Fields
+        #region Fields
 
-		private readonly Dictionary<T, int> Indexes = new Dictionary<T, int>();
+        private readonly Dictionary<T, int> Indexes = new Dictionary<T, int>();
 
-		private readonly List<T> Items = new List<T>();
+        private readonly List<T> Items = new List<T>();
 
-		#endregion
+        #endregion
 
-		#region Methods
+        #region Methods
 
-		public void Clear()
-		{
-			Count = 0;
+        public void Clear()
+        {
+            Count = 0;
 
-			Indexes.Clear();
+            Indexes.Clear();
 
-			Items.Clear();
-		}
+            Items.Clear();
+        }
 
-		public bool Contains(T x) => Indexes.ContainsKey(x);
+        public bool Contains(T x) => Indexes.ContainsKey(x);
 
-		public T Peek()
-		{
-			if (Count > 0)
-			{
-				return Items[0];
-			}
+        public T Peek()
+        {
+            if (Count > 0)
+            {
+                return Items[0];
+            }
 
-			else
-			{
-				throw new InvalidOperationException();
-			}
-		}
+            else
+            {
+                throw new InvalidOperationException();
+            }
+        }
 
-		public T Pop()
-		{
-			var c = Count;
+        public T Pop()
+        {
+            var c = Count;
 
-			if (c > 0)
-			{
-				var x = Items[0];
+            if (c > 0)
+            {
+                var x = Items[0];
 
-				c = c - 1;
+                c = c - 1;
 
-				Count = c;
+                Count = c;
 
-				if (c > 0)
-				{
-					var y = Items[c];
+                if (c > 0)
+                {
+                    var y = Items[c];
 
-					Items[0] = y;
+                    Items[0] = y;
 
-					Indexes[y] = 0;
+                    Indexes[y] = 0;
 
-					Down(0, c);
-				}
+                    Down(0, c);
+                }
 
-				Items.RemoveAt(c);
+                Items.RemoveAt(c);
 
-				Indexes.Remove(x);
+                Indexes.Remove(x);
 
-				return x;
-			}
+                return x;
+            }
 
-			else
-			{
-				throw new InvalidOperationException();
-			}
-		}
+            else
+            {
+                throw new InvalidOperationException();
+            }
+        }
 
-		public void Push(T x)
-		{
-			if (Indexes.ContainsKey(x))
-			{
-				throw new InvalidOperationException();
-			}
+        public void Push(T x)
+        {
+            if (Indexes.ContainsKey(x))
+            {
+                throw new InvalidOperationException();
+            }
 
-			else
-			{
-				var c = Count;
+            else
+            {
+                var c = Count;
 
-				Count = c + 1;
+                Count = c + 1;
 
-				Items.Add(x);
+                Items.Add(x);
 
-				Indexes[x] = c;
+                Indexes[x] = c;
 
-				Up(c);
-			}
-		}
+                Up(c);
+            }
+        }
 
-		public void Remove(T x)
-		{
-			if (Indexes.ContainsKey(x))
-			{
-				var i = Indexes[x];
+        public void Remove(T x)
+        {
+            if (Indexes.ContainsKey(x))
+            {
+                var i = Indexes[x];
 
-				var c = Count - 1;
+                var c = Count - 1;
 
-				Count = c;
+                Count = c;
 
-				if (i < c)
-				{
-					var y = Items[c];
+                if (i < c)
+                {
+                    var y = Items[c];
 
-					Items[i] = y;
+                    Items[i] = y;
 
-					Indexes[y] = i;
+                    Indexes[y] = i;
 
-					Down(i, c);
-				}
+                    Down(i, c);
+                }
 
-				Items.RemoveAt(c);
+                Items.RemoveAt(c);
 
-				Indexes.Remove(x);
-			}
+                Indexes.Remove(x);
+            }
 
-			else
-			{
-				throw new InvalidOperationException();
-			}
-		}
+            else
+            {
+                throw new InvalidOperationException();
+            }
+        }
 
-		#endregion
+        #endregion
 
-		#region Methods (Private)
+        #region Methods (Private)
 
-		private void Down(int i1, int c)
-		{
-			var b1 = true;
+        private void Down(int i1, int c)
+        {
+            var b1 = true;
 
-			var b2 = false;
+            var b2 = false;
 
-			var x1 = Items[i1];
+            var x1 = Items[i1];
 
-			do
-			{
-				var il = Left(i1);
+            do
+            {
+                var il = Left(i1);
 
-				var ir = Right(i1);
+                var ir = Right(i1);
 
-				// Both left and right child.
+                // Both left and right child.
 
-				if (ir < c)
-				{
-					var xl = Items[il];
+                if (ir < c)
+                {
+                    var xl = Items[il];
 
-					var xr = Items[ir];
+                    var xr = Items[ir];
 
-					// xr is less.
+                    // xr is less.
 
-					if (Less(xr, x1))
-					{
-						// xr is less than x1.
+                    if (Less(xr, x1))
+                    {
+                        // xr is less than x1.
 
-						// xl is less than xr.
+                        // xl is less than xr.
 
-						if (Less(xl, xr))
-						{
-							Items[i1] = xl;
+                        if (Less(xl, xr))
+                        {
+                            Items[i1] = xl;
 
-							Indexes[x1] = i1;
+                            Indexes[x1] = i1;
 
-							i1 = il;
+                            i1 = il;
 
-							b2 = true;
-						}
+                            b2 = true;
+                        }
 
-						// xr is less than x1.
+                        // xr is less than x1.
 
-						// xl is not less than xr.
+                        // xl is not less than xr.
 
-						else
-						{
-							Items[i1] = xr;
+                        else
+                        {
+                            Items[i1] = xr;
 
-							Indexes[xr] = i1;
+                            Indexes[xr] = i1;
 
-							i1 = ir;
+                            i1 = ir;
 
-							b2 = true;
-						}
-					}
+                            b2 = true;
+                        }
+                    }
 
-					// xr is not less.
+                    // xr is not less.
 
-					// xl is less.
+                    // xl is less.
 
-					else if (Less(xl, x1))
-					{
-						Items[i1] = xl;
+                    else if (Less(xl, x1))
+                    {
+                        Items[i1] = xl;
 
-						Indexes[xl] = i1;
+                        Indexes[xl] = i1;
 
-						i1 = il;
+                        i1 = il;
 
-						b2 = true;
-					}
+                        b2 = true;
+                    }
 
-					// xr is not less.
+                    // xr is not less.
 
-					// xl is not less.
+                    // xl is not less.
 
-					else
-					{
-						b1 = false;
-					}
-				}
+                    else
+                    {
+                        b1 = false;
+                    }
+                }
 
-				// Left child only.
+                // Left child only.
 
-				else if (il < c)
-				{
-					var xl = Items[il];
+                else if (il < c)
+                {
+                    var xl = Items[il];
 
-					// xl is less.
+                    // xl is less.
 
-					if (Less(xl, x1))
-					{
-						Items[i1] = xl;
+                    if (Less(xl, x1))
+                    {
+                        Items[i1] = xl;
 
-						Indexes[xl] = i1;
+                        Indexes[xl] = i1;
 
-						i1 = il;
+                        i1 = il;
 
-						b2 = true;
-					}
+                        b2 = true;
+                    }
 
-					// xl is not less.
+                    // xl is not less.
 
-					else
-					{
-						b1 = false;
-					}
-				}
+                    else
+                    {
+                        b1 = false;
+                    }
+                }
 
-				// No children.
+                // No children.
 
-				else
-				{
-					b1 = false;
-				}
-			}
-			while (b1);
+                else
+                {
+                    b1 = false;
+                }
+            }
+            while (b1);
 
-			if (b2)
-			{
-				Items[i1] = x1;
+            if (b2)
+            {
+                Items[i1] = x1;
 
-				Indexes[x1] = i1;
-			}
-		}
+                Indexes[x1] = i1;
+            }
+        }
 
-		private bool Less(T x1, T x2) => Comparer.Compare(x1, x2) < 0;
+        private bool Less(T x1, T x2) => Comparer.Compare(x1, x2) < 0;
 
-		private void Up(int i1)
-		{
-			var b1 = i1 > 0;
+        private void Up(int i1)
+        {
+            var b1 = i1 > 0;
 
-			if (b1)
-			{
-				var b2 = false;
+            if (b1)
+            {
+                var b2 = false;
 
-				var x1 = Items[i1];
+                var x1 = Items[i1];
 
-				do
-				{
-					var i2 = Parent(i1);
+                do
+                {
+                    var i2 = Parent(i1);
 
-					var x2 = Items[i2];
+                    var x2 = Items[i2];
 
-					if (Less(x1, x2))
-					{
-						Items[i1] = x2;
+                    if (Less(x1, x2))
+                    {
+                        Items[i1] = x2;
 
-						Indexes[x2] = i1;
+                        Indexes[x2] = i1;
 
-						i1 = i2;
+                        i1 = i2;
 
-						b1 = i1 > 0;
+                        b1 = i1 > 0;
 
-						b2 = true;
-					}
+                        b2 = true;
+                    }
 
-					else
-					{
-						b1 = false;
-					}
-				}
-				while (b1);
+                    else
+                    {
+                        b1 = false;
+                    }
+                }
+                while (b1);
 
-				if (b2)
-				{
-					Items[i1] = x1;
+                if (b2)
+                {
+                    Items[i1] = x1;
 
-					Indexes[x1] = i1;
-				}
-			}
-		}
+                    Indexes[x1] = i1;
+                }
+            }
+        }
 
-		#endregion
+        #endregion
 
-		#region Methods (Private Static)
+        #region Methods (Private Static)
 
-		private static int Left(int i) => 2 * i + 1;
+        private static int Left(int i) => 2 * i + 1;
 
-		private static int Parent(int i) => (i - 1) / 2;
+        private static int Parent(int i) => (i - 1) / 2;
 
-		private static int Right(int i) => 2 * i + 2;
+        private static int Right(int i) => 2 * i + 2;
 
-		#endregion
+        #endregion
 
-		#region Properties
+        #region Properties
 
-		public int Capacity
-		{
-			get => Items.Capacity;
-			set => Items.Capacity = value;
-		}
+        public int Capacity
+        {
+            get => Items.Capacity;
+            set => Items.Capacity = value;
+        }
 
-		public IComparer<T> Comparer { get; }
+        public IComparer<T> Comparer { get; }
 
-		public int Count { get; private set; } = 0;
+        public int Count { get; private set; } = 0;
 
-		#endregion
-	}
+        #endregion
+    }
 }

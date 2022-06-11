@@ -25,10 +25,10 @@ using System.Drawing;
 
 namespace Ao.Dash
 {
-	public sealed class DashcamFrameEventArgs : EventArgs
-	{
-		public DashcamFrameEventArgs(Bitmap F) => Frame = F;
+    public sealed class DashcamFrameEventArgs : EventArgs
+    {
+        public DashcamFrameEventArgs(Bitmap F) => Frame = F;
 
-		public Bitmap Frame { get; }
-	}
+        public Bitmap Frame { get; }
+    }
 }

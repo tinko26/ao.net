@@ -25,66 +25,66 @@ using System;
 
 namespace Ao.Geometry
 {
-	public class Curve2
-	{
-		#region Methods
+    public class Curve2
+    {
+        #region Methods
 
-		public double Curvature(double t)
-		{
-			var d1 = Derivative1(t);
-			var d2 = Derivative2(t);
+        public double Curvature(double t)
+        {
+            var d1 = Derivative1(t);
+            var d2 = Derivative2(t);
 
-			var t1 = Vector2.Determinant(d1, d2);
+            var t1 = Vector2.Determinant(d1, d2);
 
-			var t2 = Math.Pow(d1.Length, 3);
+            var t2 = Math.Pow(d1.Length, 3);
 
-			return t1 / t2;
-		}
+            return t1 / t2;
+        }
 
-		public Point2 CurvatureCenter(double t)
-		{
-			var p = Position(t);
+        public Point2 CurvatureCenter(double t)
+        {
+            var p = Position(t);
 
-			var d1 = Derivative1(t);
-			var d2 = Derivative2(t);
+            var d1 = Derivative1(t);
+            var d2 = Derivative2(t);
 
-			var t1 = Vector2.Determinant(d1, d2);
+            var t1 = Vector2.Determinant(d1, d2);
 
-			var t2 = Math.Pow(d1.Length, 3);
+            var t2 = Math.Pow(d1.Length, 3);
 
-			return p + t2 / t1 * d1.OrthogonalCCW.Normalized;
-		}
+            return p + t2 / t1 * d1.OrthogonalCCW.Normalized;
+        }
 
-		public double CurvatureRadius(double t)
-		{
-			var d1 = Derivative1(t);
-			var d2 = Derivative2(t);
+        public double CurvatureRadius(double t)
+        {
+            var d1 = Derivative1(t);
+            var d2 = Derivative2(t);
 
-			var t1 = Vector2.Determinant(d1, d2);
+            var t1 = Vector2.Determinant(d1, d2);
 
-			var t2 = Math.Pow(d1.Length, 3);
+            var t2 = Math.Pow(d1.Length, 3);
 
-			return t2 / t1;
-		}
+            return t2 / t1;
+        }
 
-		public Vector2 Normal(double t) => Derivative1(t).OrthogonalCCW;
+        public Vector2 Normal(double t) => Derivative1(t).OrthogonalCCW;
 
-		public Vector2 Tangent(double t) => Derivative1(t);
+        public Vector2 Tangent(double t) => Derivative1(t);
 
-		public Vector2 UnitNormal(double t) => Normal(t).Normalized;
+        public Vector2 UnitNormal(double t) => Normal(t).Normalized;
 
-		public Vector2 UnitTangent(double t) => Tangent(t).Normalized;
+        public Vector2 UnitTangent(double t) => Tangent(t).Normalized;
 
-		#endregion
+        #endregion
 
-		#region Properties
+        #region Properties
 
-		public Func<double, Vector2> Derivative1 { get; set; }
+        public Func<double, Vector2> Derivative1 { get; set; }
 
-		public Func<double, Vector2> Derivative2 { get; set; }
+        public Func<double, Vector2> Derivative2 { get; set; }
 
-		public Func<double, Point2> Position { get; set; }
+        public Func<double, Point2> Position { get; set; }
 
-		#endregion
-	}
+        #endregion
+    }
 }

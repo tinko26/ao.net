@@ -24,38 +24,38 @@ using Ao.Bits;
 
 namespace Ao.Can
 {
-	public struct CAN
-	{
-		public ulong Data { get; set; }
+    public struct CAN
+    {
+        public ulong Data { get; set; }
 
-		public uint DLC { get; set; }
+        public uint DLC { get; set; }
 
-		public uint EID { get; set; }
+        public uint EID { get; set; }
 
-		public bool IDE { get; set; }
+        public bool IDE { get; set; }
 
-		public bool RTR { get; set; }
+        public bool RTR { get; set; }
 
-		public uint SID { get; set; }
+        public uint SID { get; set; }
 
-		public uint XID
-		{
-			get
-			{
-				var X = 0U;
+        public uint XID
+        {
+            get
+            {
+                var X = 0U;
 
-				X.SetBits(0, 18, EID);
+                X.SetBits(0, 18, EID);
 
-				X.SetBits(18, 11, SID);
+                X.SetBits(18, 11, SID);
 
-				return X;
-			}
-			set
-			{
-				EID = value.GetBits(0, 18);
+                return X;
+            }
+            set
+            {
+                EID = value.GetBits(0, 18);
 
-				SID = value.GetBits(18, 11);
-			}
-		}
-	}
+                SID = value.GetBits(18, 11);
+            }
+        }
+    }
 }

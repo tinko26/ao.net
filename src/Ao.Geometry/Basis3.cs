@@ -25,69 +25,69 @@ using System;
 
 namespace Ao.Geometry
 {
-	public struct Basis3 : IEquatable<Basis3>
-	{
-		#region Constants
+    public struct Basis3 : IEquatable<Basis3>
+    {
+        #region Constants
 
-		public static readonly Basis3 Cartesian = new Basis3(Vector3.Unit1, Vector3.Unit2, Vector3.Unit3);
+        public static readonly Basis3 Cartesian = new Basis3(Vector3.Unit1, Vector3.Unit2, Vector3.Unit3);
 
-		#endregion
+        #endregion
 
-		#region Construction
+        #region Construction
 
-		public Basis3(Vector3 base1, Vector3 base2, Vector3 base3)
-		{
-			Base1 = base1;
-			Base2 = base2;
-			Base3 = base3;
-		}
+        public Basis3(Vector3 base1, Vector3 base2, Vector3 base3)
+        {
+            Base1 = base1;
+            Base2 = base2;
+            Base3 = base3;
+        }
 
-		#endregion
+        #endregion
 
-		#region Methods
+        #region Methods
 
-		public bool Equals(Basis3 x) => this == x;
+        public bool Equals(Basis3 x) => this == x;
 
-		#endregion
+        #endregion
 
-		#region Methods (Override)
+        #region Methods (Override)
 
-		public override bool Equals(object x)
-		{
-			if (x == null) return false;
+        public override bool Equals(object x)
+        {
+            if (x == null) return false;
 
-			if (!(x is Basis3)) return false;
+            if (!(x is Basis3)) return false;
 
-			var y = (Basis3)x;
+            var y = (Basis3)x;
 
-			return this == y;
-		}
+            return this == y;
+        }
 
-		public override int GetHashCode() =>
-			Base1.GetHashCode() ^
-			Base2.GetHashCode() ^
-			Base3.GetHashCode();
+        public override int GetHashCode() =>
+            Base1.GetHashCode() ^
+            Base2.GetHashCode() ^
+            Base3.GetHashCode();
 
-		#endregion
+        #endregion
 
-		#region Operators
+        #region Operators
 
-		public static bool operator ==(Basis3 a, Basis3 b) => a.Base1 == b.Base1 && a.Base2 == b.Base2 && a.Base3 == b.Base3;
+        public static bool operator ==(Basis3 a, Basis3 b) => a.Base1 == b.Base1 && a.Base2 == b.Base2 && a.Base3 == b.Base3;
 
-		public static bool operator !=(Basis3 a, Basis3 b) => a.Base1 != b.Base1 || a.Base2 != b.Base2 || a.Base3 != b.Base3;
+        public static bool operator !=(Basis3 a, Basis3 b) => a.Base1 != b.Base1 || a.Base2 != b.Base2 || a.Base3 != b.Base3;
 
-		#endregion
+        #endregion
 
-		#region Properties
+        #region Properties
 
-		public Vector3 Base1 { get; set; }
+        public Vector3 Base1 { get; set; }
 
-		public Vector3 Base2 { get; set; }
+        public Vector3 Base2 { get; set; }
 
-		public Vector3 Base3 { get; set; }
+        public Vector3 Base3 { get; set; }
 
-		public Basis3 Normalized => new Basis3(Base1.Normalized, Base2.Normalized, Base3.Normalized);
+        public Basis3 Normalized => new Basis3(Base1.Normalized, Base2.Normalized, Base3.Normalized);
 
-		#endregion
-	}
+        #endregion
+    }
 }

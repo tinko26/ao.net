@@ -27,127 +27,127 @@ using Backend = System.Timers.Timer;
 
 namespace Ao.Timing
 {
-	public sealed class Timer : IDisposable
-	{
-		#region Construction
+    public sealed class Timer : IDisposable
+    {
+        #region Construction
 
-		public Timer(Func<Time> timestamp)
-		{
-			Now = timestamp ?? throw new ArgumentNullException();
+        public Timer(Func<Time> timestamp)
+        {
+            Now = timestamp ?? throw new ArgumentNullException();
 
-			Backend.Elapsed += BackendElapsed;
-		}
+            Backend.Elapsed += BackendElapsed;
+        }
 
-		#endregion
+        #endregion
 
-		#region Destruction
+        #region Destruction
 
-		~Timer() => Dispose(false);
+        ~Timer() => Dispose(false);
 
-		#endregion
+        #endregion
 
-		#region Events
+        #region Events
 
-		public event TimerEventHandler Elapsed;
+        public event TimerEventHandler Elapsed;
 
-		#endregion
+        #endregion
 
-		#region Fields
+        #region Fields
 
-		private readonly Backend Backend = new Backend
-		{
-			AutoReset = true,
+        private readonly Backend Backend = new Backend
+        {
+            AutoReset = true,
 
-			Interval = 1000
-		};
+            Interval = 1000
+        };
 
-		private readonly Func<Time> Now;
+        private readonly Func<Time> Now;
 
-		#endregion
+        #endregion
 
-		#region Methods
+        #region Methods
 
-		public void Disable() => Enabled = false;
+        public void Disable() => Enabled = false;
 
-		public void Dispose()
-		{
-			Dispose(true);
+        public void Dispose()
+        {
+            Dispose(true);
 
-			GC.SuppressFinalize(this);
-		}
+            GC.SuppressFinalize(this);
+        }
 
-		public void Enable() => Enabled = true;
+        public void Enable() => Enabled = true;
 
-		public void Reset()
-		{
-			if (Enabled)
-			{
-				Backend.Stop();
+        public void Reset()
+        {
+            if (Enabled)
+            {
+                Backend.Stop();
 
-				Backend.Start();
-			}
-		}
+                Backend.Start();
+            }
+        }
 
-		public void Restart()
-		{
-			Stop();
-			Reset();
-			Start();
-		}
+        public void Restart()
+        {
+            Stop();
+            Reset();
+            Start();
+        }
 
-		public void Start() => Enabled = true;
+        public void Start() => Enabled = true;
 
-		public void Stop() => Enabled = false;
+        public void Stop() => Enabled = false;
 
-		#endregion
+        #endregion
 
-		#region Methods (Private)
+        #region Methods (Private)
 
-		private void BackendElapsed(object sender, ElapsedEventArgs e) => Elapsed?.Invoke(this, new TimerEventArgs(Now()));
+        private void BackendElapsed(object sender, ElapsedEventArgs e) => Elapsed?.Invoke(this, new TimerEventArgs(Now()));
 
-		private void Dispose(bool disposing)
-		{
-			if (!Disposed)
-			{
-				// Managed resources.
+        private void Dispose(bool disposing)
+        {
+            if (!Disposed)
+            {
+                // Managed resources.
 
-				if (disposing)
-				{
-					Backend.Dispose();
-				}
+                if (disposing)
+                {
+                    Backend.Dispose();
+                }
 
-				// Unmanaged resources.
+                // Unmanaged resources.
 
-				// ...
+                // ...
 
-				Disposed = true;
-			}
-		}
+                Disposed = true;
+            }
+        }
 
-		#endregion
+        #endregion
 
-		#region Properties
+        #region Properties
 
-		public bool Disposed { get; private set; }
+        public bool Disposed { get; private set; }
 
-		public bool Enabled
-		{
-			get => Backend.Enabled;
-			set => Backend.Enabled = value;
-		}
+        public bool Enabled
+        {
+            get => Backend.Enabled;
+            set => Backend.Enabled = value;
+        }
 
-		public Time Period
-		{
-			get => new Time
-			{
-				Milliseconds = Backend.Interval
-			};
-			set
-			{
-				Backend.Interval = value.Milliseconds;
-			}
-		}
+        public Time Period
+        {
+            get => new Time
+            {
+                Milliseconds = Backend.Interval
+            };
+            set
+            {
+                Backend.Interval = value.Milliseconds;
+            }
+        }
 
-		#endregion
-	}
+        #endregion
+    }
 }

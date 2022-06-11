@@ -26,12 +26,12 @@ using System;
 
 namespace Ao.Simulation
 {
-	public class EventQueue<T> : PriorityQueue<T>
-	{
-		public EventQueue(Func<T, Time> getEventTime) : base(new EventQueueComparer<T>(getEventTime)) { }
+    public class EventQueue<T> : PriorityQueue<T>
+    {
+        public EventQueue(Func<T, Time> getEventTime) : base(new EventQueueComparer<T>(getEventTime)) { }
 
-		public EventQueueComparer<T> EventQueueComparer => Comparer as EventQueueComparer<T>;
+        public EventQueueComparer<T> EventQueueComparer => Comparer as EventQueueComparer<T>;
 
-		public Func<T, Time> GetEventTime => EventQueueComparer.GetEventTime;
-	}
+        public Func<T, Time> GetEventTime => EventQueueComparer.GetEventTime;
+    }
 }

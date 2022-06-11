@@ -26,34 +26,34 @@ using System.Linq;
 
 namespace Ao.Can
 {
-	public sealed class CANStatExtendedRemote
-	{
-		#region Methods
+    public sealed class CANStatExtendedRemote
+    {
+        #region Methods
 
-		public void Add(Time T, CAN C)
-		{
-			var i = C.XID;
+        public void Add(Time T, CAN C)
+        {
+            var i = C.XID;
 
-			if (!Time.ContainsKey(i))
-			{
-				Time[i] = new CANStatTime();
-			}
+            if (!Time.ContainsKey(i))
+            {
+                Time[i] = new CANStatTime();
+            }
 
-			Time[i].Add(T);
-		}
+            Time[i].Add(T);
+        }
 
-		#endregion
+        #endregion
 
-		#region Properties
+        #region Properties
 
-		public IEnumerable<uint> EID => XID.Select(x => x & 0x3FFFFU).Distinct();
+        public IEnumerable<uint> EID => XID.Select(x => x & 0x3FFFFU).Distinct();
 
-		public IEnumerable<uint> SID => XID.Select(x => (x >> 18) & 0x7FFU).Distinct();
+        public IEnumerable<uint> SID => XID.Select(x => (x >> 18) & 0x7FFU).Distinct();
 
-		public Dictionary<uint, CANStatTime> Time { get; } = new Dictionary<uint, CANStatTime>();
+        public Dictionary<uint, CANStatTime> Time { get; } = new Dictionary<uint, CANStatTime>();
 
-		public IEnumerable<uint> XID => Time.Keys;
+        public IEnumerable<uint> XID => Time.Keys;
 
-		#endregion
-	}
+        #endregion
+    }
 }

@@ -25,8 +25,8 @@ using System;
 
 namespace Ao.Geometry
 {
-	public struct Box2
-	{
+    public struct Box2
+    {
         #region Construction
 
         public Box2(double minX, double minY, double maxX, double maxY)

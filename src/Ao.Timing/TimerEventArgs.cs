@@ -25,10 +25,10 @@ using System;
 
 namespace Ao.Timing
 {
-	public sealed class TimerEventArgs : EventArgs
-	{
-		public TimerEventArgs(Time time) => Time = time;
+    public sealed class TimerEventArgs : EventArgs
+    {
+        public TimerEventArgs(Time time) => Time = time;
 
-		public Time Time { get; }
-	}
+        public Time Time { get; }
+    }
 }

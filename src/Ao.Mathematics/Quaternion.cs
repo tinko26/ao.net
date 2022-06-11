@@ -24,8 +24,8 @@ using System;
 
 namespace Ao.Mathematics
 {
-	public struct Quaternion : IEquatable<Quaternion>
-	{
+    public struct Quaternion : IEquatable<Quaternion>
+    {
         #region Constants
 
         public static readonly Quaternion I = new Quaternion(0, 1, 0, 0);

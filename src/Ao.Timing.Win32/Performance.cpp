@@ -29,14 +29,14 @@
 
 namespace Ao
 {
-	namespace Timing
-	{
-		namespace Win32
-		{
-			Ao::Measurements::Time PerformanceCount::Time::get()
-			{
-				return (double)Value / Performance::Frequency;
-			}
-		}
-	}
+    namespace Timing
+    {
+        namespace Win32
+        {
+            Ao::Measurements::Time PerformanceCount::Time::get()
+            {
+                return (double)Value / Performance::Frequency;
+            }
+        }
+    }
 }

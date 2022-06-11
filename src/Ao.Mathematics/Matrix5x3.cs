@@ -24,69 +24,69 @@ using System;
 
 namespace Ao.Mathematics
 {
-	public struct Matrix5x3 : IEquatable<Matrix5x3>
-	{
-		#region Constants
+    public struct Matrix5x3 : IEquatable<Matrix5x3>
+    {
+        #region Constants
 
-		public static readonly Matrix5x3 Zero = new Matrix5x3();
+        public static readonly Matrix5x3 Zero = new Matrix5x3();
 
-		#endregion
+        #endregion
 
-		#region Construction
+        #region Construction
 
-		public Matrix5x3
-		(
-			double m11, double m12, double m13,
-			double m21, double m22, double m23,
-			double m31, double m32, double m33,
-			double m41, double m42, double m43,
-			double m51, double m52, double m53
-		)
-		{
-			M11 = m11;
-			M12 = m12;
-			M13 = m13;
-			M21 = m21;
-			M22 = m22;
-			M23 = m23;
-			M31 = m31;
-			M32 = m32;
-			M33 = m33;
-			M41 = m41;
-			M42 = m42;
-			M43 = m43;
-			M51 = m51;
-			M52 = m52;
-			M53 = m53;
-		}
+        public Matrix5x3
+        (
+            double m11, double m12, double m13,
+            double m21, double m22, double m23,
+            double m31, double m32, double m33,
+            double m41, double m42, double m43,
+            double m51, double m52, double m53
+        )
+        {
+            M11 = m11;
+            M12 = m12;
+            M13 = m13;
+            M21 = m21;
+            M22 = m22;
+            M23 = m23;
+            M31 = m31;
+            M32 = m32;
+            M33 = m33;
+            M41 = m41;
+            M42 = m42;
+            M43 = m43;
+            M51 = m51;
+            M52 = m52;
+            M53 = m53;
+        }
 
-		#endregion
+        #endregion
 
-		#region Methods
+        #region Methods
 
-		public bool Equals(Matrix5x3 x) => this == x;
+        public bool Equals(Matrix5x3 x) => this == x;
 
-		#endregion
+        #endregion
 
-		#region Methods (Override)
+        #region Methods (Override)
 
-		public override bool Equals(object x)
-		{
-			if (x == null) return false;
+        public override bool Equals(object x)
+        {
+            if (x == null) return false;
 
-			if (!(x is Matrix5x3)) return false;
+            if (!(x is Matrix5x3)) return false;
 
-			var y = (Matrix5x3)x;
+            var y = (Matrix5x3)x;
 
-			return this == y;
-		}
+            return this == y;
+        }
 
-		public override int GetHashCode() =>
-			M11.GetHashCode() ^ M12.GetHashCode() ^ M13.GetHashCode() ^ 
-			M21.GetHashCode() ^ M22.GetHashCode() ^ M23.GetHashCode() ^ 
-			M31.GetHashCode() ^ M32.GetHashCode() ^ M33.GetHashCode() ^ 
-			M41.GetHashCode() ^ M42.GetHashCode() ^ M43.GetHashCode() ^ 
-			M51.GetHashCode() ^ M52.GetHashCode() ^ M53.GetHashCode();
+        public override int GetHashCode() =>
+            M11.GetHashCode() ^ M12.GetHashCode() ^ M13.GetHashCode() ^
+            M21.GetHashCode() ^ M22.GetHashCode() ^ M23.GetHashCode() ^
+            M31.GetHashCode() ^ M32.GetHashCode() ^ M33.GetHashCode() ^
+            M41.GetHashCode() ^ M42.GetHashCode() ^ M43.GetHashCode() ^
+            M51.GetHashCode() ^ M52.GetHashCode() ^ M53.GetHashCode();
 
         #endregion
 
@@ -402,18 +402,18 @@ namespace Ao.Mathematics
         #region Operators
 
         public static bool operator ==(Matrix5x3 a, Matrix5x3 b) =>
-			a.M11 == b.M11 && a.M12 == b.M12 && a.M13 == b.M13 && 
-			a.M21 == b.M21 && a.M22 == b.M22 && a.M23 == b.M23 && 
-			a.M31 == b.M31 && a.M32 == b.M32 && a.M33 == b.M33 && 
-			a.M41 == b.M41 && a.M42 == b.M42 && a.M43 == b.M43 && 
-			a.M51 == b.M51 && a.M52 == b.M52 && a.M53 == b.M53;
+            a.M11 == b.M11 && a.M12 == b.M12 && a.M13 == b.M13 &&
+            a.M21 == b.M21 && a.M22 == b.M22 && a.M23 == b.M23 &&
+            a.M31 == b.M31 && a.M32 == b.M32 && a.M33 == b.M33 &&
+            a.M41 == b.M41 && a.M42 == b.M42 && a.M43 == b.M43 &&
+            a.M51 == b.M51 && a.M52 == b.M52 && a.M53 == b.M53;
 
-		public static bool operator !=(Matrix5x3 a, Matrix5x3 b) =>
-			a.M11 != b.M11 || a.M12 != b.M12 || a.M13 != b.M13 || 
-			a.M21 != b.M21 || a.M22 != b.M22 || a.M23 != b.M23 || 
-			a.M31 != b.M31 || a.M32 != b.M32 || a.M33 != b.M33 || 
-			a.M41 != b.M41 || a.M42 != b.M42 || a.M43 != b.M43 || 
-			a.M51 != b.M51 || a.M52 != b.M52 || a.M53 != b.M53;
+        public static bool operator !=(Matrix5x3 a, Matrix5x3 b) =>
+            a.M11 != b.M11 || a.M12 != b.M12 || a.M13 != b.M13 ||
+            a.M21 != b.M21 || a.M22 != b.M22 || a.M23 != b.M23 ||
+            a.M31 != b.M31 || a.M32 != b.M32 || a.M33 != b.M33 ||
+            a.M41 != b.M41 || a.M42 != b.M42 || a.M43 != b.M43 ||
+            a.M51 != b.M51 || a.M52 != b.M52 || a.M53 != b.M53;
 
         #endregion
 

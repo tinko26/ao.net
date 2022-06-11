@@ -24,67 +24,67 @@ using System;
 
 namespace Ao.J1939
 {
-	public sealed class CA : PG
-	{
-		public override string Acronym => "CA";
+    public sealed class CA : PG
+    {
+        public override string Acronym => "CA";
 
-		public byte Address { get; set; }
+        public byte Address { get; set; }
 
-		public override byte[] Data
-		{
-			get
-			{
-				var B = BitConverter.GetBytes(NAME.Value);
+        public override byte[] Data
+        {
+            get
+            {
+                var B = BitConverter.GetBytes(NAME.Value);
 
-				if (!BitConverter.IsLittleEndian)
-				{
-					B = B.Reverse();
-				}
+                if (!BitConverter.IsLittleEndian)
+                {
+                    B = B.Reverse();
+                }
 
-				B = B.Resize(9);
+                B = B.Resize(9);
 
-				B[8] = Address;
+                B[8] = Address;
 
-				return B;
-			}
-			set
-			{
-				var B = value;
+                return B;
+            }
+            set
+            {
+                var B = value;
 
-				B = B.Resize(9);
+                B = B.Resize(9);
 
-				Address = B[8];
+                Address = B[8];
 
-				B = B.Resize(8);
+                B = B.Resize(8);
 
-				if (!BitConverter.IsLittleEndian)
-				{
-					B = B.Reverse();
-				}
+                if (!BitConverter.IsLittleEndian)
+                {
+                    B = B.Reverse();
+                }
 
-				NAME = new NAME
-				{
-					Value = BitConverter.ToUInt64(B, 0)
-				};
-			}
-		}
+                NAME = new NAME
+                {
+                    Value = BitConverter.ToUInt64(B, 0)
+                };
+            }
+        }
 
-		public override int DataLength => 9;
+        public override int DataLength => 9;
 
-		public override DataPage DataPage => DataPage.DataPage0;
+        public override DataPage DataPage => DataPage.DataPage0;
 
-		public override DataPage DataPageExtended => DataPage.DataPage0;
+        public override DataPage DataPageExtended => DataPage.DataPage0;
 
-		public override byte GroupExtension => 0xD8;
+        public override byte GroupExtension => 0xD8;
 
-		public override bool IsDataLengthVariable => false;
+        public override bool IsDataLengthVariable => false;
 
-		public override bool IsMultipacket => true;
+        public override bool IsMultipacket => true;
 
-		public override string Label => "Commanded Address";
+        public override string Label => "Commanded Address";
 
-		public NAME NAME { get; set; }
+        public NAME NAME { get; set; }
 
-		public override byte PF => 0xFE;
-	}
+        public override byte PF => 0xFE;
+    }
 }

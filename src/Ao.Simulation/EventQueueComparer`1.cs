@@ -26,30 +26,30 @@ using System.Collections.Generic;
 
 namespace Ao.Simulation
 {
-	public sealed class EventQueueComparer<T> : IComparer<T>
-	{
-		#region Construction
+    public sealed class EventQueueComparer<T> : IComparer<T>
+    {
+        #region Construction
 
-		public EventQueueComparer(Func<T, Time> getEventTime) => GetEventTime = getEventTime ?? throw new ArgumentNullException();
+        public EventQueueComparer(Func<T, Time> getEventTime) => GetEventTime = getEventTime ?? throw new ArgumentNullException();
 
-		#endregion
+        #endregion
 
-		#region Methods
+        #region Methods
 
-		public int Compare(T event1, T event2)
-		{
-			var T1 = GetEventTime(event1);
-			var T2 = GetEventTime(event2);
+        public int Compare(T event1, T event2)
+        {
+            var T1 = GetEventTime(event1);
+            var T2 = GetEventTime(event2);
 
-			return T1.CompareTo(T2);
-		}
+            return T1.CompareTo(T2);
+        }
 
-		#endregion
+        #endregion
 
-		#region Properties
+        #region Properties
 
-		public Func<T, Time> GetEventTime { get; }
+        public Func<T, Time> GetEventTime { get; }
 
-		#endregion
-	}
+        #endregion
+    }
 }

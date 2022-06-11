@@ -25,8 +25,8 @@ using System;
 
 namespace Ao.Geometry
 {
-	public struct General3
-	{
+    public struct General3
+    {
         #region Construction
 
         public General3(double a, double b, double c, double d)
@@ -58,7 +58,7 @@ namespace Ao.Geometry
         #region Methods (Static)
 
         public static General3 FromHesse(Hesse3 H)
-		{
+        {
             var N = H.Normal;
 
             return new General3(N.M1, N.M2, N.M3, -H.D);
@@ -78,7 +78,7 @@ namespace Ao.Geometry
         }
 
         public static General3 FromPlane(Plane3 P)
-		{
+        {
             var n = P.Normal;
 
             return new General3(n.M1, n.M2, n.M3, -(n * (P.Base - Point3.Origin)));

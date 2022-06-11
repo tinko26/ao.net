@@ -22,102 +22,102 @@
 
 namespace Ao.J1939
 {
-	public sealed class TPDT : PG
-	{
-		public override string Acronym => "TP.DT";
+    public sealed class TPDT : PG
+    {
+        public override string Acronym => "TP.DT";
 
-		public override byte[] Data
-		{
-			get
-			{
-				var B = new byte[8];
+        public override byte[] Data
+        {
+            get
+            {
+                var B = new byte[8];
 
-				B[0] = SequenceNumber;
+                B[0] = SequenceNumber;
 
-				B[1] = PacketizedData0;
-				B[2] = PacketizedData1;
-				B[3] = PacketizedData2;
-				B[4] = PacketizedData3;
-				B[5] = PacketizedData4;
-				B[6] = PacketizedData5;
-				B[7] = PacketizedData6;
+                B[1] = PacketizedData0;
+                B[2] = PacketizedData1;
+                B[3] = PacketizedData2;
+                B[4] = PacketizedData3;
+                B[5] = PacketizedData4;
+                B[6] = PacketizedData5;
+                B[7] = PacketizedData6;
 
-				return B;
-			}
-			set
-			{
-				var B = value;
+                return B;
+            }
+            set
+            {
+                var B = value;
 
-				B = B.Resize(8);
+                B = B.Resize(8);
 
-				SequenceNumber = B[0];
+                SequenceNumber = B[0];
 
-				PacketizedData0 = B[1];
-				PacketizedData1 = B[2];
-				PacketizedData2 = B[3];
-				PacketizedData3 = B[4];
-				PacketizedData4 = B[5];
-				PacketizedData5 = B[6];
-				PacketizedData6 = B[7];
-			}
-		}
+                PacketizedData0 = B[1];
+                PacketizedData1 = B[2];
+                PacketizedData2 = B[3];
+                PacketizedData3 = B[4];
+                PacketizedData4 = B[5];
+                PacketizedData5 = B[6];
+                PacketizedData6 = B[7];
+            }
+        }
 
-		public override int DataLength => 8;
+        public override int DataLength => 8;
 
-		public override DataPage DataPage => DataPage.DataPage0;
+        public override DataPage DataPage => DataPage.DataPage0;
 
-		public override DataPage DataPageExtended => DataPage.DataPage0;
+        public override DataPage DataPageExtended => DataPage.DataPage0;
 
-		public override byte GroupExtension => 0;
+        public override byte GroupExtension => 0;
 
-		public override bool IsDataLengthVariable => false;
+        public override bool IsDataLengthVariable => false;
 
-		public override bool IsMultipacket => false;
+        public override bool IsMultipacket => false;
 
-		public override string Label => "Transport Protocol - Data Transfer";
+        public override string Label => "Transport Protocol - Data Transfer";
 
-		public byte[] PacketizedData
-		{
-			get => new byte[7]
-			{
-				PacketizedData0,
-				PacketizedData1,
-				PacketizedData2,
-				PacketizedData3,
-				PacketizedData4,
-				PacketizedData5,
-				PacketizedData6
-			};
-			set
-			{
-				var B = value.Resize(7);
+        public byte[] PacketizedData
+        {
+            get => new byte[7]
+            {
+                PacketizedData0,
+                PacketizedData1,
+                PacketizedData2,
+                PacketizedData3,
+                PacketizedData4,
+                PacketizedData5,
+                PacketizedData6
+            };
+            set
+            {
+                var B = value.Resize(7);
 
-				PacketizedData0 = B[0];
-				PacketizedData1 = B[1];
-				PacketizedData2 = B[2];
-				PacketizedData3 = B[3];
-				PacketizedData4 = B[4];
-				PacketizedData5 = B[5];
-				PacketizedData6 = B[6];
-			}
-		}
+                PacketizedData0 = B[0];
+                PacketizedData1 = B[1];
+                PacketizedData2 = B[2];
+                PacketizedData3 = B[3];
+                PacketizedData4 = B[4];
+                PacketizedData5 = B[5];
+                PacketizedData6 = B[6];
+            }
+        }
 
-		public byte PacketizedData0 { get; set; }
+        public byte PacketizedData0 { get; set; }
 
-		public byte PacketizedData1 { get; set; }
+        public byte PacketizedData1 { get; set; }
 
-		public byte PacketizedData2 { get; set; }
+        public byte PacketizedData2 { get; set; }
 
-		public byte PacketizedData3 { get; set; }
+        public byte PacketizedData3 { get; set; }
 
-		public byte PacketizedData4 { get; set; }
+        public byte PacketizedData4 { get; set; }
 
-		public byte PacketizedData5 { get; set; }
+        public byte PacketizedData5 { get; set; }
 
-		public byte PacketizedData6 { get; set; }
+        public byte PacketizedData6 { get; set; }
 
-		public override byte PF => 0xEB;
+        public override byte PF => 0xEB;
 
-		public byte SequenceNumber { get; set; }
-	}
+        public byte SequenceNumber { get; set; }
+    }
 }

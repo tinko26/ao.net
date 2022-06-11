@@ -25,8 +25,8 @@ using System;
 
 namespace Ao.Geometry
 {
-	public struct Hesse2
-	{
+    public struct Hesse2
+    {
         #region Construction
 
         public Hesse2(Vector2 normal)

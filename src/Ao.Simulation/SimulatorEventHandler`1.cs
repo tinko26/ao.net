@@ -22,5 +22,5 @@
 
 namespace Ao.Simulation
 {
-	public delegate void SimulatorEventHandler<T>(object sender, SimulatorEventArgs<T> e);
+    public delegate void SimulatorEventHandler<T>(object sender, SimulatorEventArgs<T> e);
 }
