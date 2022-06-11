@@ -11,6 +11,14 @@ code {
   font-size:inherit;
 }
 
+code.language-plaintext {
+  font-weight: bold;
+}
+
+div.highlighter-rouge {
+  border:1px solid #f0f0f0;
+}
+
 .icon {
   color: $nav-child-link-color;
 }
