@@ -8,7 +8,7 @@ baseurl: "/ao.net"
 
 permalink: pretty
 
-search_enabled: false
+search_enabled: true
 
 heading_anchors: true
 
