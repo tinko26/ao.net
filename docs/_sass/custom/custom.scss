@@ -14,9 +14,13 @@ code {
 }
 
 .language-console {
-  background-color: #000000;
-
   .highlight {
+
+    code
+    {
+      background-color: #000000;
+    }  
+  
     .c1  { } /* comment.single */
     .kt  { } /* keyword.type   */
     .m   { } /* literal.number */
