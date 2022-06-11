@@ -36,3 +36,7 @@ a.SetBits( 0, 8, 0x21U);
 
 Debug.Assert(a == 0x87654321U);
 ```
+
+```console
+Hello World!
+```
