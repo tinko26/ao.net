@@ -6,7 +6,9 @@ a:not([class]) {
 }
 
 code {
+  background-color:inherit;
   border: 0;
+  font-size:inherit;
 }
 
 .icon {
