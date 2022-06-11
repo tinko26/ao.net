@@ -10,9 +10,9 @@ This namespace contains a single static class with extension methods for integer
 
 ## Extensions
 
-The ``Extensions`` class contains methods that get or set bits in an integer value, respectively.
+The `Extensions` class contains methods that get or set bits in integer values, respectively.
 
-```c#
+```csharp
 var a = 0x12345678U;
 
 // Get bits.
