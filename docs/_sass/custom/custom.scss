@@ -15,12 +15,6 @@ code {
 
 .language-console {
   .highlight {
-
-    code
-    {
-      background-color: #000000;
-    }  
-  
     .c1  { } /* comment.single */
     .kt  { } /* keyword.type   */
     .m   { } /* literal.number */
@@ -89,6 +83,13 @@ code {
     .vg  { } /* name.variable.global */
     .vi  { } /* name.variable.instance */
     .il  { } /* literal.number.integer.long */
+  }
+}
+
+.language-console.highlighter-rouge {
+  background-color: #000000;
+  code {
+    background-color: #000000;
   }
 }
 
