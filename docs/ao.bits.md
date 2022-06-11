@@ -6,9 +6,9 @@ nav_order: 2
 
 # Ao.Bits
 
-This namespace contains a single static class with extension methods for integer types.
+The `Ao.Bits` namespace contains a single static class with extension methods for integers.
 
-## Extensions
+## Extension methods for integers
 
 The `Extensions` class contains methods that get or set bits of integer values, respectively.
 
