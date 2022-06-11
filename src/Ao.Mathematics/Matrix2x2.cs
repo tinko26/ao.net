@@ -24,54 +24,54 @@ using System;
 
 namespace Ao.Mathematics
 {
-	public struct Matrix2x2 : IEquatable<Matrix2x2>
-	{
-		#region Constants
+    public struct Matrix2x2 : IEquatable<Matrix2x2>
+    {
+        #region Constants
 
-		public static readonly Matrix2x2 Identity = new Matrix2x2(1, 0, 0, 1);
+        public static readonly Matrix2x2 Identity = new Matrix2x2(1, 0, 0, 1);
 
-		public static readonly Matrix2x2 Zero = new Matrix2x2();
+        public static readonly Matrix2x2 Zero = new Matrix2x2();
 
-		#endregion
+        #endregion
 
-		#region Construction
+        #region Construction
 
-		public Matrix2x2
-		(
-			double m11, double m12,
-			double m21, double m22
-		)
-		{
-			M11 = m11;
-			M12 = m12;
-			M21 = m21;
-			M22 = m22;
-		}
+        public Matrix2x2
+        (
+            double m11, double m12,
+            double m21, double m22
+        )
+        {
+            M11 = m11;
+            M12 = m12;
+            M21 = m21;
+            M22 = m22;
+        }
 
-		#endregion
+        #endregion
 
-		#region Methods
+        #region Methods
 
-		public bool Equals(Matrix2x2 x) => this == x;
+        public bool Equals(Matrix2x2 x) => this == x;
 
         #endregion
 
         #region Methods (Override)
 
         public override bool Equals(object x)
-		{
-			if (x == null) return false;
+        {
+            if (x == null) return false;
 
-			if (!(x is Matrix2x2)) return false;
+            if (!(x is Matrix2x2)) return false;
 
-			var y = (Matrix2x2)x;
+            var y = (Matrix2x2)x;
 
-			return this == y;
-		}
+            return this == y;
+        }
 
-		public override int GetHashCode() =>
-			M11.GetHashCode() ^ M12.GetHashCode() ^ 
-			M21.GetHashCode() ^ M22.GetHashCode();
+        public override int GetHashCode() =>
+            M11.GetHashCode() ^ M12.GetHashCode() ^
+            M21.GetHashCode() ^ M22.GetHashCode();
 
         #endregion
 
@@ -295,12 +295,12 @@ namespace Ao.Mathematics
         #region Operators
 
         public static bool operator ==(Matrix2x2 a, Matrix2x2 b) =>
-			a.M11 == b.M11 && a.M12 == b.M12 && 
-			a.M21 == b.M21 && a.M22 == b.M22;
+            a.M11 == b.M11 && a.M12 == b.M12 &&
+            a.M21 == b.M21 && a.M22 == b.M22;
 
-		public static bool operator !=(Matrix2x2 a, Matrix2x2 b) =>
-			a.M11 != b.M11 || a.M12 != b.M12 || 
-			a.M21 != b.M21 || a.M22 != b.M22;
+        public static bool operator !=(Matrix2x2 a, Matrix2x2 b) =>
+            a.M11 != b.M11 || a.M12 != b.M12 ||
+            a.M21 != b.M21 || a.M22 != b.M22;
 
         #endregion
 
