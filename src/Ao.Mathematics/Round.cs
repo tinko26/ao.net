@@ -28,311 +28,260 @@ namespace Ao.Mathematics
     {
         public static double AwayFromInfinity(double x) => Math.Truncate(x);
 
-        public static double AwayFromInfinity(double x, int digits)
-        {
-            var f = Math.Pow(10, digits);
+        public static double AwayFromInfinity(double x, double factor) => AwayFromInfinity(x / factor) * factor;
 
-            return Math.Truncate(x * f) / f;
-        }
+        public static double AwayFromInfinityDigits(double x, int digits) => AwayFromInfinity(x, Math.Pow(10, -digits));
 
-        public static double AwayFromZero(double x) => Math.Sign(x) * Math.Ceiling(Math.Abs(x));
+		public static double AwayFromNegativeInfinity(double x) => Math.Ceiling(x);
 
-        public static double AwayFromZero(double x, int digits)
-        {
-            var f = Math.Pow(10, digits);
+		public static double AwayFromNegativeInfinity(double x, double factor) => AwayFromNegativeInfinity(x / factor) * factor;
 
-            var s = Math.Sign(x);
+		public static double AwayFromNegativeInfinityDigits(double x, int digits) => AwayFromNegativeInfinity(x, Math.Pow(10, -digits));
 
-            return s * Math.Ceiling(Math.Abs(x) * f) / f;
-        }
+		public static double AwayFromPositiveInfinity(double x) => Math.Floor(x);
 
-        public static double Ceil(double x) => Math.Ceiling(x);
+		public static double AwayFromPositiveInfinity(double x, double factor) => AwayFromPositiveInfinity(x / factor) * factor;
 
-        public static double Ceil(double x, int digits)
-        {
-            var f = Math.Pow(10, digits);
+		public static double AwayFromPositiveInfinityDigits(double x, int digits) => AwayFromPositiveInfinity(x, Math.Pow(10, -digits));
 
-            return Math.Ceiling(x * f) / f;
-        }
+		public static double AwayFromZero(double x) => x > 0 ? Ceil(x) : Floor(x);
 
-        public static double Down(double x) => Math.Floor(x);
+		public static double AwayFromZero(double x, double factor) => AwayFromZero(x / factor) * factor;
 
-        public static double Down(double x, int digits)
-        {
-            var f = Math.Pow(10, digits);
+		public static double AwayFromZeroDigits(double x, int digits) => AwayFromZero(x, Math.Pow(10, -digits));
 
-            return Math.Floor(x * f) / f;
-        }
+		public static double Ceil(double x) => Math.Ceiling(x);
 
-        public static double Floor(double x) => Math.Floor(x);
+		public static double Ceil(double x, double factor) => Ceil(x / factor) * factor;
 
-        public static double Floor(double x, int digits)
-        {
-            var f = Math.Pow(10, digits);
+		public static double CeilDigits(double x, int digits) => Ceil(x, Math.Pow(10, -digits));
 
-            return Math.Floor(x * f) / f;
-        }
+		public static double Down(double x) => Math.Floor(x);
 
-        public static double HalfAwayFromInfinity(double x) => Math.Sign(x) * Math.Ceiling(Math.Abs(x) - 0.5);
+		public static double Down(double x, double factor) => Down(x / factor) * factor;
 
-        public static double HalfAwayFromInfinity(double x, int digits)
-        {
-            var f = Math.Pow(10, digits);
+		public static double DownDigits(double x, int digits) => Down(x, Math.Pow(10, -digits));
 
-            var s = Math.Sign(x);
+		public static double Floor(double x) => Math.Floor(x);
 
-            return s * Math.Ceiling(Math.Abs(x * f) - 0.5) / f;
-        }
+		public static double Floor(double x, double factor) => Floor(x / factor) * factor;
 
-        public static double HalfAwayFromZero(double x) => Math.Sign(x) * Math.Floor(Math.Abs(x) + 0.5);
+		public static double FloorDigits(double x, int digits) => Floor(x, Math.Pow(10, -digits));
 
-        public static double HalfAwayFromZero(double x, int digits)
-        {
-            var f = Math.Pow(10, digits);
+		public static double HalfAwayFromInfinity(double x) => x > 0 ? Math.Ceiling(x - 0.5) : Math.Floor(x + 0.5);
 
-            var s = Math.Sign(x);
+		public static double HalfAwayFromInfinity(double x, double factor) => HalfAwayFromInfinity(x / factor) * factor;
 
-            return s * Math.Floor(Math.Abs(x) * f + 0.5) / f;
-        }
+		public static double HalfAwayFromInfinityDigits(double x, int digits) => HalfAwayFromInfinity(x, Math.Pow(10, -digits));
 
-        public static double HalfDown(double x) => Math.Ceiling(x - 0.5);
+		public static double HalfAwayFromNegativeInfinity(double x) => Math.Floor(x + 0.5);
 
-        public static double HalfDown(double x, int digits)
-        {
-            var f = Math.Pow(10, digits);
+		public static double HalfAwayFromNegativeInfinity(double x, double factor) => HalfAwayFromNegativeInfinity(x / factor) * factor;
 
-            return Math.Ceiling((x - 0.5) * f) / f;
-        }
+		public static double HalfAwayFromNegativeInfinityDigits(double x, int digits) => HalfAwayFromNegativeInfinity(x, Math.Pow(10, -digits));
 
-        public static double HalfToEven(double x)
-        {
-            if (x > 0)
-            {
-                var i = Math.Truncate(x);
+		public static double HalfAwayFromPositiveInfinity(double x) => Math.Ceiling(x - 0.5);
 
-                var f = x - i;
+		public static double HalfAwayFromPositiveInfinity(double x, double factor) => HalfAwayFromPositiveInfinity(x / factor) * factor;
 
-                if (f < 0.5)
-                {
-                    return i;
-                }
+		public static double HalfAwayFromPositiveInfinityDigits(double x, int digits) => HalfAwayFromPositiveInfinity(x, Math.Pow(10, -digits));
 
-                else if (f > 0.5)
-                {
-                    return i + 1;
-                }
+		public static double HalfAwayFromZero(double x) => x > 0 ? Math.Floor(x + 0.5) : Math.Ceiling(x - 0.5);
 
-                else
-                {
-                    if (i % 2 == 0) return i;
+		public static double HalfAwayFromZero(double x, double factor) => HalfAwayFromZero(x / factor) * factor;
 
-                    else return i + 1;
-                }
-            }
-
-            else if (x < 0)
-            {
-                var i = Math.Truncate(x);
-
-                var f = i - x;
-
-                if (f < 0.5)
-                {
-                    return i;
-                }
+		public static double HalfAwayFromZeroDigits(double x, int digits) => HalfAwayFromZero(x, Math.Pow(10, -digits));
 
-                else if (f > 0.5)
-                {
-                    return i - 1;
-                }
+		public static double HalfDown(double x) => Math.Ceiling(x - 0.5);
 
-                else
-                {
-                    if (i % 2 == 0) return i;
+		public static double HalfDown(double x, double factor) => HalfDown(x / factor) * factor;
 
-                    else return i - 1;
-                }
-            }
+		public static double HalfDownDigits(double x, int digits) => HalfDown(x, Math.Pow(10, -digits));
 
-            else
-            {
-                return 0;
-            }
-        }
+		public static double HalfToEven(double x)
+		{
+			if (x > 0)
+			{
+				var i = Math.Truncate(x);
 
-        public static double HalfToEven(double x, int digits)
-        {
-            var f = Math.Pow(10, digits);
+				var f = x - i;
 
-            return HalfToEven(x * f) / f;
-        }
+				if (f < 0.5)
+				{
+					return i;
+				}
 
-        public static double HalfToOdd(double x)
-        {
-            if (x > 0)
-            {
-                var i = Math.Truncate(x);
+				else if (f > 0.5)
+				{
+					return i + 1;
+				}
 
-                var f = x - i;
+				else
+				{
+					if (i % 2 < 0.5) return i;
 
-                if (f < 0.5)
-                {
-                    return i;
-                }
+					else return i + 1;
+				}
+			}
 
-                else if (f > 0.5)
-                {
-                    return i + 1;
-                }
+			else if (x < 0)
+			{
+				var i = Math.Truncate(x);
 
-                else
-                {
-                    if (i % 2 == 0) return i + 1;
+				var f = i - x;
 
-                    else return i;
-                }
-            }
+				if (f < 0.5)
+				{
+					return i;
+				}
 
-            else if (x < 0)
-            {
-                var i = Math.Truncate(x);
+				else if (f > 0.5)
+				{
+					return i - 1;
+				}
 
-                var f = i - x;
+				else
+				{
+					if (Math.Abs(i % 2) < 0.5) return i;
 
-                if (f < 0.5)
-                {
-                    return i;
-                }
+					else return i - 1;
+				}
+			}
 
-                else if (f > 0.5)
-                {
-                    return i - 1;
-                }
+			else
+			{
+				return 0;
+			}
+		}
 
-                else
-                {
-                    if (i % 2 == 0) return i - 1;
+		public static double HalfToEven(double x, double factor) => HalfToEven(x / factor) * factor;
 
-                    else return i;
-                }
-            }
+		public static double HalfToEvenDigits(double x, int digits) => HalfToEven(x, Math.Pow(10, -digits));
 
-            else
-            {
-                return 0;
-            }
-        }
+		public static double HalfToInfinity(double x) => x > 0 ? Math.Floor(x + 0.5) : Math.Ceiling(x - 0.5);
 
-        public static double HalfToOdd(double x, int digits)
-        {
-            var f = Math.Pow(10, digits);
+		public static double HalfToInfinity(double x, double factor) => HalfToInfinity(x / factor) * factor;
 
-            return HalfToOdd(x * f) / f;
-        }
+		public static double HalfToInfinityDigits(double x, int digits) => HalfToInfinity(x, Math.Pow(10, -digits));
 
-        public static double HalfTowardsInfinity(double x) => Math.Sign(x) * Math.Floor(Math.Abs(x) + 0.5);
+		public static double HalfToNegativeInfinity(double x) => Math.Ceiling(x - 0.5);
 
-        public static double HalfTowardsInfinity(double x, int digits)
-        {
-            var f = Math.Pow(10, digits);
+		public static double HalfToNegativeInfinity(double x, double factor) => HalfToNegativeInfinity(x / factor) * factor;
 
-            var s = Math.Sign(x);
+		public static double HalfToNegativeInfinityDigits(double x, int digits) => HalfToNegativeInfinity(x, Math.Pow(10, -digits));
 
-            return s * Math.Floor(Math.Abs(x) * f + 0.5) / f;
-        }
+		public static double HalfToOdd(double x)
+		{
+			if (x > 0)
+			{
+				var i = Math.Truncate(x);
 
-        public static double HalfTowardsMinusInfinity(double x) => Math.Ceiling(x - 0.5);
+				var f = x - i;
 
-        public static double HalfTowardsMinusInfinity(double x, int digits)
-        {
-            var f = Math.Pow(10, digits);
+				if (f < 0.5)
+				{
+					return i;
+				}
 
-            return Math.Ceiling((x - 0.5) * f) / f;
-        }
+				else if (f > 0.5)
+				{
+					return i + 1;
+				}
 
-        public static double HalfTowardsPlusInfinity(double x) => Math.Floor(x + 0.5);
+				else
+				{
+					if (i % 2 < 0.5) return i + 1;
 
-        public static double HalfTowardsPlusInfinity(double x, int digits)
-        {
-            var f = Math.Pow(10, digits);
+					else return i;
+				}
+			}
 
-            return Math.Floor((x + 0.5) * f) / f;
-        }
+			else if (x < 0)
+			{
+				var i = Math.Truncate(x);
 
-        public static double HalfTowardsZero(double x) => Math.Sign(x) * Math.Ceiling(Math.Abs(x) - 0.5);
+				var f = i - x;
 
-        public static double HalfTowardsZero(double x, int digits)
-        {
-            var f = Math.Pow(10, digits);
+				if (f < 0.5)
+				{
+					return i;
+				}
 
-            var s = Math.Sign(x);
+				else if (f > 0.5)
+				{
+					return i - 1;
+				}
 
-            return s * Math.Ceiling(Math.Abs(x * f) - 0.5) / f;
-        }
+				else
+				{
+					if (Math.Abs(i % 2) < 0.5) return i - 1;
 
-        public static double HalfUp(double x) => Math.Floor(x + 0.5);
+					else return i;
+				}
+			}
 
-        public static double HalfUp(double x, int digits)
-        {
-            var f = Math.Pow(10, digits);
+			else
+			{
+				return 0;
+			}
+		}
 
-            return Math.Floor((x + 0.5) * f) / f;
-        }
+		public static double HalfToOdd(double x, double factor) => HalfToOdd(x / factor) * factor;
 
-        public static double TowardsInfinity(double x) => Math.Sign(x) * Math.Ceiling(Math.Abs(x));
+		public static double HalfToOddDigits(double x, int digits) => HalfToOdd(x, Math.Pow(10, -digits));
 
-        public static double TowardsInfinity(double x, int digits)
-        {
-            var f = Math.Pow(10, digits);
+		public static double HalfToPositiveInfinity(double x) => Math.Floor(x + 0.5);
 
-            var s = Math.Sign(x);
+		public static double HalfToPositiveInfinity(double x, double factor) => HalfToPositiveInfinity(x / factor) * factor;
 
-            return s * Math.Ceiling(Math.Abs(x) * f) / f;
-        }
+		public static double HalfToPositiveInfinityDigits(double x, int digits) => HalfToPositiveInfinity(x, Math.Pow(10, -digits));
 
-        public static double TowardsMinusInfinity(double x) => Math.Floor(x);
+		public static double HalfToZero(double x) => x > 0 ? Math.Ceiling(x - 0.5) : Math.Floor(x + 0.5);
 
-        public static double TowardsMinusInfinity(double x, int digits)
-        {
-            var f = Math.Pow(10, digits);
+		public static double HalfToZero(double x, double factor) => HalfToZero(x / factor) * factor;
 
-            return Math.Floor(x * f) / f;
-        }
+		public static double HalfToZeroDigits(double x, int digits) => HalfToZero(x, Math.Pow(10, -digits));
 
-        public static double TowardsPlusInfinity(double x) => Math.Ceiling(x);
+		public static double HalfUp(double x) => Math.Floor(x + 0.5);
 
-        public static double TowardsPlusInfinity(double x, int digits)
-        {
-            var f = Math.Pow(10, digits);
+		public static double HalfUp(double x, double factor) => HalfUp(x / factor) * factor;
 
-            return Math.Ceiling(x * f) / f;
-        }
+		public static double HalfUpDigits(double x, int digits) => HalfUp(x, Math.Pow(10, -digits));
 
-        public static double TowardsZero(double x) => Math.Truncate(x);
+		public static double ToInfinity(double x) => x > 0 ? Ceil(x) : Floor(x);
 
-        public static double TowardsZero(double x, int digits)
-        {
-            var f = Math.Pow(10, digits);
+		public static double ToInfinity(double x, double factor) => ToInfinity(x / factor) * factor;
 
-            return Math.Truncate(x * f) / f;
-        }
+		public static double ToInfinityDigits(double x, int digits) => ToInfinity(x, Math.Pow(10, -digits));
 
-        public static double Trunc(double x) => Math.Truncate(x);
+		public static double ToNegativeInfinity(double x) => Math.Floor(x);
 
-        public static double Trunc(double x, int digits)
-        {
-            var f = Math.Pow(10, digits);
+		public static double ToNegativeInfinity(double x, double factor) => ToNegativeInfinity(x / factor) * factor;
 
-            return Math.Truncate(x * f) / f;
-        }
+		public static double ToNegativeInfinityDigits(double x, int digits) => ToNegativeInfinity(x, Math.Pow(10, -digits));
 
-        public static double Up(double x) => Math.Ceiling(x);
+		public static double ToPositiveInfinity(double x) => Math.Ceiling(x);
 
-        public static double Up(double x, int digits)
-        {
-            var f = Math.Pow(10, digits);
+		public static double ToPositiveInfinity(double x, double factor) => ToPositiveInfinity(x / factor) * factor;
 
-            return Math.Ceiling(x * f) / f;
-        }
-    }
+		public static double ToPositiveInfinityDigits(double x, int digits) => ToPositiveInfinity(x, Math.Pow(10, -digits));
+
+		public static double ToZero(double x) => Math.Truncate(x);
+
+		public static double ToZero(double x, double factor) => ToZero(x / factor) * factor;
+
+		public static double ToZeroDigits(double x, int digits) => ToZero(x, Math.Pow(10, -digits));
+
+		public static double Trunc(double x) => Math.Truncate(x);
+
+		public static double Trunc(double x, double factor) => Trunc(x / factor) * factor;
+
+		public static double TruncDigits(double x, int digits) => Trunc(x, Math.Pow(10, -digits));
+
+		public static double Up(double x) => Math.Ceiling(x);
+
+		public static double Up(double x, double factor) => Up(x / factor) * factor;
+
+		public static double UpDigits(double x, int digits) => Up(x, Math.Pow(10, -digits));
+	}
 }
