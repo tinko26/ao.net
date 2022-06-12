@@ -25,7 +25,7 @@ using System;
 
 namespace Ao.Optimization
 {
-    public sealed class PSO3
+    public sealed class PSO5
     {
         #region Methods
 
@@ -33,11 +33,13 @@ namespace Ao.Optimization
         {
             // Init.
 
-            var BestPosition = new Vector3
+            var BestPosition = new Vector5
             {
                 M1 = double.PositiveInfinity,
                 M2 = double.PositiveInfinity,
-                M3 = double.PositiveInfinity
+                M3 = double.PositiveInfinity,
+                M4 = double.PositiveInfinity,
+                M5 = double.PositiveInfinity
             };
 
             var BestValue = double.PositiveInfinity;
@@ -78,23 +80,23 @@ namespace Ao.Optimization
 
             var Objective = this.Objective;
 
-            Vector3 ParticleBestPosition;
+            Vector5 ParticleBestPosition;
 
-            Vector3 ParticleBestPositionOfNeighbors;
+            Vector5 ParticleBestPositionOfNeighbors;
 
-            Vector3 ParticlePosition;
+            Vector5 ParticlePosition;
 
             var Particles = this.Particles;
 
             double ParticleValue;
 
-            Vector3 ParticleVelocity;
+            Vector5 ParticleVelocity;
 
-            Vector3 ParticleVelocityCognitive;
+            Vector5 ParticleVelocityCognitive;
 
-            Vector3 ParticleVelocityInertial;
+            Vector5 ParticleVelocityInertial;
 
-            Vector3 ParticleVelocitySocial;
+            Vector5 ParticleVelocitySocial;
 
             var Rand = this.Rand;
 
@@ -103,11 +105,13 @@ namespace Ao.Optimization
 
             // Init.
 
-            var MaxVelocity = new Vector3
+            var MaxVelocity = new Vector5
             {
                 M1 = Math.Abs(MaxVelocityStart.M1),
                 M2 = Math.Abs(MaxVelocityStart.M2),
-                M3 = Math.Abs(MaxVelocityStart.M3)
+                M3 = Math.Abs(MaxVelocityStart.M3),
+                M4 = Math.Abs(MaxVelocityStart.M4),
+                M5 = Math.Abs(MaxVelocityStart.M5)
             };
 
 
@@ -130,10 +134,14 @@ namespace Ao.Optimization
                     ParticleStore[i].Position.M1 = MinPosition.M1 + T.M1 * Rand();
                     ParticleStore[i].Position.M2 = MinPosition.M2 + T.M2 * Rand();
                     ParticleStore[i].Position.M3 = MinPosition.M3 + T.M3 * Rand();
+                    ParticleStore[i].Position.M4 = MinPosition.M4 + T.M4 * Rand();
+                    ParticleStore[i].Position.M5 = MinPosition.M5 + T.M5 * Rand();
 
                     ParticleStore[i].Velocity.M1 = MaxVelocity.M1 * Rand();
                     ParticleStore[i].Velocity.M2 = MaxVelocity.M2 * Rand();
                     ParticleStore[i].Velocity.M3 = MaxVelocity.M3 * Rand();
+                    ParticleStore[i].Velocity.M4 = MaxVelocity.M4 * Rand();
+                    ParticleStore[i].Velocity.M5 = MaxVelocity.M5 * Rand();
                 }
             }
 
@@ -210,18 +218,22 @@ namespace Ao.Optimization
 
                     ParticleVelocityInertial = Inertial * ParticleVelocity;
 
-                    ParticleVelocityCognitive = new Vector3
+                    ParticleVelocityCognitive = new Vector5
                     {
                         M1 = Cognitive * Rand() * (ParticleBestPosition.M1 - ParticlePosition.M1),
                         M2 = Cognitive * Rand() * (ParticleBestPosition.M2 - ParticlePosition.M2),
-                        M3 = Cognitive * Rand() * (ParticleBestPosition.M3 - ParticlePosition.M3)
+                        M3 = Cognitive * Rand() * (ParticleBestPosition.M3 - ParticlePosition.M3),
+                        M4 = Cognitive * Rand() * (ParticleBestPosition.M4 - ParticlePosition.M4),
+                        M5 = Cognitive * Rand() * (ParticleBestPosition.M5 - ParticlePosition.M5)
                     };
 
-                    ParticleVelocitySocial = new Vector3
+                    ParticleVelocitySocial = new Vector5
                     {
                         M1 = Social * Rand() * (ParticleBestPositionOfNeighbors.M1 - ParticleBestPosition.M1),
                         M2 = Social * Rand() * (ParticleBestPositionOfNeighbors.M2 - ParticleBestPosition.M2),
-                        M3 = Social * Rand() * (ParticleBestPositionOfNeighbors.M3 - ParticleBestPosition.M3)
+                        M3 = Social * Rand() * (ParticleBestPositionOfNeighbors.M3 - ParticleBestPosition.M3),
+                        M4 = Social * Rand() * (ParticleBestPositionOfNeighbors.M4 - ParticleBestPosition.M4),
+                        M5 = Social * Rand() * (ParticleBestPositionOfNeighbors.M5 - ParticleBestPosition.M5)
                     };
 
                     ParticleVelocity = ParticleVelocityCognitive + ParticleVelocityInertial + ParticleVelocitySocial;
@@ -229,10 +241,14 @@ namespace Ao.Optimization
                     ParticleVelocity.M1 = Math.Min(ParticleVelocity.M1, +MaxVelocity.M1);
                     ParticleVelocity.M2 = Math.Min(ParticleVelocity.M2, +MaxVelocity.M2);
                     ParticleVelocity.M3 = Math.Min(ParticleVelocity.M3, +MaxVelocity.M3);
+                    ParticleVelocity.M4 = Math.Min(ParticleVelocity.M4, +MaxVelocity.M4);
+                    ParticleVelocity.M5 = Math.Min(ParticleVelocity.M5, +MaxVelocity.M5);
 
                     ParticleVelocity.M1 = Math.Max(ParticleVelocity.M1, -MaxVelocity.M1);
                     ParticleVelocity.M2 = Math.Max(ParticleVelocity.M2, -MaxVelocity.M2);
                     ParticleVelocity.M3 = Math.Max(ParticleVelocity.M3, -MaxVelocity.M3);
+                    ParticleVelocity.M4 = Math.Max(ParticleVelocity.M4, -MaxVelocity.M4);
+                    ParticleVelocity.M5 = Math.Max(ParticleVelocity.M5, -MaxVelocity.M5);
 
                     ParticleStore[i].Velocity = ParticleVelocity;
                 }
@@ -247,6 +263,8 @@ namespace Ao.Optimization
                         MaxVelocity.M1 = MaxVelocity.M1 * MaxVelocityDrop.M1;
                         MaxVelocity.M2 = MaxVelocity.M2 * MaxVelocityDrop.M2;
                         MaxVelocity.M3 = MaxVelocity.M3 * MaxVelocityDrop.M3;
+                        MaxVelocity.M4 = MaxVelocity.M4 * MaxVelocityDrop.M4;
+                        MaxVelocity.M5 = MaxVelocity.M5 * MaxVelocityDrop.M5;
                     }
                 }
 
@@ -264,10 +282,14 @@ namespace Ao.Optimization
                     ParticlePosition.M1 = Math.Max(ParticlePosition.M1, MinPosition.M1);
                     ParticlePosition.M2 = Math.Max(ParticlePosition.M2, MinPosition.M2);
                     ParticlePosition.M3 = Math.Max(ParticlePosition.M3, MinPosition.M3);
+                    ParticlePosition.M4 = Math.Max(ParticlePosition.M4, MinPosition.M4);
+                    ParticlePosition.M5 = Math.Max(ParticlePosition.M5, MinPosition.M5);
 
                     ParticlePosition.M1 = Math.Min(ParticlePosition.M1, MaxPosition.M1);
                     ParticlePosition.M2 = Math.Min(ParticlePosition.M2, MaxPosition.M2);
                     ParticlePosition.M3 = Math.Min(ParticlePosition.M3, MaxPosition.M3);
+                    ParticlePosition.M4 = Math.Min(ParticlePosition.M4, MaxPosition.M4);
+                    ParticlePosition.M5 = Math.Min(ParticlePosition.M5, MaxPosition.M5);
 
                     ParticleStore[i].Position = ParticlePosition;
                 }
@@ -297,7 +319,9 @@ namespace Ao.Optimization
                     (
                         MaxVelocity.M1 <= MaxVelocityThreshold.M1 ||
                         MaxVelocity.M2 <= MaxVelocityThreshold.M2 ||
-                        MaxVelocity.M3 <= MaxVelocityThreshold.M3
+                        MaxVelocity.M3 <= MaxVelocityThreshold.M3 ||
+                        MaxVelocity.M4 <= MaxVelocityThreshold.M4 ||
+                        MaxVelocity.M5 <= MaxVelocityThreshold.M5
                     )
                     {
                         Iterate = false;
@@ -322,7 +346,7 @@ namespace Ao.Optimization
 
         #region Methods (Private)
 
-        private Vector3 BestPositionOfNeighbors(Particle[] ParticleStore, int i)
+        private Vector5 BestPositionOfNeighbors(Particle[] ParticleStore, int i)
         {
             var N = Neighbors;
 
@@ -332,11 +356,13 @@ namespace Ao.Optimization
 
             if (N < P)
             {
-                var BestPosition = new Vector3
+                var BestPosition = new Vector5
                 {
                     M1 = double.PositiveInfinity,
                     M2 = double.PositiveInfinity,
-                    M3 = double.PositiveInfinity
+                    M3 = double.PositiveInfinity,
+                    M4 = double.PositiveInfinity,
+                    M5 = double.PositiveInfinity
                 };
 
                 var BestValue = double.PositiveInfinity;
@@ -368,7 +394,7 @@ namespace Ao.Optimization
 
         #region Properties
 
-        public Vector3 BestPosition { get; private set; }
+        public Vector5 BestPosition { get; private set; }
 
         public double BestValue { get; private set; }
 
@@ -386,33 +412,37 @@ namespace Ao.Optimization
 
         public int MaxIterations { get; set; } = 0;
 
-        public Vector3 MaxPosition { get; set; }
+        public Vector5 MaxPosition { get; set; }
 
-        public Vector3 MaxVelocity { get; private set; }
+        public Vector5 MaxVelocity { get; private set; }
 
-        public Vector3 MaxVelocityDrop { get; set; } = new Vector3
+        public Vector5 MaxVelocityDrop { get; set; } = new Vector5
         {
             M1 = 0.7,
             M2 = 0.7,
-            M3 = 0.7
+            M3 = 0.7,
+            M4 = 0.7,
+            M5 = 0.7
         };
 
-        public Vector3 MaxVelocityStart { get; set; }
+        public Vector5 MaxVelocityStart { get; set; }
 
-        public Vector3 MaxVelocityThreshold { get; set; } = new Vector3
+        public Vector5 MaxVelocityThreshold { get; set; } = new Vector5
         {
             M1 = 1e-6,
             M2 = 1e-6,
-            M3 = 1e-6
+            M3 = 1e-6,
+            M4 = 1e-6,
+            M5 = 1e-6
         };
 
-        public Vector3 MinPosition { get; set; }
+        public Vector5 MinPosition { get; set; }
 
         public int Neighbors { get; set; } = 10;
 
         public int Particles { get; set; } = 1000;
 
-        public Func<Vector3, double> Objective { get; set; }
+        public Func<Vector5, double> Objective { get; set; }
 
         public Func<double> Rand { get; set; }
 
@@ -424,15 +454,15 @@ namespace Ao.Optimization
 
         private struct Particle
         {
-            public Vector3 BestPosition;
+            public Vector5 BestPosition;
 
             public double BestValue;
 
-            public Vector3 Position;
+            public Vector5 Position;
 
             public double Value;
 
-            public Vector3 Velocity;
+            public Vector5 Velocity;
         }
 
         #endregion

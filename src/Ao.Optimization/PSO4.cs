@@ -27,72 +27,324 @@ namespace Ao.Optimization
 {
     public sealed class PSO4
     {
-        #region History
+        #region Methods
 
-        public double HistoryAverageDeviationThreshold { get; set; } = 0.001;
-
-        private const int HistoryCount = 5;
-
-        #endregion
-
-        #region Iterations
-
-        public int Iterations { get; private set; }
-
-        public int IterationsMax { get; set; } = -1;
-
-        #endregion
-
-        #region Objective
-
-        public Func<Vector4, double> Objective { get; set; } = x => double.NegativeInfinity;
-
-        #endregion
-
-        #region Particle
-
-        private struct Particle
+        public void Solve()
         {
-            public Vector4 Position;
+            // Init.
 
-            public Vector4 PositionBest;
+            var BestPosition = new Vector4
+            {
+                M1 = double.PositiveInfinity,
+                M2 = double.PositiveInfinity,
+                M3 = double.PositiveInfinity,
+                M4 = double.PositiveInfinity
+            };
 
-            public double Value;
+            var BestValue = double.PositiveInfinity;
 
-            public double ValueBest;
+            var BestValueThreshold = this.BestValueThreshold;
 
-            public Vector4 Velocity;
+            var Cognitive = this.Cognitive;
+
+            bool History;
+
+            var HistoryAverage = 0.0;
+
+            var HistoryAverageDeviation = 0.0;
+
+            var HistoryAverageDeviationThreshold = this.HistoryAverageDeviationThreshold;
+
+            var HistoryIndex = 0;
+
+            var HistorySize = this.HistorySize;
+
+            var Inertial = this.Inertial;
+
+            var Iterate = true;
+
+            var Iterations = 0;
+
+            var MaxIterations = this.MaxIterations;
+
+            var MaxPosition = this.MaxPosition;
+
+            var MaxVelocityDrop = this.MaxVelocityDrop;
+
+            var MaxVelocityStart = this.MaxVelocityStart;
+
+            var MaxVelocityThreshold = this.MaxVelocityThreshold;
+
+            var MinPosition = this.MinPosition;
+
+            var Objective = this.Objective;
+
+            Vector4 ParticleBestPosition;
+
+            Vector4 ParticleBestPositionOfNeighbors;
+
+            Vector4 ParticlePosition;
+
+            var Particles = this.Particles;
+
+            double ParticleValue;
+
+            Vector4 ParticleVelocity;
+
+            Vector4 ParticleVelocityCognitive;
+
+            Vector4 ParticleVelocityInertial;
+
+            Vector4 ParticleVelocitySocial;
+
+            var Rand = this.Rand;
+
+            var Social = this.Social;
+
+
+            // Init.
+
+            var MaxVelocity = new Vector4
+            {
+                M1 = Math.Abs(MaxVelocityStart.M1),
+                M2 = Math.Abs(MaxVelocityStart.M2),
+                M3 = Math.Abs(MaxVelocityStart.M3),
+                M4 = Math.Abs(MaxVelocityStart.M4)
+            };
+
+
+            // Init.
+
+            var HistoryStore = new double[HistorySize];
+
+            var ParticleStore = new Particle[Particles];
+
+
+            // Init particle store.
+
+            {
+                var T = MaxPosition - MinPosition;
+
+                for (var i = 0; i < Particles; i++)
+                {
+                    ParticleStore[i].BestValue = double.PositiveInfinity;
+
+                    ParticleStore[i].Position.M1 = MinPosition.M1 + T.M1 * Rand();
+                    ParticleStore[i].Position.M2 = MinPosition.M2 + T.M2 * Rand();
+                    ParticleStore[i].Position.M3 = MinPosition.M3 + T.M3 * Rand();
+                    ParticleStore[i].Position.M4 = MinPosition.M4 + T.M4 * Rand();
+
+                    ParticleStore[i].Velocity.M1 = MaxVelocity.M1 * Rand();
+                    ParticleStore[i].Velocity.M2 = MaxVelocity.M2 * Rand();
+                    ParticleStore[i].Velocity.M3 = MaxVelocity.M3 * Rand();
+                    ParticleStore[i].Velocity.M4 = MaxVelocity.M4 * Rand();
+                }
+            }
+
+
+            // Iterate.
+
+            do
+            {
+                Iterations++;
+
+                History = Iterations >= HistorySize;
+
+
+                // Update values.
+
+                for (var i = 0; i < Particles; i++)
+                {
+                    ParticlePosition = ParticleStore[i].Position;
+
+                    ParticleValue = Objective(ParticlePosition);
+
+                    if (ParticleValue < ParticleStore[i].BestValue)
+                    {
+                        ParticleStore[i].BestPosition = ParticlePosition;
+
+                        ParticleStore[i].BestValue = ParticleValue;
+
+                        if (ParticleValue < BestValue)
+                        {
+                            BestPosition = ParticlePosition;
+
+                            BestValue = ParticleValue;
+                        }
+                    }
+
+                    ParticleStore[i].Value = ParticleValue;
+                }
+
+
+                // Update history.
+
+                HistoryStore[HistoryIndex] = BestValue;
+
+                HistoryIndex = HistoryIndex + 1;
+
+                HistoryIndex = HistoryIndex % HistorySize;
+
+                if (History)
+                {
+                    HistoryAverage = HistoryStore[0];
+
+                    for (var i = 1; i < HistorySize; i++)
+                    {
+                        HistoryAverage = HistoryAverage + HistoryStore[i];
+                    }
+
+                    HistoryAverage = HistoryAverage / HistorySize;
+
+                    HistoryAverageDeviation = Math.Abs(BestValue - HistoryAverage);
+                }
+
+
+                // Update Velocities.
+
+                for (var i = 0; i < Particles; i++)
+                {
+                    ParticleBestPosition = ParticleStore[i].BestPosition;
+
+                    ParticlePosition = ParticleStore[i].Position;
+
+                    ParticleBestPositionOfNeighbors = BestPositionOfNeighbors(ParticleStore, i);
+
+                    ParticleVelocity = ParticleStore[i].Velocity;
+
+                    ParticleVelocityInertial = Inertial * ParticleVelocity;
+
+                    ParticleVelocityCognitive = new Vector4
+                    {
+                        M1 = Cognitive * Rand() * (ParticleBestPosition.M1 - ParticlePosition.M1),
+                        M2 = Cognitive * Rand() * (ParticleBestPosition.M2 - ParticlePosition.M2),
+                        M3 = Cognitive * Rand() * (ParticleBestPosition.M3 - ParticlePosition.M3),
+                        M4 = Cognitive * Rand() * (ParticleBestPosition.M4 - ParticlePosition.M4)
+                    };
+
+                    ParticleVelocitySocial = new Vector4
+                    {
+                        M1 = Social * Rand() * (ParticleBestPositionOfNeighbors.M1 - ParticleBestPosition.M1),
+                        M2 = Social * Rand() * (ParticleBestPositionOfNeighbors.M2 - ParticleBestPosition.M2),
+                        M3 = Social * Rand() * (ParticleBestPositionOfNeighbors.M3 - ParticleBestPosition.M3),
+                        M4 = Social * Rand() * (ParticleBestPositionOfNeighbors.M4 - ParticleBestPosition.M4)
+                    };
+
+                    ParticleVelocity = ParticleVelocityCognitive + ParticleVelocityInertial + ParticleVelocitySocial;
+
+                    ParticleVelocity.M1 = Math.Min(ParticleVelocity.M1, +MaxVelocity.M1);
+                    ParticleVelocity.M2 = Math.Min(ParticleVelocity.M2, +MaxVelocity.M2);
+                    ParticleVelocity.M3 = Math.Min(ParticleVelocity.M3, +MaxVelocity.M3);
+                    ParticleVelocity.M4 = Math.Min(ParticleVelocity.M4, +MaxVelocity.M4);
+
+                    ParticleVelocity.M1 = Math.Max(ParticleVelocity.M1, -MaxVelocity.M1);
+                    ParticleVelocity.M2 = Math.Max(ParticleVelocity.M2, -MaxVelocity.M2);
+                    ParticleVelocity.M3 = Math.Max(ParticleVelocity.M3, -MaxVelocity.M3);
+                    ParticleVelocity.M4 = Math.Max(ParticleVelocity.M4, -MaxVelocity.M4);
+
+                    ParticleStore[i].Velocity = ParticleVelocity;
+                }
+
+
+                // Update maximum velocity.
+
+                if (History)
+                {
+                    if (HistoryAverageDeviation <= HistoryAverageDeviationThreshold)
+                    {
+                        MaxVelocity.M1 = MaxVelocity.M1 * MaxVelocityDrop.M1;
+                        MaxVelocity.M2 = MaxVelocity.M2 * MaxVelocityDrop.M2;
+                        MaxVelocity.M3 = MaxVelocity.M3 * MaxVelocityDrop.M3;
+                        MaxVelocity.M4 = MaxVelocity.M4 * MaxVelocityDrop.M4;
+                    }
+                }
+
+
+                // Update positions.
+
+                for (var i = 0; i < Particles; i++)
+                {
+                    ParticlePosition = ParticleStore[i].Position;
+
+                    ParticleVelocity = ParticleStore[i].Velocity;
+
+                    ParticlePosition = ParticlePosition + ParticleVelocity;
+
+                    ParticlePosition.M1 = Math.Max(ParticlePosition.M1, MinPosition.M1);
+                    ParticlePosition.M2 = Math.Max(ParticlePosition.M2, MinPosition.M2);
+                    ParticlePosition.M3 = Math.Max(ParticlePosition.M3, MinPosition.M3);
+                    ParticlePosition.M4 = Math.Max(ParticlePosition.M4, MinPosition.M4);
+
+                    ParticlePosition.M1 = Math.Min(ParticlePosition.M1, MaxPosition.M1);
+                    ParticlePosition.M2 = Math.Min(ParticlePosition.M2, MaxPosition.M2);
+                    ParticlePosition.M3 = Math.Min(ParticlePosition.M3, MaxPosition.M3);
+                    ParticlePosition.M4 = Math.Min(ParticlePosition.M4, MaxPosition.M4);
+
+                    ParticleStore[i].Position = ParticlePosition;
+                }
+
+
+                // Iterate.
+
+                if (MaxIterations > 0)
+                {
+                    if (Iterations >= MaxIterations)
+                    {
+                        Iterate = false;
+                    }
+                }
+
+                if (Iterate)
+                {
+                    if (BestValue <= BestValueThreshold)
+                    {
+                        Iterate = false;
+                    }
+                }
+
+                if (Iterate)
+                {
+                    if
+                    (
+                        MaxVelocity.M1 <= MaxVelocityThreshold.M1 ||
+                        MaxVelocity.M2 <= MaxVelocityThreshold.M2 ||
+                        MaxVelocity.M3 <= MaxVelocityThreshold.M3 ||
+                        MaxVelocity.M4 <= MaxVelocityThreshold.M4
+                    )
+                    {
+                        Iterate = false;
+                    }
+                }
+            }
+            while (Iterate);
+
+
+            // Ready.
+
+            this.BestPosition = BestPosition;
+
+            this.BestValue = BestValue;
+
+            this.Iterations = Iterations;
+
+            this.MaxVelocity = MaxVelocity;
         }
 
-        public int ParticleCount { get; set; } = 1000;
-
-        public int ParticleNeighborCount { get; set; } = 10;
-
         #endregion
 
-        #region Position
+        #region Methods (Private)
 
-        public Vector4 PositionBest { get; private set; }
-
-        private Vector4 PositionBestOfNeighbors(Particle[] ps, int i)
+        private Vector4 BestPositionOfNeighbors(Particle[] ParticleStore, int i)
         {
-            var n = ParticleCount;
+            var N = Neighbors;
 
-            var m = ParticleNeighborCount;
-
-
-            // GBEST.
-
-            if (m >= n)
-            {
-                return PositionBest;
-            }
+            var P = Particles;
 
             // LBEST.
 
-            else
+            if (N < P)
             {
-                var p = new Vector4
+                var BestPosition = new Vector4
                 {
                     M1 = double.PositiveInfinity,
                     M2 = double.PositiveInfinity,
@@ -100,274 +352,58 @@ namespace Ao.Optimization
                     M4 = double.PositiveInfinity
                 };
 
-                var v = double.PositiveInfinity;
+                var BestValue = double.PositiveInfinity;
 
-                for (var j = 1; j <= m; j++)
+                for (var n = 1; n <= N; n++)
                 {
-                    var k = (i + j) % n;
+                    var j = (i + n) % P;
 
-                    if (ps[k].ValueBest < v)
+                    if (ParticleStore[j].BestValue < BestValue)
                     {
-                        p = ps[k].PositionBest;
-                        v = ps[k].ValueBest;
+                        BestPosition = ParticleStore[j].BestPosition;
+
+                        BestValue = ParticleStore[j].BestValue;
                     }
                 }
 
-                return p;
+                return BestPosition;
+            }
+
+            // GBEST.
+
+            else
+            {
+                return BestPosition;
             }
         }
 
-        public Vector4 PositionMax { get; set; }
-
-        public Vector4 PositionMin { get; set; }
-
         #endregion
 
-        #region Solve
+        #region Properties
 
-        public void Solve()
-        {
-            // Initialize.
+        public Vector4 BestPosition { get; private set; }
 
-            Iterations = 0;
+        public double BestValue { get; private set; }
 
-            ValueBest = double.PositiveInfinity;
+        public double BestValueThreshold { get; set; } = double.NegativeInfinity;
 
-            VelocityMax = new Vector4
-            {
-                M1 = Math.Abs(VelocityMaxStart.M1),
-                M2 = Math.Abs(VelocityMaxStart.M2),
-                M3 = Math.Abs(VelocityMaxStart.M3),
-                M4 = Math.Abs(VelocityMaxStart.M4)
-            };
+        public double Cognitive { get; set; } = 2.0;
 
+        public double HistoryAverageDeviationThreshold { get; set; } = 1e-6;
 
-            // Initialize.
+        public int HistorySize { get; set; } = 5;
 
-            var hadt = HistoryAverageDeviationThreshold;
+        public double Inertial { get; set; } = 0.8;
 
-            var hn = HistoryCount;
+        public int Iterations { get; private set; }
 
-            var n = ParticleCount;
+        public int MaxIterations { get; set; } = 0;
 
-            var o = Objective;
+        public Vector4 MaxPosition { get; set; }
 
-            var pmin = PositionMin;
-            var pmax = PositionMax;
+        public Vector4 MaxVelocity { get; private set; }
 
-            var wc = WeightCognitive;
-            var wi = WeightInertial;
-            var ws = WeightSocial;
-
-
-            // Initialize.
-
-            var ha = 0.0;
-
-            var had = 0.0;
-
-            var hi = 0;
-
-            var hs = new double[hn];
-
-            var ps = new Particle[n];
-
-            var r = new Random();
-
-
-            // Initialize.
-
-            for (var i = 0; i < n; i++)
-            {
-                ps[i].Position.M1 = pmin.M1 + (pmax.M1 - pmin.M1) * r.NextDouble();
-                ps[i].Position.M2 = pmin.M2 + (pmax.M2 - pmin.M2) * r.NextDouble();
-                ps[i].Position.M3 = pmin.M3 + (pmax.M3 - pmin.M3) * r.NextDouble();
-                ps[i].Position.M4 = pmin.M4 + (pmax.M4 - pmin.M4) * r.NextDouble();
-
-                ps[i].Velocity.M1 = VelocityMax.M1 * r.NextDouble();
-                ps[i].Velocity.M2 = VelocityMax.M2 * r.NextDouble();
-                ps[i].Velocity.M3 = VelocityMax.M3 * r.NextDouble();
-                ps[i].Velocity.M4 = VelocityMax.M4 * r.NextDouble();
-
-                ps[i].ValueBest = double.PositiveInfinity;
-            }
-
-
-            // Iterate.
-
-            var history = false;
-
-            var iterating = true;
-
-            do
-            {
-                // Iterate.
-
-                Iterations++;
-
-                history = (Iterations >= hn);
-
-
-                // Update Values.
-
-                for (var i = 0; i < n; i++)
-                {
-                    var p = ps[i].Position;
-
-                    var v = o(p);
-
-                    if (v < ps[i].ValueBest)
-                    {
-                        ps[i].PositionBest = p;
-                        ps[i].ValueBest = v;
-
-                        if (v < ValueBest)
-                        {
-                            ValueBest = v;
-                            PositionBest = p;
-                        }
-                    }
-
-                    ps[i].Value = v;
-                }
-
-
-                // Update History.
-
-                hs[hi] = ValueBest;
-
-                hi = (hi + 1) % hn;
-
-                if (history)
-                {
-                    ha = hs[0];
-
-                    for (var i = 1; i < hn; i++)
-                    {
-                        ha += hs[i];
-                    }
-
-                    ha /= hn;
-
-                    had = Math.Abs(ValueBest - ha);
-                }
-
-
-                // Update Velocities.
-
-                for (var i = 0; i < n; i++)
-                {
-                    var p = ps[i].Position;
-
-                    var pb = ps[i].PositionBest;
-
-                    var pn = PositionBestOfNeighbors(ps, i);
-
-                    var v = ps[i].Velocity;
-
-                    var vi = wi * v;
-
-                    var vc = new Vector4
-                    {
-                        M1 = wc * r.NextDouble() * (pb.M1 - p.M1),
-                        M2 = wc * r.NextDouble() * (pb.M2 - p.M2),
-                        M3 = wc * r.NextDouble() * (pb.M3 - p.M3),
-                        M4 = wc * r.NextDouble() * (pb.M4 - p.M4)
-                    };
-
-                    var vs = new Vector4
-                    {
-                        M1 = ws * r.NextDouble() * (pn.M1 - p.M1),
-                        M2 = ws * r.NextDouble() * (pn.M2 - p.M2),
-                        M3 = ws * r.NextDouble() * (pn.M3 - p.M3),
-                        M4 = ws * r.NextDouble() * (pn.M4 - p.M4)
-                    };
-
-                    v = vi + vc + vs;
-
-                    if (Math.Abs(v.M1) > VelocityMax.M1) { v.M1 = v.M1 / Math.Abs(v.M1) * VelocityMax.M1; }
-                    if (Math.Abs(v.M2) > VelocityMax.M2) { v.M2 = v.M2 / Math.Abs(v.M2) * VelocityMax.M2; }
-                    if (Math.Abs(v.M3) > VelocityMax.M3) { v.M3 = v.M3 / Math.Abs(v.M3) * VelocityMax.M3; }
-                    if (Math.Abs(v.M4) > VelocityMax.M4) { v.M4 = v.M4 / Math.Abs(v.M4) * VelocityMax.M4; }
-
-                    ps[i].Velocity = v;
-                }
-
-
-                // Update Maximum Velocity.
-
-                if (history)
-                {
-                    if (had <= hadt)
-                    {
-                        var vm = VelocityMax;
-                        var vd = VelocityMaxDrop;
-
-                        vm.M1 *= vd.M1;
-                        vm.M2 *= vd.M2;
-                        vm.M3 *= vd.M3;
-                        vm.M4 *= vd.M4;
-
-                        VelocityMax = vm;
-                    }
-                }
-
-
-                // Update Positions.
-
-                for (var i = 0; i < n; i++)
-                {
-                    var p = ps[i].Position;
-                    var v = ps[i].Velocity;
-
-                    p = p + v;
-
-                    if (p.M1 > PositionMax.M1) p.M1 = PositionMax.M1;
-                    if (p.M2 > PositionMax.M2) p.M2 = PositionMax.M2;
-                    if (p.M3 > PositionMax.M3) p.M3 = PositionMax.M3;
-                    if (p.M4 > PositionMax.M4) p.M4 = PositionMax.M4;
-
-                    if (p.M1 < PositionMin.M1) p.M1 = PositionMin.M1;
-                    if (p.M2 < PositionMin.M2) p.M2 = PositionMin.M2;
-                    if (p.M3 < PositionMin.M3) p.M3 = PositionMin.M3;
-                    if (p.M4 < PositionMin.M4) p.M4 = PositionMin.M4;
-
-                    ps[i].Position = p;
-                }
-
-
-                // Iterate.
-
-                iterating = iterating && (IterationsMax <= 0 || Iterations < IterationsMax);
-
-                iterating = iterating && (ValueBest > ValueBestThreshold);
-
-                iterating = iterating &&
-                (
-                    (VelocityMax.M1 > VelocityMaxThreshold.M1) ||
-                    (VelocityMax.M2 > VelocityMaxThreshold.M2) ||
-                    (VelocityMax.M3 > VelocityMaxThreshold.M3) ||
-                    (VelocityMax.M4 > VelocityMaxThreshold.M4)
-                );
-            }
-            while (iterating);
-        }
-
-        #endregion
-
-        #region Value
-
-        public double ValueBest { get; private set; }
-
-        public double ValueBestThreshold { get; set; } = double.NegativeInfinity;
-
-        #endregion
-
-        #region Velocity
-
-        public Vector4 VelocityMax { get; private set; }
-
-        public Vector4 VelocityMaxDrop { get; set; } = new Vector4
+        public Vector4 MaxVelocityDrop { get; set; } = new Vector4
         {
             M1 = 0.7,
             M2 = 0.7,
@@ -375,25 +411,44 @@ namespace Ao.Optimization
             M4 = 0.7
         };
 
-        public Vector4 VelocityMaxStart { get; set; }
+        public Vector4 MaxVelocityStart { get; set; }
 
-        public Vector4 VelocityMaxThreshold { get; set; } = new Vector4
+        public Vector4 MaxVelocityThreshold { get; set; } = new Vector4
         {
-            M1 = 0.001,
-            M2 = 0.001,
-            M3 = 0.001,
-            M4 = 0.001
+            M1 = 1e-6,
+            M2 = 1e-6,
+            M3 = 1e-6,
+            M4 = 1e-6
         };
+
+        public Vector4 MinPosition { get; set; }
+
+        public int Neighbors { get; set; } = 10;
+
+        public int Particles { get; set; } = 1000;
+
+        public Func<Vector4, double> Objective { get; set; }
+
+        public Func<double> Rand { get; set; }
+
+        public double Social { get; set; } = 0.8;
 
         #endregion
 
-        #region Weight
+        #region Types
 
-        public double WeightCognitive { get; set; } = 2.0;
+        private struct Particle
+        {
+            public Vector4 BestPosition;
 
-        public double WeightInertial { get; set; } = 0.8;
+            public double BestValue;
 
-        public double WeightSocial { get; set; } = 0.8;
+            public Vector4 Position;
+
+            public double Value;
+
+            public Vector4 Velocity;
+        }
 
         #endregion
     }

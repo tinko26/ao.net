@@ -24,313 +24,368 @@ using System;
 
 namespace Ao.Optimization
 {
-    public sealed class PSO1
-    {
-        #region History
-
-        public double HistoryAverageDeviationThreshold { get; set; } = 0.001;
-
-        private const int HistoryCount = 5;
-
-        #endregion
-
-        #region Iterations
-
-        public int Iterations { get; private set; }
-
-        public int IterationsMax { get; set; } = -1;
-
-        #endregion
-
-        #region Objective
-
-        public Func<double, double> Objective { get; set; } = x => double.NegativeInfinity;
-
-        #endregion
-
-        #region Particle
-
-        private struct Particle
-        {
-            public double Position;
-
-            public double PositionBest;
-
-            public double Value;
-
-            public double ValueBest;
-
-            public double Velocity;
-        }
-
-        public int ParticleCount { get; set; } = 1000;
-
-        public int ParticleNeighborCount { get; set; } = 10;
-
-        #endregion
-
-        #region Position
-
-        public double PositionBest { get; private set; }
-
-        private double PositionBestOfNeighbors(Particle[] ps, int i)
-        {
-            var n = ParticleCount;
-
-            var m = ParticleNeighborCount;
-
-
-            // GBEST.
-
-            if (m >= n)
-            {
-                return PositionBest;
-            }
-
-            // LBEST.
-
-            else
-            {
-                var p = double.PositiveInfinity;
-                var v = double.PositiveInfinity;
-
-                for (var j = 1; j <= m; j++)
-                {
-                    var k = (i + j) % n;
-
-                    if (ps[k].ValueBest < v)
-                    {
-                        p = ps[k].PositionBest;
-                        v = ps[k].ValueBest;
-                    }
-                }
-
-                return p;
-            }
-        }
-
-        public double PositionMax { get; set; }
-
-        public double PositionMin { get; set; }
-
-        #endregion
-
-        #region Solve
+	public sealed class PSO1
+	{
+		#region Methods
 
         public void Solve()
-        {
-            // Initialize.
+		{
+            // Init.
 
-            Iterations = 0;
+            var BestPosition = double.PositiveInfinity;
 
-            ValueBest = double.PositiveInfinity;
+            var BestValue = double.PositiveInfinity;
 
-            VelocityMax = Math.Abs(VelocityMaxStart);
+            var BestValueThreshold = this.BestValueThreshold;
+
+            var Cognitive = this.Cognitive;
+
+            bool History;
+
+            var HistoryAverage = 0.0;
+
+            var HistoryAverageDeviation = 0.0;
+
+            var HistoryAverageDeviationThreshold = this.HistoryAverageDeviationThreshold;
+
+            var HistoryIndex = 0;
+
+            var HistorySize = this.HistorySize;
+
+            var Inertial = this.Inertial;
+
+            var Iterate = true;
+
+            var Iterations = 0;
+
+            var MaxIterations = this.MaxIterations;
+
+            var MaxPosition = this.MaxPosition;
+
+            var MaxVelocityDrop = this.MaxVelocityDrop;
+
+            var MaxVelocityStart = this.MaxVelocityStart;
+
+            var MaxVelocityThreshold = this.MaxVelocityThreshold;
+
+            var MinPosition = this.MinPosition;
+
+            var Objective = this.Objective;
+
+            double ParticleBestPosition;
+
+            double ParticleBestPositionOfNeighbors;
+
+            double ParticlePosition;
+
+            var Particles = this.Particles;
+
+            double ParticleValue;
+
+            double ParticleVelocity;
+
+            double ParticleVelocityCognitive;
+
+            double ParticleVelocityInertial;
+
+            double ParticleVelocitySocial;
+
+            var Rand = this.Rand;
+
+            var Social = this.Social;
 
 
-            // Initialize.
+            // Init.
 
-            var hadt = HistoryAverageDeviationThreshold;
-
-            var hn = HistoryCount;
-
-            var n = ParticleCount;
-
-            var o = Objective;
-
-            var pmin = PositionMin;
-            var pmax = PositionMax;
-
-            var wc = WeightCognitive;
-            var wi = WeightInertial;
-            var ws = WeightSocial;
+            var MaxVelocity = Math.Abs(MaxVelocityStart);
 
 
-            // Initialize.
+            // Init.
 
-            var ha = 0.0;
+            var HistoryStore = new double[HistorySize];
 
-            var had = 0.0;
-
-            var hi = 0;
-
-            var hs = new double[hn];
-
-            var ps = new Particle[n];
-
-            var r = new Random();
+            var ParticleStore = new Particle[Particles];
 
 
-            // Initialize.
+			// Init particle store.
 
-            for (var i = 0; i < n; i++)
-            {
-                ps[i].Position = pmin + (pmax - pmin) * r.NextDouble();
+			{
+                var T = MaxPosition - MinPosition;
 
-                ps[i].Velocity = VelocityMax * r.NextDouble();
+                for (var i = 0; i < Particles; i++)
+                {
+                    ParticleStore[i].BestValue = double.PositiveInfinity;
 
-                ps[i].ValueBest = double.PositiveInfinity;
+                    ParticleStore[i].Position = MinPosition + T * Rand();
+
+                    ParticleStore[i].Velocity = MaxVelocity * Rand();
+                }
             }
 
 
             // Iterate.
 
-            var history = false;
-
-            var iterating = true;
-
             do
             {
-                // Iterate.
-
                 Iterations++;
 
-                history = (Iterations >= hn);
+                History = Iterations >= HistorySize;
 
 
-                // Update Values.
+                // Update values.
 
-                for (var i = 0; i < n; i++)
-                {
-                    var p = ps[i].Position;
+                for (var i = 0; i < Particles; i++)
+				{
+                    ParticlePosition = ParticleStore[i].Position;
 
-                    var v = o(p);
+                    ParticleValue = Objective(ParticlePosition);
 
-                    if (v < ps[i].ValueBest)
-                    {
-                        ps[i].PositionBest = p;
-                        ps[i].ValueBest = v;
+                    if (ParticleValue < ParticleStore[i].BestValue)
+					{
+                        ParticleStore[i].BestPosition = ParticlePosition;
 
-                        if (v < ValueBest)
-                        {
-                            ValueBest = v;
-                            PositionBest = p;
-                        }
-                    }
+                        ParticleStore[i].BestValue = ParticleValue;
 
-                    ps[i].Value = v;
+                        if (ParticleValue < BestValue)
+						{
+                            BestPosition = ParticlePosition;
+
+                            BestValue = ParticleValue;
+						}
+					}
+
+                    ParticleStore[i].Value = ParticleValue;
                 }
 
 
-                // Update History.
+                // Update history.
 
-                hs[hi] = ValueBest;
+                HistoryStore[HistoryIndex] = BestValue;
 
-                hi = (hi + 1) % hn;
+                HistoryIndex = HistoryIndex + 1;
 
-                if (history)
-                {
-                    ha = hs[0];
+                HistoryIndex = HistoryIndex % HistorySize;
 
-                    for (var i = 1; i < hn; i++)
-                    {
-                        ha += hs[i];
-                    }
+                if (History)
+				{
+                    HistoryAverage = HistoryStore[0];
 
-                    ha /= hn;
+                    for (var i = 1; i < HistorySize; i++)
+					{
+                        HistoryAverage = HistoryAverage + HistoryStore[i];
+					}
 
-                    had = Math.Abs(ValueBest - ha);
+                    HistoryAverage = HistoryAverage / HistorySize;
+
+                    HistoryAverageDeviation = Math.Abs(BestValue - HistoryAverage);
                 }
 
 
                 // Update Velocities.
 
-                for (var i = 0; i < n; i++)
-                {
-                    var p = ps[i].Position;
+                for (var i = 0; i < Particles; i++)
+				{
+                    ParticleBestPosition = ParticleStore[i].BestPosition;
 
-                    var pb = ps[i].PositionBest;
+                    ParticlePosition = ParticleStore[i].Position;
 
-                    var pn = PositionBestOfNeighbors(ps, i);
+                    ParticleBestPositionOfNeighbors = BestPositionOfNeighbors(ParticleStore, i);
 
-                    var rc = r.NextDouble();
-                    var rs = r.NextDouble();
+                    ParticleVelocity = ParticleStore[i].Velocity;
 
-                    var v = ps[i].Velocity;
+                    ParticleVelocityInertial = Inertial * ParticleVelocity;
 
-                    var vi = wi * v;
-                    var vc = wc * rc * (pb - p);
-                    var vs = ws * rs * (pn - p);
+                    ParticleVelocityCognitive = Cognitive * Rand() * (ParticleBestPosition - ParticlePosition);
 
-                    v = vi + vc + vs;
+                    ParticleVelocitySocial = Social * Rand() * (ParticleBestPositionOfNeighbors - ParticleBestPosition);
 
-                    if (Math.Abs(v) > VelocityMax)
-                    {
-                        v = v / Math.Abs(v) * VelocityMax;
-                    }
+                    ParticleVelocity = ParticleVelocityCognitive + ParticleVelocityInertial + ParticleVelocitySocial;
 
-                    ps[i].Velocity = v;
+                    if (ParticleVelocity > MaxVelocity)
+					{
+                        ParticleVelocity = MaxVelocity;
+					}
+
+                    else if (ParticleVelocity < -MaxVelocity)
+					{
+                        ParticleVelocity = -MaxVelocity;
+					}
+
+                    ParticleStore[i].Velocity = ParticleVelocity;
                 }
 
 
-                // Update Maximum Velocity.
+                // Update maximum velocity.
 
-                if (history)
-                {
-                    if (had <= hadt)
-                    {
-                        VelocityMax = VelocityMax * VelocityMaxDrop;
-                    }
-                }
+                if (History)
+				{
+                    if (HistoryAverageDeviation <= HistoryAverageDeviationThreshold)
+					{
+                        MaxVelocity = MaxVelocity * MaxVelocityDrop;
+					}
+				}
 
 
-                // Update Positions.
+                // Update positions.
 
-                for (var i = 0; i < n; i++)
-                {
-                    var p = ps[i].Position;
-                    var v = ps[i].Velocity;
+                for (var i = 0; i < Particles; i++)
+				{
+                    ParticlePosition = ParticleStore[i].Position;
 
-                    p = p + v;
+                    ParticleVelocity = ParticleStore[i].Velocity;
 
-                    if (p > PositionMax) p = PositionMax;
-                    if (p < PositionMin) p = PositionMin;
+                    ParticlePosition = ParticlePosition + ParticleVelocity;
 
-                    ps[i].Position = p;
+                    ParticlePosition = Math.Max(ParticlePosition, MinPosition);
+
+                    ParticlePosition = Math.Min(ParticlePosition, MaxPosition);
+
+                    ParticleStore[i].Position = ParticlePosition;
                 }
 
 
                 // Iterate.
 
-                iterating = iterating && (IterationsMax <= 0 || Iterations < IterationsMax);
+                if (MaxIterations > 0)
+				{
+                    if (Iterations >= MaxIterations)
+					{
+                        Iterate = false;
+					}
+				}
 
-                iterating = iterating && (ValueBest > ValueBestThreshold);
+                if (Iterate)
+				{
+                    if (BestValue <= BestValueThreshold)
+					{
+                        Iterate = false;
+					}
+				}
 
-                iterating = iterating && (VelocityMax > VelocityMaxThreshold);
+                if (Iterate)
+				{
+                    if (MaxVelocity <= MaxVelocityThreshold)
+					{
+                        Iterate = false;
+					}
+				}
             }
-            while (iterating);
+            while (Iterate);
+
+
+            // Ready.
+
+            this.BestPosition = BestPosition;
+
+            this.BestValue = BestValue;
+
+            this.Iterations = Iterations;
+
+            this.MaxVelocity = MaxVelocity;
         }
 
         #endregion
 
-        #region Value
+        #region Methods (Private)
 
-        public double ValueBest { get; private set; }
+        private double BestPositionOfNeighbors(Particle[] ParticleStore, int i)
+		{
+			var N = Neighbors;
 
-        public double ValueBestThreshold { get; set; } = double.NegativeInfinity;
+			var P = Particles;
 
-        #endregion
+			// LBEST.
 
-        #region Velocity
+			if (N < P)
+			{
+				var BestPosition = double.PositiveInfinity;
 
-        public double VelocityMax { get; private set; }
+				var BestValue = double.PositiveInfinity;
 
-        public double VelocityMaxDrop { get; set; } = 0.7;
+				for (var n = 1; n <= N; n++)
+				{
+					var j = (i + n) % P;
 
-        public double VelocityMaxStart { get; set; }
+					if (ParticleStore[j].BestValue < BestValue)
+					{
+						BestPosition = ParticleStore[j].BestPosition;
 
-        public double VelocityMaxThreshold { get; set; } = 0.001;
+						BestValue = ParticleStore[j].BestValue;
+					}
+				}
 
-        #endregion
+				return BestPosition;
+			}
 
-        #region Weight
+			// GBEST.
 
-        public double WeightCognitive { get; set; } = 2.0;
+			else
+			{
+				return BestPosition;
+			}
+		}
 
-        public double WeightInertial { get; set; } = 0.8;
+		#endregion
 
-        public double WeightSocial { get; set; } = 0.8;
+		#region Properties
 
-        #endregion
-    }
+		public double BestPosition { get; private set; }
+
+		public double BestValue { get; private set; }
+
+		public double BestValueThreshold { get; set; } = double.NegativeInfinity;
+
+        public double Cognitive { get; set; } = 2.0;
+
+        public double HistoryAverageDeviationThreshold { get; set; } = 1e-6;
+
+		public int HistorySize { get; set; } = 5;
+
+        public double Inertial { get; set; } = 0.8;
+
+        public int Iterations { get; private set; }
+
+		public int MaxIterations { get; set; } = 0;
+
+		public double MaxPosition { get; set; }
+
+		public double MaxVelocity { get; private set; }
+
+		public double MaxVelocityDrop { get; set; } = 0.7;
+
+		public double MaxVelocityStart { get; set; }
+
+		public double MaxVelocityThreshold { get; set; } = 1e-6;
+
+		public double MinPosition { get; set; }
+
+		public int Neighbors { get; set; } = 10;
+
+		public int Particles { get; set; } = 1000;
+
+		public Func<double, double> Objective { get; set; }
+
+		public Func<double> Rand { get; set; }
+
+		public double Social { get; set; } = 0.8;
+
+		#endregion
+
+		#region Types
+
+		private struct Particle
+		{
+			public double BestPosition;
+
+			public double BestValue;
+
+			public double Position;
+
+			public double Value;
+
+			public double Velocity;
+		}
+
+		#endregion
+	}
 }
