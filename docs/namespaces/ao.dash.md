@@ -1,6 +1,19 @@
 ---
 permalink: /namespaces/ao.dash/
 title: "Ao.Dash"
+gallery:
+  - url: /assets/images/ao-dash-1.png
+    image_path: /assets/images/ao-dash-1.png
+    alt: "Dashcam selection in WPF."
+    title: "Dashcam selection in WPF."
+  - url: /assets/images/ao-dash-2.png
+    image_path: /assets/images/ao-dash-2.png
+    alt: "Dashcam selection in WPF."
+    title: "Dashcam selection in WPF."
+  - url: /assets/images/ao-dash-3.png
+    image_path: /assets/images/ao-dash-3.png
+    alt: "Dashcam selection in WPF."
+    title: "Dashcam selection in WPF."
 ---
 
 # Ao.Dash
@@ -70,3 +83,36 @@ var D = DashcamManager.Dashcams.First();
 D.Frame += OnFrame;
 D.Start();
 ```
+
+## Dashcam controller
+
+The `DashcamController` class supports WPF applications. It can be used as the `DataContext` of a WPF user control.
+
+The user control can show a drop-down list of connected dashcams, in order to let the user select the current one.
+
+```xaml
+<ComboBox
+    ItemsSource="{Binding Path=Names, Mode=OneWay}" 
+    SelectedItem="{Binding Path=Name, Mode=TwoWay}" />
+```
+
+Just as easily the user control can show the selected dashcam's video.
+
+```xaml
+<Image Source="{Binding Path=Frame, Mode=OneWay}" />
+```
+
+Additionally, the user control has access to a variety of dashcam properties.
+
+```xaml
+<Label>The number of frames.</Label>
+<Label Content="{Binding Mode=OneWay, Path=ReceivedFrames }" />
+
+<Label>The maximum framerate.</Label>
+<Label Content="{Binding Mode=OneWay, Path=FrameRateMax }" />
+
+<Label>The frame size.</Label>
+<Label Content="{Binding Mode=OneWay, Path=FrameSize }" />
+```
+
+{% include gallery caption="Dashcam selection in WPF." %}
