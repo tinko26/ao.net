@@ -31,7 +31,7 @@ LifeCam Studio
 
 Upon initialization, the dashcam manager starts a management event watcher, that keeps the manager informed about devices being attached and detached. For each such event, the dashcam manager updates the dashcam list.
 
-Additionally, it informs about changes via its `DashcamConnected` and `DashcamDisconnected` events.
+Additionally, it informs about changes via its events.
 
 ```csharp
 void OnDashcamConnected(object sender, DashcamEventArgs e)
@@ -48,9 +48,10 @@ void OnDashcamDisconnected(object sender, DashcamEventArgs e)
 
 ```csharp
 DashcamManager.DashcamConnected += OnDashcamConnected;
-
 DashcamManager.DashcamDisconnected += OnDashcamDisconnected;
 ```
+
+## Dashcam
 
 The `Dashcam` class provides access to a dashcam's frames. Each new frame is broadcast via its `Frame` event. However, a dashcam must be started first.
 
@@ -58,7 +59,7 @@ The `Dashcam` class provides access to a dashcam's frames. Each new frame is bro
 void OnFrame(object sender, DashcamEventArgs e)
 {
     var F = e.Frame;
-
+    
     // ...
 }
 ```
@@ -67,7 +68,5 @@ void OnFrame(object sender, DashcamEventArgs e)
 var D = DashcamManager.Dashcams.First();
 
 D.Frame += OnFrame;
-
 D.Start();
 ```
-
