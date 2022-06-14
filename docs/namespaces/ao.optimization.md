@@ -24,12 +24,20 @@ $$ f(x, y) = (x^2+y-11)^2 + (x+y^2-7)^2 $$
 This needs to be set as the objective.
 
 ```csharp
-Func<Vector2, double> O = 
-    V =>
-    Math.Pow(V.X * V.X + V.Y - 11, 2) + 
-    Math.Pow(V.X + V.Y * V.Y - 7, 2);
+double Himmelblau(Vector2 v)
+{
+    var x = v.M1;
+    var y = v.M2;
 
-PSO.Objective = O;
+    var t1 = x * x + y - 11;
+    var t2 = x + y * y - 7;
+
+    return t1 * t1 + t2 * t2;
+}
+```
+
+```csharp
+PSO.Objective = Himmelblau;
 ```
 
 Additionally, ...
