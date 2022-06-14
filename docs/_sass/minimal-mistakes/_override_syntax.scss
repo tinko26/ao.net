@@ -1,0 +1,18 @@
+div.highlighter-rouge {
+  font-size: 1em;
+}
+.page__content {
+  :not(pre) > code {
+    padding-top: 0.1rem;
+    padding-bottom: 0.1rem;
+    padding-left: 0.1rem;
+    padding-right: 0.1rem;
+    font-size: 1em;
+
+    &::before,
+    &::after {
+      letter-spacing: 0em;
+      content: none;
+    }
+  }
+}
