@@ -10,8 +10,8 @@ subtitle                 :
 name                     : "Stefan Wagner"
 description              : 
 url                      : "https://tinko26.github.io"
-baseurl                  : "/test"
-repository               : "tinko26/test"
+baseurl                  : "/ao.net"
+repository               : "tinko26/ao.net"
 words_per_minute         : 200
 search                   : true
 search_full_content      : true
@@ -39,7 +39,7 @@ footer:
   links:
     - label: "GitHub"
       icon:  "fab fa-fw fa-github"
-      url:   "https://github.com/tinko26/test/"
+      url:   "https://github.com/tinko26/ao.net/"
 
 
 # Feed
