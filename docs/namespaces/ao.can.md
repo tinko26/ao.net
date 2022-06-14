@@ -7,7 +7,7 @@ title: "Ao.Can"
 
 The `Ao.Can` namespace contains some useful stuff for dealing with [CAN](https://en.wikipedia.org/wiki/CAN_bus) messages.
 
-I have been using this code in conjunction with a self-made CAN [sniffer](https://en.wikipedia.org/wiki/Packet_analyzer), in order to log all messages being sent on particular CAN bus, such as a vehicle's [powertrain](https://en.wikipedia.org/wiki/Drivetrain) bus.
+I have been using this code in conjunction with a self-made CAN sniffer, in order to log all messages being sent on particular CAN bus, such as a vehicle's powertrain bus.
 
 ## CAN message
 
