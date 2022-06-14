@@ -13,8 +13,8 @@ I have been using this code in conjunction with a self-made CAN [sniffer](https:
 
 The `CAN` struct carries all properties that a CAN message can possibly have. Note that depending on the message format (standard or extended) and message type (data or remote), some properties are irrelevant and need to be ignored.
 
-| Property | Notes |
-|----------|-------|
+| Property | |
+|----------|-|
 | `Data` | Each data message carries up to 8 bytes of  **data** or payload. Single bytes or bits can be get or set using the extension methods defined in the [Ao.Bits](ao.bits.md) namespace. The property is irrelevant for remote messages, since these do not carry data. |
 | `DLC` | The **data length code** indicates the number of data bytes in data messages. It is irrelevant in remote messages. |
 | `EID` | The **extension identifier** specifies the 18 least significant bits of the identifier of an extended message. It is irrelevant for standard messages. |
@@ -138,10 +138,6 @@ foreach (var x in E4)
 
 ```console
 ...
-FFFFFFFF201F2020
-FFFFFFFF20201212
-FFFFFFFF211E1212
-FFFFFFFF211E2020
 FFFFFFFF211F2020
 FFFFFFFF21211111
 FFFFFFFF23231515
@@ -156,7 +152,5 @@ FFFFFFFF3E3F2626
 FFFFFFFF40422727
 FFFFFFFF40442A2A
 FFFFFFFF41432929
-FFFFFFFF42442A2A
-FFFFFFFF42452929
 ...
 ```
