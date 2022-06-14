@@ -90,7 +90,7 @@ The `DashcamController` class supports WPF applications. It can be used as the `
 
 The user control can show a drop-down list of connected dashcams, in order to let the user select the current one.
 
-```xaml
+```xml
 <ComboBox
     ItemsSource="{Binding Path=Names, Mode=OneWay}" 
     SelectedItem="{Binding Path=Name, Mode=TwoWay}" />
@@ -98,13 +98,13 @@ The user control can show a drop-down list of connected dashcams, in order to le
 
 Just as easily the user control can show the selected dashcam's video.
 
-```xaml
+```xml
 <Image Source="{Binding Path=Frame, Mode=OneWay}" />
 ```
 
 Additionally, the user control has access to a variety of dashcam properties.
 
-```xaml
+```xml
 <Label>The number of frames.</Label>
 <Label Content="{Binding Mode=OneWay, Path=ReceivedFrames }" />
 
