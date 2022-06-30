@@ -1,6 +1,4 @@
 main:
-  - title: "About"
-    url: /about/
 
 namespaces:
   - children:
