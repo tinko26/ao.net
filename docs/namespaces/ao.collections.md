@@ -15,11 +15,30 @@ Therefore, the `Dequeu<T>` class is internally based on a linked list.
 
 ```csharp
 var Q = new Deque<int>();
+```
 
+### Push back
+
+```csharp
 Q.PushBack(1);
 Q.PushBack(2);
 Q.PushBack(3);
 
+foreach (var x in Q)
+{
+    Console.WriteLine(x);
+}
+```
+
+```console
+1
+2
+3
+```
+
+### Push front
+
+```csharp
 Q.PushFront(4);
 Q.PushFront(5);
 Q.PushFront(6);
@@ -39,10 +58,28 @@ foreach (var x in Q)
 3
 ```
 
+### Pop front
+
 ```csharp
 Q.PopFront();
 Q.PopFront();
 
+foreach (var x in Q)
+{
+    Console.WriteLine(x);
+}
+```
+
+```console
+4
+1
+2
+3
+```
+
+### Pop back
+
+```csharp
 Q.PopBack();
 
 foreach (var x in Q)
@@ -63,6 +100,8 @@ A [priority queue](https://en.wikipedia.org/wiki/Priority_queue) is a widely use
 
 The `PriorityQueue<T>`  class is implemented as a [**minimum** heap](https://en.wikipedia.org/wiki/Heap_(data_structure)) using a list for the items and a dictionary for the items' indexes.
 
+### Push
+
 ```csharp
 var Q = new PriorityQueue<int>();
 
@@ -80,6 +119,8 @@ Console.WriteLine(Q.Peek());
 1
 ```
 
+### Pop
+
 ```csharp
 Q.Pop();
 Q.Pop();
@@ -90,6 +131,8 @@ Console.WriteLine(Q.Peek());
 ```console
 3
 ```
+
+### Priorities
 
 In contrast to integers, other types' priorities are not so obvious. When default-constructed, a priority queue will use a default comparer for comparisons. 
 

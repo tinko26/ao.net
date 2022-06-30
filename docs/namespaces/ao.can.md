@@ -15,7 +15,7 @@ The `CAN` struct carries all properties that a CAN message can possibly have. No
 
 | Property | |
 |----------|-|
-| `Data` | Each data message carries up to 8 bytes of  **data** or payload. Single bytes or bits can be get or set using the extension methods defined in the [Ao.Bits](ao.bits.md) namespace. The property is irrelevant for remote messages, since these do not carry data. |
+| `Data` | Each data message carries up to 8 bytes of  **data** or payload. Single bytes or bits can be gotten or set using the extension methods defined in the [Ao.Bits](ao.bits.md) namespace. The property is irrelevant for remote messages, since these do not carry data. |
 | `DLC` | The **data length code** indicates the number of data bytes in data messages. It is irrelevant in remote messages. |
 | `EID` | The **extension identifier** specifies the 18 least significant bits of the identifier of an extended message. It is irrelevant for standard messages. |
 | `IDE` | The **identifier extension** specifies whether the message is a standard message (`false`) or an extended messages (`true`). |
@@ -44,16 +44,16 @@ void OnCAN(Time T, CAN C)
 
 Afterwards, the outline can be accessed via the object's properties.
 
-| Property | |
+| Property | Outline for all recorded ... |
 |----------|-|
-| `Extended.Data` | Outline for all recorded extended data messages. |
-| `Extended.Remote` | Outline for all recorded extended remote messages. |
-| `Standard.Data` | Outline for all recorded standard data messages. |
-| `Standard.Remote` | Outline for all recorded standard remote messages. |
+| `Extended.Data` | ... extended data messages. |
+| `Extended.Remote` | ... extended remote messages. |
+| `Standard.Data` | ... standard data messages. |
+| `Standard.Remote` | ... standard remote messages. |
 
 ### Example 1
 
-Print a list of all identifiers of extended data messages.
+Print a list of all 29-bit identifiers of extended data messages.
 
 ```csharp
 foreach (var i in Stat.Extended.Data.XID)
@@ -119,7 +119,7 @@ foreach (var i in T.Keys)
 
 ### Example 3
 
-Print a list of distinct data values of extended data message `18FEAD0B`.
+For the extended data message, whose 29-bit identifier is `18FEAD0B`, print a list of all distinct data values.
 
 ```csharp
 var E1 = Stat.Extended.Data.Data[0x18FEAD0B].Entries;

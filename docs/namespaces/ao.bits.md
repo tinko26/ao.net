@@ -5,13 +5,9 @@ title: "Ao.Bits"
 
 # Ao.Bits
 
-The `Ao.Bits` namespace contains a single static class with extension methods for integers.
+The `Ao.Bits` namespace contains a single static class with extension methods that get or set, respectively, bits of integer values.
 
-## Extension methods for integers
-
-The `Extensions` class contains methods that get or set bits of integer values, respectively.
-
-### Get bits
+## Get bits
 
 ```csharp
 var a = 0x12345678U;
@@ -34,7 +30,7 @@ Console.WriteLine("{0:X2}", a0);
 78
 ```
 
-### Set bits
+## Set bits
 
 ```csharp
 var a = 0U;
