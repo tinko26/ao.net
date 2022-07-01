@@ -88,7 +88,7 @@ Console.WriteLine("{0}°", Round.HalfUp(B.Degrees));
 333°
 ```
 
-The method returns an angle in $[0°, 360°)$, which can be mapped to a [compass direction](https://en.wikipedia.org/wiki/Cardinal_direction).
+The method returns an angle in $$[0°, 360°)$$, which can be mapped to a [compass direction](https://en.wikipedia.org/wiki/Cardinal_direction).
 
 | Bearing | Direction |
 |---------|-----------|
