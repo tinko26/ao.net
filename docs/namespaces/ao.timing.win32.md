@@ -80,9 +80,7 @@ void OnElapsed(object sender, TimerEventArgs e)
 var T = new MultimediaTimerOneShot(Timestamp);
 
 T.DelayMs = 500;
-
 T.Elapsed += OnElapsed;
-
 T.ResolutionMs = 1;
 
 T.Start(); 
@@ -96,9 +94,7 @@ The `MultimediaTimerPeriodic` class represents a timer, that fires periodically 
 var T = new MultimediaTimerPeriodic(Timestamp);
 
 T.DelayMs = 500;
-
 T.Elapsed += OnElapsed;
-
 T.ResolutionMs = 1;
 
 T.Start(); 

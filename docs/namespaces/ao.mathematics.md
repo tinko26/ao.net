@@ -34,9 +34,9 @@ The `Cylindrical` struct represents cylindrical coordinates, that are an extensi
 
 ## Matrices
 
-The `Ao.Mathematics` namespace contains a total of 25 structs representing row-major matrices of dimension $2\times 2$ through $6\times 6$, equipped with all the necessary operators. 
+The `Ao.Mathematics` namespace contains a total of 25 structs representing row-major matrices of dimension $$2\times 2$$ through $$6\times 6$$, equipped with all the necessary operators. 
 
-Additionally, all the square matrices have properties that are useful in geometric calculations. However, the implementation does not focus on speed. Calculating the inverse of a $6\times 6$ really takes some time.
+Additionally, all the square matrices have properties that are useful in geometric calculations. However, the implementation does not focus on speed. Calculating the inverse of a $$6\times 6$$ really takes some time.
 
 ```csharp
 var A = new Matrix2x2(1, -2, -3, 1);
