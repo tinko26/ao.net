@@ -7,7 +7,7 @@ title: "Ao.Serial"
 
 The `Ao.Serial` namespace contains classes for managing serial ports attached to a Windows computer. I have been using them in several WPF applications in order to let the user select one. This is especially useful, if such an app is to run on different laptops with a different number of serial ports and different names for each one.
 
-## Port manager
+## Port Manager
 
 The `PortManager` class is a static class that provides a list of the names of all serial ports currently connected to the computer.
 
@@ -56,7 +56,6 @@ Additionally, it recognizes, when the port is connected or disconnected, respect
 var P = new Port
 {
     Name = "COM3",
-
     Baud = 115200
 };
 
