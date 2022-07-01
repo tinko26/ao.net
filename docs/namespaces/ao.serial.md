@@ -48,7 +48,7 @@ PortManager.PortDisconnected += OnPortDisconnected;
 
 The `Port` class provides all the means for receiving and sending data through a serial port. Internally, it manages a `System.IO.Ports.SerialPort` object and provides access to its methods in a thread-safe way. 
 
-Additionally, it recognizes, when the port is connected or disconnected, respectively, and safely closes or reopens the port. Essentially, this helps to prevent application crashes. This is especially useful in field tests, where people occasionally stumble upon cables. :P
+Additionally, it recognizes, when the port is connected or disconnected, respectively, and safely closes or reopens the port. Essentially, this helps to prevent application crashes. This is especially useful in field tests, where people occasionally stumble upon cables. :stuck_out_tongue_winking_eye:
 
 ### Start
 
