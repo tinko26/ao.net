@@ -5,9 +5,11 @@ title: "Ao.Logging"
 
 # Ao.Logging
 
-The `Ao.Logging` namespace contains classes that support the logging of data into text files. I have been using them in field test applications mostly for debugging purposes, logging status and diagnostic information from vehicle components.
+The `Ao.Logging` namespace contains classes that support the logging of data into text files. I have been using them in field test applications mostly for debugging purposes and logging status and diagnostic information from vehicle components.
 
-The `Session` class represents a folder containing a set of log files. The `SessionRoot` class represents a folder containing such sessions. It also provides a means to create new sessions.
+## Session
+
+The `Session` class represents a folder containing a set of log files. The `SessionRoot` class represents a folder containing a set of sessions. It also provides a means to create new sessions.
 
 ```csharp
 var SR = new SessionRoot("C:\\logs");
@@ -21,7 +23,7 @@ Console.WriteLine(S.Path);
 C:\logs\first-session
 ```
 
-Additionally, there is a parameter-less overload of the `CreateSession()` method, that creates a folder name from the current time stamp.
+Additionally, there is a parameter-less overload of the `CreateSession()` method, that creates a folder name from the current time stamp. This is useful in order to enable the user to create several sessions subsequently in a field test, without the need to name each one explicitly.
 
 ```csharp
 var S = SR.CreateSession();
@@ -32,6 +34,8 @@ Console.WriteLine(S.Path);
 ```console
 C:\logs\2022-07-01-14-20-22
 ```
+
+## Log
 
 The `Log` class facilitates the logging and manages log files. Especially, it contains a simple mechanism to reduce the actual number of file accesses, as these can be a bottleneck for an application. The class's constructor requires a path to a folder where to store all the log files, for which the `Session` class can be used.
 

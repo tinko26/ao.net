@@ -25,14 +25,14 @@ E = 18 MJ
 Additionally, some of the structs define multiplication and division operators to transform them into each other.
 
 ```csharp
-var V = new Velocity { KilometersPerHour = 50 };
-var A = new Acceleration { MetersPerSquareSecond = 1.5 };
+var v = new Velocity { KilometersPerHour = 50 };
+var a = new Acceleration { MetersPerSquareSecond = 1.5 };
 
-var T = V / A;
+var t = v / a;
 
-Console.WriteLine("Accelerating from 0 to 50 km/h at 1.5 m/s² takes {0} s.", Round.HalfUp(T.Seconds));
+Console.WriteLine("{0} s", Round.HalfUp(t.Seconds));
 ```
 
 ```console
-Accelerating from 0 to 50 km/h at 1.5 m/s² takes 9 s.
+9 s
 ```

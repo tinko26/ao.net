@@ -7,7 +7,7 @@ title: "Ao.Collections"
 
 The `Ao.Collections` namespace contains two generic collection classes for double-ended queues and priority queues, respectively.
 
-## Double-ended queues
+## Double-Ended Queues
 
 Just like the `deque` type in the C++ Standard Template Library, the `Deque<T>` class implements a [double-ended queue](https://en.wikipedia.org/wiki/Double-ended_queue) that supports constant-time insertion and removal at either end. 
 
@@ -17,7 +17,7 @@ Therefore, the `Dequeu<T>` class is internally based on a linked list.
 var Q = new Deque<int>();
 ```
 
-### Push back
+### Push Back
 
 ```csharp
 Q.PushBack(1);
@@ -36,7 +36,7 @@ foreach (var x in Q)
 3
 ```
 
-### Push front
+### Push Front
 
 ```csharp
 Q.PushFront(4);
@@ -58,7 +58,7 @@ foreach (var x in Q)
 3
 ```
 
-### Pop front
+### Pop Front
 
 ```csharp
 Q.PopFront();
@@ -77,7 +77,7 @@ foreach (var x in Q)
 3
 ```
 
-### Pop back
+### Pop Back
 
 ```csharp
 Q.PopBack();
@@ -94,7 +94,7 @@ foreach (var x in Q)
 2
 ```
 
-## Priority queue
+## Priority Queue
 
 A [priority queue](https://en.wikipedia.org/wiki/Priority_queue) is a widely used data structure, e.g. when dealing with a stream of incoming messages in such a way, that important messages are processed first.
 

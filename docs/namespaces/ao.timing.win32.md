@@ -5,11 +5,13 @@ title: "Ao.Timing.Win32"
 
 # Ao.Timing.Win32
 
-The `Ao.Timing.Win32` namespace is implemented in C++/CLI and provides access to native Win32 API timing features for .NET applications. Thereby, it utilizes the `Time` struct defined in the [`Ao.Measurements`](ao.measurements.md) namespace.
+The `Ao.Timing.Win32` namespace encapsulates timing features of the native Win32 API. In contrast to the other namespaces, its members are implemented in C++/CLI. 
+
+Just like the [`Ao.Timing`](ao.timing.md) namespace it utilizes the `Time` struct defined in the [`Ao.Measurements`](ao.measurements.md) namespace.
 
 ## Tick Counter
 
-The `GetTickCount64()` function returns the number of milliseconds that have elapsed since the system was started. The `Tick` class provides access to this value.
+The native `GetTickCount64()` function returns the number of milliseconds that have elapsed since the system was started. The `Tick` class provides access to this value.
 
 ```csharp
 Console.WriteLine(Tick.Now.Seconds);
@@ -23,7 +25,7 @@ The resolution of this clock is limited to the resolution of the system timer, w
 
 ## Performance Counter
 
-The `QueryPerformanceCounter()` function returns a similar value with a much higher resolution, usually less than a microsecond. The `Performance` class provides access to this value.
+The native `QueryPerformanceCounter()` function returns a similar value with a much higher resolution, usually less than a microsecond. The `Performance` class provides access to this value.
 
 ```csharp
 Console.WriteLine(Performance.Count.Time.Seconds);
@@ -40,37 +42,39 @@ Console.WriteLine(Performance.Count.Time.Seconds);
 The class also provides the actual update frequency.
 
 ```csharp
-Console.WriteLine(Performance.Frequency.Megahertz);
+Console.WriteLine("{0} MHz", Performance.Frequency.Megahertz);
 ```
 
 ```console
-10
+10 MHz
 ```
 
 ## Multimedia Timer
 
-The native multimedia timer services are an alternative to the various timer classes of the .NET framework library, for they can fire events at higher resolutions. The static `MultimediaTimer` class provides constants for the range of possible resolutions.
+The native multimedia timer services are an alternative to the various timer classes of the .NET framework library, for they can fire events at higher resolutions. The static `MultimediaTimer` class provide a constant for the minimum possible resolution.
 
 ```csharp
-Console.WriteLine(MultimediaTimer.MinResolutionMs);
-Console.WriteLine(MultimediaTimer.MaxResolutionMs);
+Console.WriteLine("{0} ms", MultimediaTimer.MinResolutionMs);
 ```
 
 ```console
-1
-1000000
+1 ms
 ```
 
-Just like the classes of the [`Ao.Timing`](ao.timing.md) namespace, the multimedia timer classes are based on a custom timestamp function, that returns a `Time` value defined in the [`Ao.Measurements`](ao.measurements.md) namespace.
+As mentioned above, the multimedia timer classes are based on a custom timestamp. The tick counter or the performance counter can be used for this purpose.
 
 ```csharp
+Time Timestamp() => Tick.Now;
+
 Time Timestamp() => Performance.Count.Time;
 ```
+
+### One-Shot Multimedia Timer
 
 The `MultimediaTimerOneShot` class represents a timer, that fires only once after the specified delay and then stops automatically.
 
 ```csharp
-void OnElapsed(object sender, TimerEventArgs e)
+Time OnElapsed(object sender, TimerEventArgs e)
 {
     Console.WriteLine(e.Time.Seconds);
 }
@@ -86,9 +90,11 @@ T.ResolutionMs = 1;
 T.Start(); 
 ```
 
-The `Resolution` property specifies the resolution, however, this is a global value. Windows will always use the minimum resolution currently requested, so starting another timer with a higher resolution will have that running at 1 ms, too.
+The `Resolution` property specifies the resolution, however, this is a global value. Windows will always use the minimum resolution currently requested, so starting another timer with a higher resolution will result in that one running at 1 ms resolution, too.
 
-The `MultimediaTimerPeriodic` class represents a timer, that fires periodically every time the specified delay has expired. It must be stopped manually.
+### Periodic Multimedia Timer
+
+The `MultimediaTimerPeriodic` class represents a timer, that fires periodically every time the specified delay has expired. It needs to be stopped manually.
 
 ```csharp
 var T = new MultimediaTimerPeriodic(Timestamp);

@@ -7,6 +7,8 @@ title: "Ao.Timing"
 
 The `Ao.Timing` namespace contains a stop watch and a timer class, respectively. Both classes are based on a custom timestamp function, that returns a `Time` value defined in the [`Ao.Measurements`](ao.measurements.md) namespace.
 
+## Timestamp
+
 ```csharp
 private static readonly DateTime Beginning = DateTime.Now;
 
@@ -25,9 +27,9 @@ private static Time Timestamp()
 }
 ```
 
-The above custom timestamp is based on `DateTime.Now`, that is, the default Windows timestamp, that is updated every 15,6 milliseconds. The [`Ao.Timing.Win32`](ao.timing.win32.md) namespace provides options for custom timestamps with a higher resolution.
+The above custom timestamp is based on `DateTime.Now`, that is, the default Windows timestamp, that is updated every 15.6 milliseconds. The [`Ao.Timing.Win32`](ao.timing.win32.md) namespace provides options for custom timestamps with a higher resolution.
 
-## Stop watch
+## Stop Watch
 
 The `StopWatch` class is similar to the `System.Diagnostics.Stopwatch` class. 
 
@@ -87,8 +89,10 @@ void OnElapsed(object sender, TimerEventArgs e)
 var T = new Timer(Timestamp);
 
 T.Elapsed += OnElapsed;
-
-T.Period = new Time { Milliseconds = 500 };
+T.Period = new Time 
+{ 
+    Milliseconds = 500
+};
 
 T.Start();
 

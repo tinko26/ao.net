@@ -26,7 +26,7 @@ The code requires a reference to the following [AForge](https://en.wikipedia.org
 - AForge.Video
 - AForge.Video.DirectShow
 
-## Dashcam manager
+## Dashcam Manager
 
 The `DashcamManager` class is a static class that provides a list of dashcams currently attached to the computer.
 
@@ -84,7 +84,7 @@ D.Frame += OnFrame;
 D.Start();
 ```
 
-## Dashcam controller
+## Dashcam Controller
 
 The `DashcamController` class supports WPF applications. It can be used as the `DataContext` of a WPF user control.
 

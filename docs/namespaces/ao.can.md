@@ -9,7 +9,7 @@ The `Ao.Can` namespace contains some useful stuff for dealing with [CAN](https:/
 
 I have been using this code in conjunction with a self-made CAN sniffer, in order to log all messages being sent on particular CAN bus, such as a vehicle's powertrain bus.
 
-## CAN message
+## CAN Message
 
 The `CAN` struct carries all properties that a CAN message can possibly have. Note that depending on the message format (standard or extended) and message type (data or remote), some properties are irrelevant and need to be ignored.
 
@@ -23,7 +23,7 @@ The `CAN` struct carries all properties that a CAN message can possibly have. No
 | `SID` | The **standard identifier** is the identifier of a standard message. In case of an extended message, this property specifies the 11 most significant bits of its identifier. |
 | `XID` | This property gets or sets the entire 29-bit identifier and is thus relevant only for extended messages. |
 
-## CAN statistics
+## CAN Message Statistics
 
 When logging traffic on a CAN bus in order to track down software bugs or general misbehavior of embedded controllers in a vehicle, it is quite useful to have an outline of all types of messages being sent, as well as their frequencies.
 
