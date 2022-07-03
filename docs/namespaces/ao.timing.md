@@ -64,14 +64,19 @@ for (var i = 0; i < 5; i++)
 }
 
 S.Stop();
+
+Console.WriteLine();
+Console.WriteLine(S.Elapsed.Seconds);
 ```
 
 ```console
-0.2164091
-0.2030744
-0.2129322
-0.2025577
-0.2145044
+0,2077184
+0,2121635
+0,2138978
+0,2058646
+0,2030795
+
+1,0427238
 ```
 
 ## Timer

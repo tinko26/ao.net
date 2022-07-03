@@ -51,7 +51,7 @@ Console.WriteLine("{0} MHz", Performance.Frequency.Megahertz);
 
 ## Multimedia Timer
 
-The native multimedia timer services are an alternative to the various timer classes of the .NET framework library, for they can fire events at higher resolutions. The static `MultimediaTimer` class provide a constant for the minimum possible resolution.
+The native multimedia timer services are an alternative to the various timer classes of the .NET framework library, for they can fire events at higher resolutions. The static `MultimediaTimer` class provides a constant for the minimum possible resolution.
 
 ```csharp
 Console.WriteLine("{0} ms", MultimediaTimer.MinResolutionMs);
@@ -65,7 +65,9 @@ As mentioned above, the multimedia timer classes are based on a custom timestamp
 
 ```csharp
 Time Timestamp() => Tick.Now;
+```
 
+```csharp
 Time Timestamp() => Performance.Count.Time;
 ```
 

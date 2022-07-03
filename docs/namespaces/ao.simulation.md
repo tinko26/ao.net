@@ -70,7 +70,7 @@ The generic `EventQueue<T>` class is a priority queue for events, that internall
 var Q = new EventQueue<SensorEvent>(x => x.Time);
 ```
 
-Thereby, it is not necessary for the event type `T` to carry around the timestamp by itself. The specified delegate can get an event from anywhere else.
+Thereby, it is not necessary for the event type `T` to carry around the timestamp by itself. The specified delegate can get an event from elsewhere.
 
 ```csharp
 public static class TimestampProvider

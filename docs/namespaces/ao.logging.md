@@ -23,7 +23,7 @@ Console.WriteLine(S.Path);
 C:\logs\first-session
 ```
 
-Additionally, there is a parameter-less overload of the `CreateSession()` method, that creates a folder name from the current time stamp. This is useful in order to enable the user to create several sessions subsequently in a field test, without the need to name each one explicitly.
+Additionally, there is a parameter-less overload of the `CreateSession()` method, that creates a folder name from the current timestamp. This is useful in order to enable the user to create several sessions subsequently in a field test, without the need to name each one explicitly.
 
 ```csharp
 var S = SR.CreateSession();
