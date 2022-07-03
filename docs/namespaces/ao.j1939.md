@@ -65,19 +65,19 @@ The two data page bits subdivide the set of all possible PGN into four subsets o
 
 The PF field indicates whether a message is standard or proprietary. 
 
-| Definition  |                           |
-|-------------|---------------------------|
-| Standard    | `0x00 <= PF <= 0xEE \|\|` |
-|             | `0xF0 <= PF <= 0xFE`      |
-| Proprietary | `0xEF == PF \|\|`         |
-|             | `0xFF == PF`              |
+| PF                   | Definition  |
+|----------------------|-------------|
+| `0x00 <= PF <= 0xEE` | Standard    |
+| `0xF0 <= PF <= 0xFE` |             |
+| `0xEF == PF`         | Proprietary |
+| `0xFF == PF`         |             |
 
 Additionally, the PF field indicates whether a message is broadcast to all nodes or unicast to a specific node.
 
-| Communication Mode |                      |
-|--------------------|----------------------|
-| Unicast            | `0x00 <= PF <= 0xEF` |
-| Broadcast          | `0xF0 <= PF <= 0xFF` |
+| PF                   | Communication Mode |
+|----------------------|--------------------|
+| `0x00 <= PF <= 0xEF` | Unicast            |
+| `0xF0 <= PF <= 0xFF` | Broadcast          |
 
 In case of a broadcast message, the PS field simply extends the PF field, which yields 4096 instead of 16 possible PGN. In case of a unicast message, the PS field contains the destination address.
 
