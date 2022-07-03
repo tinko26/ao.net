@@ -21,16 +21,16 @@ Console.WriteLine(Tick.Now.Seconds);
 345343.453
 ```
 
-The resolution of this clock is limited to the resolution of the system timer, which defaults to 15,6 milliseconds. 
+The resolution of this clock is limited to the resolution of the system timer, which defaults to 15.6 milliseconds. 
 
 ## Performance Counter
 
 The native `QueryPerformanceCounter()` function returns a similar value with a much higher resolution, usually less than a microsecond. The `Performance` class provides access to this value.
 
 ```csharp
-Console.WriteLine(Performance.Count.Time.Seconds);
-Console.WriteLine(Performance.Count.Time.Seconds);
-Console.WriteLine(Performance.Count.Time.Seconds);
+Console.WriteLine(Performance.Now.Seconds);
+Console.WriteLine(Performance.Now.Seconds);
+Console.WriteLine(Performance.Now.Seconds);
 ```
 
 ```console
@@ -68,7 +68,7 @@ Time Timestamp() => Tick.Now;
 ```
 
 ```csharp
-Time Timestamp() => Performance.Count.Time;
+Time Timestamp() => Performance.Now;
 ```
 
 ### One-Shot Multimedia Timer

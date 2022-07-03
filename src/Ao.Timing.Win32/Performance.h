@@ -70,6 +70,14 @@ namespace Ao
                     }
                 }
 
+                static property Ao::Measurements::Time Now
+                {
+                    Ao::Measurements::Time get()
+                    {
+                        return Count.Time;
+                    }
+                }
+
             };
         }
     }
