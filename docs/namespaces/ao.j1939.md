@@ -15,11 +15,11 @@ Actually, the standard defines a huge number of different messages. Unfortunatel
 
 J1939 messages are being exchanged between nodes on the CAN bus. From a hardware point of view, a node is a microcontroller or another kind of electronic control unit (ECU) embedded in a vehicle component, such as the engine. From a software point of view, a node is an application performing some specific task, such as engine control.
 
-However, each node is assigned an address, that is a unique 8-bit identifier. Thereby, addresses 254 and 255 are reserved for special cases and cannot be assigned to a node. The static `Address` class contains symbolic constants for these values.
+However, each node is assigned an address, that is a unique 8-bit identifier. Thereby, addresses `0xFE` and `0xFF` are reserved for special cases and cannot be assigned to a node. The static `Address` class contains symbolic constants for these values.
 
 ```csharp
 Console.WriteLine("{0:X2}", Address.Null);
-Console.WriteLine("{0:X2}", Address.Broadcast);
+Console.WriteLine("{0:X2}", Address.Global);
 ```
 
 ```console
@@ -27,7 +27,7 @@ FE
 FF
 ```
 
-## Message
+## Parameter Group
 
 The payload of a message is specified by a parameter group (PG). Every parameter group is assigned an acronym and a unique identifier, the parameter group number (PGN), and consists of a set of suspect parameters (SP). Once again, every suspect parameter is assigned a unique identifier, the suspect parameter number (SPN).
 
@@ -44,9 +44,9 @@ For example, there is a parameter group for the current time and date. Its acron
 | Local minute offset | 1601 | 1 byte |
 | Local hour offset   | 1602 | 1 byte |
 
-Consequently, the payload has a total size of 8 bytes. Therefore, a *TD* message can be sent in a single CAN message. This holds good for most parameter groups. 
+Consequently, the *TD* parameter group has a total size of 8 bytes. Therefore, a *TD* message can be sent in a single CAN message. This holds good for most parameter groups. 
 
-However, there are a couple of parameter groups whose payload is greater than 8 bytes. Such messages must be sent in multiple CAN messages subsequently, packed in the payload of two dedicated parameter groups called *TP.CM* and *TP.DT*.
+However, there are a couple of parameter groups whose size is greater than 8 bytes. The respective messages must be sent in multiple CAN messages subsequently, packed in the payload of two dedicated messages called *TP.CM* and *TP.DT*.
 
 Besides the payload, every message that is sent contains the PGN, a source address identifying the sender, and a 3-bit priority ranging from 0 (highest) through 7 (lowest).
 
@@ -81,7 +81,7 @@ Additionally, the PF field indicates whether a message is broadcast to all nodes
 
 In case of a broadcast message, the PS field simply extends the PF field, which yields 4096 instead of 16 possible PGN. In case of a unicast message, the PS field contains the destination address.
 
-Using the `PGN` struct, we can inspect the fields of the PGN of the parameter group *TD*.
+Using the `PGN` struct, we can inspect the fields of the PGN of parameter group *TD*.
 
 ```csharp
 var x = new PGN 
@@ -105,8 +105,8 @@ E6
 Accordingly, the *TD* message is defined in the standard and broadcast to all nodes.
 
 ```csharp
-Console.WriteLine(x.IsBroadcast);
 Console.WriteLine(x.IsStandard);
+Console.WriteLine(x.IsBroadcast);
 ```
 
 ```console
@@ -114,7 +114,7 @@ True
 True
 ```
 
-## Parameter Group
+## PG
 
 The `PG` class is an abstract class that can be used as a base class for classes representing specific parameter groups. It contains properties for getting and setting, respectively, the payload, the PGN, the priority, and the source address.
 
@@ -181,15 +181,17 @@ Console.WriteLine(T.Millisecond);
 
 ## RQST
 
-The `RQST` class represents the *RQST* parameter group, that contains a request for a specific parameter group. It is a standard unicast message. A node can send such a request to another node. For example, the following creates a request for the node with address `0x01` to send a *TD* message.
+The `RQST` class represents the *RQST* parameter group, that contains a request for a specific parameter group. It is a standard unicast message. A node can send such a request to another node. For example, the following creates a request for the node with address `0x17` to send a *TD* message.
 
 ```csharp
-var R = new RQST();
-
-R.DestinationAddress = 0x01;
-R.RequestedPGN = new PGN 
+var R = new RQST
 {
-    Value = 65254 
+    DestinationAddress = 0x17,
+
+    RequestedPGN = new PGN
+    {
+        Value = 65254
+    }
 };
 ```
 
@@ -204,14 +206,17 @@ R.DestinationAddress = Address.Global;
 The `ACKM` class represents the *ACKM* parameter group, that contains an acknowledgement. A node is expected to send it, after it has received a request or another command.
 
 ```csharp
-var A = new ACKM();
-
-A.Address = 0x01;
-A.RequestedPGN = new PGN 
+var A = new ACKM
 {
-    Value = 65254 
+    Address = 0x17,
+
+    RequestedPGN = new PGN
+    {
+        Value = 65254
+    },
+
+    Result = ACKMResult.Positive
 };
-A.Result = ACKMResult.Positive;
 ```
 
 ## NAME
@@ -227,14 +232,17 @@ That identifier is called a NAME. It is a 64-bit number that can be subdivided i
 The `AC` class represents the *AC* parameter group. It contains a NAME as its only suspect parameter and can be sent by a node to tell the other nodes it has claimed a specific address.
 
 ```csharp
-var A = new AC();
-
-A.NAME = new NAME
+var A = new AC
 {
-    Value = 0x0123456789ABCDEFUL
+    DestinationAddress = Address.Global,
+
+    SourceAddress = 0x35,
+
+    NAME = new NAME
+    {
+        Value = 0xDEADBEEFDEADBEEFUL
+    }
 };
-A.DestinationAddress = Address.Global;
-A.SourceAddress = 0x07;
 ```
 
 In a common setup, every node sends an *AC* message on start-up, claiming its preferred address. If there are two nodes claiming the same address, the node with the lesser NAME wins the claimed address. The losing node could then try to claim another address, if it is capable of doing so. Otherwise, it must send the *AC* message again, but with a special source address, indicating to the other nodes, that it cannot claim an address.
@@ -245,22 +253,27 @@ A.SourceAddress = Address.Null;
 
 ## CA
 
-If a node cannot claim an address itself, it can be commanded an address by another node using a *CA* message.
+If a node cannot claim an address itself, it can be commanded an address by another node subsequently with a *CA* message.
 
 ```csharp
-var C = new CA();
+var C = new CA
+{
+    Address = 0x8B,
 
-C.NAME = 0x0123456789ABCDEFUL;
-C.Address = 0x8B;
+    NAME = new NAME
+    {
+        Value = 0xDEADBEEFDEADBEEFUL
+    }
+};
 ```
 
 ## TP.CM
 
 The *CA* message is an example of a so-called multi-packet message, whose payload exceeds 8 bytes. Therefore, it cannot be sent in a single CAN message. The standard specifies a means to send such messages packed in a sequence of CAN messages.
 
-The *TP.CM* message is to announce such a transfer in the case of a broadcast message and manage the control flow in case of a unicast message.
+The *TP.CM* message is to announce such a transfer in the case of a broadcast message and to manage the control flow in case of a unicast message.
 
-In order to send a *CA* message, the sender must start with a request-to-send message.
+In order to send a multi-packet message, the sender must start with a request-to-send message.
 
 ```csharp
 var C1 = new TPCM
@@ -333,27 +346,31 @@ var C4 = new TPCM
 The actual payload is transferred using a sequence of *TP.DT* messages.
 
 ```csharp
-var D1 = new TPDT();
+var D1 = new TPDT
+{
+    SequenceNumber = 1,
 
-D1.SequenceNumber = 1;
-D1.PacketizedData0 = C.Data[0];
-D1.PacketizedData1 = C.Data[1];
-D1.PacketizedData2 = C.Data[2];
-D1.PacketizedData3 = C.Data[3];
-D1.PacketizedData4 = C.Data[4];
-D1.PacketizedData5 = C.Data[5];
-D1.PacketizedData6 = C.Data[6];
+    PacketizedData0 = C.Data[0],
+    PacketizedData1 = C.Data[1],
+    PacketizedData2 = C.Data[2],
+    PacketizedData3 = C.Data[3],
+    PacketizedData4 = C.Data[4],
+    PacketizedData5 = C.Data[5],
+    PacketizedData6 = C.Data[6]
+};
 
-var D2 = new TPDT();
+var D2 = new TPDT
+{
+    SequenceNumber = 2,
 
-D2.SequenceNumber = 2;
-D2.PacketizedData0 = C.Data[7];
-D2.PacketizedData1 = C.Data[8];
-D2.PacketizedData2 = 0xFF;
-D2.PacketizedData3 = 0xFF;
-D2.PacketizedData4 = 0xFF;
-D2.PacketizedData5 = 0xFF;
-D2.PacketizedData6 = 0xFF;
+    PacketizedData0 = C.Data[7],
+    PacketizedData1 = C.Data[8],
+    PacketizedData2 = 0xFF,
+    PacketizedData3 = 0xFF,
+    PacketizedData4 = 0xFF,
+    PacketizedData5 = 0xFF,
+    PacketizedData6 = 0xFF
+};
 ```
 
 ## Protocol Data Unit
@@ -361,7 +378,7 @@ D2.PacketizedData6 = 0xFF;
 Using the *TP.CM* and *TP.DT* messages, multi-packet messages end up being sent in messages of no more than 8 bytes of payload. Such messages can be mapped to CAN messages directly. The `PDU` struct helps accomplishing this task.
 
 ```csharp
-var M = new TD
+var T = new TD
 {
     DateTime = DateTime.Now,
     Kind = TDKind.Local,
@@ -371,17 +388,29 @@ var M = new TD
 
 var P = new PDU
 {
-    CANData = BitConverter.ToUInt64(M.Data, 0),
-    PGN = M.PGN,
-    Priority = M.Priority,
-    SourceAddress = M.SourceAddress
+    CANData = BitConverter.ToUInt64(T.Data, 0),
+    PGN = T.PGN,
+    Priority = T.Priority,
+    SourceAddress = T.SourceAddress
 };
 
 var C = P.CAN;
 
-Console.WriteLine("{0:X8}", C.XID);
+Console.WriteLine("Data = {0:X16}", C.Data);
+Console.WriteLine("DLC  = {0}",     C.DLC);
+Console.WriteLine("EID  = {0:X5}",  C.EID);
+Console.WriteLine("IDE  = {0}",     C.IDE ? 1 : 0);
+Console.WriteLine("RTR  = {0}",     C.RTR ? 1 : 0);
+Console.WriteLine("SID  = {0:X3}",  C.SID);
+Console.WriteLine("XID  = {0:X8}",  C.XID);
 ```
 
 ```console
-18FEE673
+Data = FA002510070D2212
+DLC  = 8
+EID  = 2E673
+IDE  = 1
+RTR  = 0
+SID  = 63F
+XID  = 18FEE673
 ```
