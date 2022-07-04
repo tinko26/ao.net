@@ -223,7 +223,7 @@ var A = new ACKM
 
 Nodes within a network must have an individual address. On start-up, a node usually assigns itself a so-called preferred address, based on the primary function of the node. For example, in a passenger car, the primary engine uses address `0x00` and the primary shift console uses address `0x05`. 
 
-In many cases this is sufficient. However, it is still possible, that two nodes share the same address. The standard provides ways to resolve such a conflict. In order for this work, every node must also be equipped with a second, globally unique identifier.
+In many cases this is sufficient. However, it is still possible, that two nodes share the same address. The standard provides ways to resolve such a conflict. In order for this to work, every node must also be equipped with a second, globally unique identifier.
 
 That identifier is called a NAME. It is a 64-bit number that can be subdivided into several fields, that provide information about the manufacturer and the primary function of a node.
 
