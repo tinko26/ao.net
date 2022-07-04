@@ -9,7 +9,7 @@ The `Ao.Optimization` namespace contains particle swarm optimizers for functions
 
 ## Optimization
 
-The term optimization refers to finding the minimum of a function. In case of a quadratic function, this is straightforward.
+The term [optimization](https://en.wikipedia.org/wiki/Mathematical_optimization) refers to finding the minimum of a function. In case of a quadratic function, this is straightforward.
 
 $$ y = 2x^2 - 5x + 3 $$
 
@@ -27,7 +27,7 @@ In an overhead power line, cables are suspended from towers. Especially in summe
 
 $$ y = a \cosh(\frac{x}{a}) $$
 
-The parameter $$a$$ affects the shape of the catenary. Let's suppose, that we want to find $$a$$ for a cable that is supsended from two towers 100 meters apart, that bends down exactly 1 meter.
+The parameter $$a$$ affects the shape of the catenary. Let's suppose, that we want to find $$a$$ for a cable that is suspended from two towers 100 meters apart, that bends down exactly 1 meter.
 
 First, we need to calculate the value of the curve point at $$x=50$$.
 
@@ -75,7 +75,7 @@ double Objective(double a)
 ```csharp
 var PSO = new PSO1
 {
-    Objective = Objective;
+    Objective = Objective
 };
 ```
 
@@ -114,13 +114,11 @@ a    = 1250.16663110818
 f(a) = 1.34150468511507E-11
 ```
 
-The best value clearly shows, that we have found quite a good solution. Hence, we can represent the cable suspended from two towers 100 meters apart and bending downwards 1 meter with the following catenary.
+The best value clearly shows, that we have found quite a good solution. Hence, we can represent a cable suspended from two towers 100 meters apart and bending downwards 1 meter with the following catenary.
 
 $$ y = 1250.17 \cdot \cosh(\frac{x}{1250.17}) $$
 
-The `PSO1` class provides a few configuration options that can affect both the end result and the computation speed. 
-
-First of all, as the PSO is an iterative approach, we can limit the number of iterations. By default, there is no limit.
+The `PSO1` class provides a few configuration options that can affect both the end result and the computation speed. First of all, as the PSO is an iterative approach, we can limit the number of iterations. By default, there is no limit.
 
 ```csharp
 PSO.MaxIterations = 1000;
