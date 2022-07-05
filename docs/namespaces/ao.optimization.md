@@ -27,7 +27,7 @@ In an overhead power line, cables are suspended from towers. Especially in summe
 
 $$ y = a \cosh(\frac{x}{a}) $$
 
-The parameter $$a$$ affects the shape of the catenary. Let's suppose, that we want to find $$a$$ for a cable that is suspended from two towers 100 meters apart, that bends down exactly 1 meter.
+The parameter $$a$$ affects the shape of the catenary. Let's suppose, that we want to find $$a$$ for a cable that is suspended from two towers 100 meters apart, that bows down exactly 1 meter.
 
 First, we need to calculate the value of the curve point at $$x=50$$.
 
@@ -114,7 +114,7 @@ a    = 1250.16663110818
 f(a) = 1.34150468511507E-11
 ```
 
-The best value clearly shows, that we have found quite a good solution. Hence, we can represent a cable suspended from two towers 100 meters apart and bending downwards 1 meter with the following catenary.
+The best value clearly shows, that we have found quite a good solution. Hence, we can represent a cable suspended from two towers 100 meters apart and bowing downwards 1 meter with the following catenary.
 
 $$ y = 1250.17 \cdot \cosh(\frac{x}{1250.17}) $$
 
