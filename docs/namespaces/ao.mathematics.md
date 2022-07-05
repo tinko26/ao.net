@@ -193,6 +193,7 @@ var B = new Matrix2x2(2, -1, -1, -3);
 
 var C = A * B.Transposed;
 
+Console.WriteLine("C = ");
 Console.Write("({0,2},", C.M11);
 Console.Write(" {0,2},", C.M12);
 Console.WriteLine();
@@ -206,6 +207,7 @@ Console.WriteLine("tr(C)  = {0}", C.Trace);
 ```
 
 ```console
+C = 
 ( 4,  5,
  -7,  0)
 
@@ -213,7 +215,7 @@ det(C) = 35
 tr(C)  = 4
 ```
 
-Additionally, all the square matrices have properties that are useful in geometric calculations. However, the implementation does not focus on speed. For example, calculating the inverse of a $$6\times 6$$ really takes some time.
+Additionally, all the square matrices have properties that are useful in geometric calculations. However, the implementation does not focus on speed. For example, calculating the inverse of a $$6\times 6$$ matrix really takes some time.
 
 ```csharp
 var M = Matrix2x2.Householder(Vector2.Unit1);
