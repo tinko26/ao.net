@@ -5,7 +5,7 @@ title: "Ao.Mathematics"
 
 # Ao.Mathematics
 
-The `Ao.Mathematics` contains useful types for mathematical calculations.
+The `Ao.Mathematics` namespace contains useful types for mathematical calculations.
 
 ## Rounding
 
