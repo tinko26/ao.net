@@ -269,11 +269,11 @@ var C = new CA
 
 ## TP.CM
 
-The *CA* message is an example of a so-called multi-packet message, whose payload exceeds 8 bytes. Therefore, it cannot be sent in a single CAN message. The standard specifies a means to send such messages packed in a sequence of CAN messages.
+The *CA* message is an example of a so-called multi-packet message, whose payload of 9 bytes exceeds 8 bytes. Therefore, it cannot be sent in a single CAN message. The standard specifies a means to send such messages packed in a sequence of CAN messages.
 
 The *TP.CM* message is to announce such a transfer in the case of a broadcast message and to manage the control flow in case of a unicast message.
 
-In order to send a multi-packet message, the sender must start with a request-to-send message.
+In order to send a multi-packet unicast message, such as *CA*, the sender must start with a request-to-send message.
 
 ```csharp
 var C1 = new TPCM
