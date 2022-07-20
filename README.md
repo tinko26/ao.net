@@ -2,7 +2,31 @@
 
 This repository contains a collection of mostly C# source codes, that I have developed as part of my work in an R&D project on trolley buses. In this project, the team has transformed a diesel bus into an electric bus, equipped with a traction battery, automatic power collectors, and other devices. 
 
-Thereby, I have developed a couple of console and WPF applications in Visual Studio, that capture und analyze sensor and microcontroller data of various vehicle components, using the classes in this repository.
+Thereby, I have developed a couple of console and WPF applications in Visual Studio, that capture und analyze sensor and microcontroller data of various vehicle components, using the classes in this repository. Topics covered include 
+
+- bit manipulation, 
+- CAN messages, 
+- complex numbers,
+- coordinate systems,
+- dashcams,
+- double-ended queues, 
+- emojis,
+- event queues,
+- geodetic calculations based on GPS data,
+- geometric calculations in 2D and 3D,
+- J1939 messages, 
+- logging into text files,
+- matrices,
+- particle swarm optimization,
+- physical quantities,
+- priority queues, 
+- quaternions,
+- serial ports,
+- simulations,
+- stop watches, 
+- timers,
+- timestamps in default and high resolution, and
+- vectors.
 
 # Documentation
 
