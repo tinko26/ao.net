@@ -1,6 +1,8 @@
 ---
 permalink: /namespaces/ao.dash/
+author: "Stefan Wagner"
 title: "Ao.Dash"
+description: "Managing cameras attached to a Windows computer in C#."
 gallery:
   - url: /assets/images/ao-dash-1.png
     image_path: /assets/images/ao-dash-1.png

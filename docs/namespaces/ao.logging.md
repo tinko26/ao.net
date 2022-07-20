@@ -1,6 +1,8 @@
 ---
 permalink: /namespaces/ao.logging/
+author: "Stefan Wagner"
 title: "Ao.Logging"
+description: "Logging data into text files in C#."
 ---
 
 # Ao.Logging

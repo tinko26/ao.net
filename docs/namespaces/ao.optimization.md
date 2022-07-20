@@ -1,6 +1,8 @@
 ---
 permalink: /namespaces/ao.optimization/
+author: "Stefan Wagner"
 title: "Ao.Optimization"
+description: "Particle swarm optimization (PSO) in C#."
 ---
 
 # Ao.Optimization

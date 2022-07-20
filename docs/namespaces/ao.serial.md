@@ -1,6 +1,8 @@
 ---
 permalink: /namespaces/ao.serial/
+author: "Stefan Wagner"
 title: "Ao.Serial"
+description: "Managing serial ports on a Windows computer in C#."
 ---
 
 # Ao.Serial

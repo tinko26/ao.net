@@ -1,6 +1,8 @@
 ---
 permalink: /namespaces/ao.measurements/
+author: "Stefan Wagner"
 title: "Ao.Measurements"
+description: "Physical quantities in C#."
 ---
 
 # Ao.Measurements

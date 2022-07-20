@@ -1,6 +1,8 @@
 ---
 permalink: /namespaces/ao.timing.win32/
+author: "Stefan Wagner"
 title: "Ao.Timing.Win32"
+description: "Timestamps and timers in C++/CLI based on Win32 API features such as the performance counter and multimedia timer."
 ---
 
 # Ao.Timing.Win32

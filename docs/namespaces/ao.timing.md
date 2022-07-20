@@ -1,6 +1,8 @@
 ---
 permalink: /namespaces/ao.timing/
+author: "Stefan Wagner"
 title: "Ao.Timing"
+description: "Timestamps, timers, and stop watches in C#."
 ---
 
 # Ao.Timing

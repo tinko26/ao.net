@@ -1,6 +1,8 @@
 ---
 permalink: /namespaces/ao.geodesy/
+author: "Stefan Wagner"
 title: "Ao.Geodesy"
+description: "Calculating distances and angles based on GPS data in C#."
 ---
 
 # Ao.Geodesy

@@ -1,6 +1,8 @@
 ---
 permalink: /namespaces/ao.text/
+author: "Stefan Wagner"
 title: "Ao.Text"
+description: "Emojis in C#."
 ---
 
 # Ao.Text

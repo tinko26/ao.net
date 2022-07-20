@@ -22,7 +22,7 @@ lunr:
 # Site Author
 author:
   name             : "Stefan Wagner"
-  avatar           : "/assets/images/avatar.jpg"
+  avatar           : ""
   bio              : ""
   location         : "Germany"
   email            :
@@ -50,17 +50,14 @@ atom_feed:
 include:
   - namespaces
 
-
 # Conversion
 markdown: kramdown
 highlighter: rouge
-
 
 # Outputting
 permalink: /:categories/:title/
 paginate: 5
 paginate_path: /page:num/
-
 
 # Plugins (previously gems:)
 plugins:
@@ -78,7 +75,6 @@ category_archive:
 tag_archive:
   type: liquid
   path: /tags/
-
 
 # Defaults
 defaults:

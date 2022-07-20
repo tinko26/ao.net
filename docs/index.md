@@ -1,10 +1,15 @@
 ---
 layout: single
+author: "Stefan Wagner"
+title: "ao.net"
+description: "A collection of C# classes to support field test applications for vehicles and the like."
 sidebar:
   nav: "namespaces"
 ---
 
-The [ao.net](https://github.com/tinko26/ao.net) repository contains a collection of mostly C# source codes, that I have developed as part of my work in an R&D project on trolley buses. In this project, the team has transformed a diesel bus into an electric bus, equipped with a traction battery, automatic power collectors, and other devices. 
+The [ao.net](https://github.com/tinko26/ao.net) repository contains a collection of mostly C# source codes, that I have developed as part of my work in an R&D project on trolley buses. In this project, the team has transformed a diesel bus into an electric bus, equipped with a traction battery, automatic power collectors, and other devices.
+
+{% include video id="i6JDGYvJlqU" provider="youtube" %}
 
 Thereby, I have developed a couple of console and WPF applications in Visual Studio, that capture und analyze sensor and microcontroller data of various vehicle components, using the classes in this repository. 
 

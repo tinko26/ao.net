@@ -1,6 +1,8 @@
 ---
 permalink: /namespaces/ao.can/
+author: "Stefan Wagner"
 title: "Ao.Can"
+description: "Controller Area Network (CAN) messages in C#."
 ---
 
 # Ao.Can
