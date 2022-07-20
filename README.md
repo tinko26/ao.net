@@ -4,6 +4,7 @@ This repository contains a collection of mostly C# source codes, that I have dev
 
 Thereby, I have developed a couple of console and WPF applications in Visual Studio, that capture und analyze sensor and microcontroller data of various vehicle components, using the classes in this repository. Topics covered include 
 
+- affine transformations,
 - bit manipulation, 
 - CAN messages, 
 - complex numbers,
@@ -15,6 +16,7 @@ Thereby, I have developed a couple of console and WPF applications in Visual Stu
 - geodetic calculations based on GPS data,
 - geometric calculations in 2D and 3D,
 - J1939 messages, 
+- linear equations in various forms,
 - logging into text files,
 - matrices,
 - particle swarm optimization,
