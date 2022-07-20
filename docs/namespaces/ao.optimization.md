@@ -23,7 +23,7 @@ $$ ... $$
 
 $$ x = \frac{5}{4} $$
 
-However, there are functions, whose minima cannot be found using an analytical approach like above, either because it is too difficult or even impossible. Let's look at an example.
+However, there are functions, whose minima cannot be found using an analytical approach like above, either because it is too difficult or even impossible. Let's take a look at an example.
 
 In an overhead power line, cables are suspended from towers. Especially in summer, the cables tend to bow downwards. This is due to the fact, that they are made of metal. The form of a cable between two towers can be described by a special curve, a so-called [catenary](https://en.wikipedia.org/wiki/Catenary).
 
