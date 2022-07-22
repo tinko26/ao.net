@@ -13,7 +13,7 @@ url                      : "https://tinko26.github.io"
 baseurl                  : "/ao.net"
 repository               : "tinko26/ao.net"
 words_per_minute         : 200
-search                   : true
+search                   : false
 search_full_content      : true
 search_provider          : lunr
 lunr:
@@ -41,13 +41,6 @@ footer:
     - label: "GitHub"
       icon:  "fab fa-fw fa-github"
       url:   "https://github.com/tinko26/ao.net/"
-
-# Reading Files
-include:
-  - namespaces
-  - index.md
-exclude:
-  - assets
 
 # Feed
 atom_feed:
