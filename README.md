@@ -1,8 +1,8 @@
 # Summary
 
-This repository contains a collection of mostly C# source codes, that I have developed as part of my work in an R&D project on trolley buses. In this project, the team has transformed a diesel bus into an electric bus, equipped with a traction battery, automatic power collectors, and other devices. 
+This repository contains a collections of mostly C# classes, that I have developed as part of my work in an R&D project on trolley buses. Using these classes, I have created a couple of console and WPF applications in Visual Studio, in order to capture and analyze sensor and microcontroller data of various vehicle components.
 
-Thereby, I have developed a couple of console and WPF applications in Visual Studio, that capture und analyze sensor and microcontroller data of various vehicle components, using the classes in this repository. Topics covered include 
+Topics covered include 
 
 - affine transformations,
 - bit manipulation, 
@@ -36,4 +36,4 @@ A brief documentation is available [here](https://tinko26.github.io/ao.net/).
 
 # Usage
 
-Quite easy. Copy whatever you find useful into your project. The source codes are published under an MIT license.
+Quite easy. Copy whatever you find useful into your project.
