@@ -467,10 +467,6 @@
     }
   }
 
-  .nav__list .nav__items li ul li {
-    font-size: .8em;
-  }
-  
   @include breakpoint(max-width $large - 1px) {
     .nav__list input:checked ~ .nav__items {
       -webkit-transition: 0.5s ease-in-out;
@@ -495,7 +491,7 @@
   
   .nav__sub-title {
     display: block;
-    margin: 0.5rem 0;
+    margin: 0 0;
     padding: 0px;
     font-family: $sans-serif-narrow;
     font-size: 1em;

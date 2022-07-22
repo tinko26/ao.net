@@ -66,7 +66,7 @@ defaults:
       type: pages
     values:
       author_profile: false
-      classes:
+      classes: wide
       comments: false
       layout: single
       read_time: false
