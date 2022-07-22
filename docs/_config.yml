@@ -42,6 +42,11 @@ footer:
       icon:  "fab fa-fw fa-github"
       url:   "https://github.com/tinko26/ao.net/"
 
+# Reading Files
+include:
+  - namespaces
+  - index.md
+
 # Feed
 atom_feed:
   hide: true
