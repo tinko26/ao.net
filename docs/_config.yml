@@ -1,6 +1,6 @@
 # Theme
-remote_theme : "mmistakes/minimal-mistakes@4.24.0"
-minimal_mistakes_skin : "default"
+remote_theme            : "mmistakes/minimal-mistakes@4.24.0"
+minimal_mistakes_skin   : "default"
 
 # Site Settings
 locale                   : "en-US"
@@ -46,6 +46,8 @@ footer:
 include:
   - namespaces
   - index.md
+exclude:
+  - assets
 
 # Feed
 atom_feed:
