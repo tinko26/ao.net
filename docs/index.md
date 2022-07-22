@@ -5,9 +5,13 @@ permalink: /
 title: "ao.net"
 ---
 
+# Summary
+
 The [ao.net](https://github.com/tinko26/ao.net) repository contains a collections of mostly C# classes, that I have developed as part of my work in an R&D project on trolley buses. Using these classes, I have created a couple of console and WPF applications in Visual Studio, in order to capture and analyze sensor and microcontroller data of various vehicle components.
 
-| Namespace | |
+# Namespaces
+
+| | |
 |-----------|-|
 | [Ao.Bits](namespaces/ao.bits.md) | Manipulating bits in integers |
 | [Ao.Can](namespaces/ao.can.md) | Controller Area Network |
