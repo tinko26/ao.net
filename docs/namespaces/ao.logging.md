@@ -1,5 +1,5 @@
 ---
-permalink: /namespaces/ao.logging/
+permalink: /logging/
 author: "Stefan Wagner"
 title: "Ao.Logging"
 description: "Logging data into text files in C#."

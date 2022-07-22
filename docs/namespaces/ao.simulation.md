@@ -1,5 +1,5 @@
 ---
-permalink: /namespaces/ao.simulation/
+permalink: /simulation/
 author: "Stefan Wagner"
 title: "Ao.Simulation"
 description: "Time-based simulations in C# based on an event queue and a simulator."

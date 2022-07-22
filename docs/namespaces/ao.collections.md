@@ -1,5 +1,5 @@
 ---
-permalink: /namespaces/ao.collections/
+permalink: /collections/
 author: "Stefan Wagner"
 title: "Ao.Collections"
 description: "Double-ended queues and priority queues in C#."

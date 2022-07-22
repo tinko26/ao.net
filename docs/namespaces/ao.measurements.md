@@ -1,5 +1,5 @@
 ---
-permalink: /namespaces/ao.measurements/
+permalink: /measurements/
 author: "Stefan Wagner"
 title: "Ao.Measurements"
 description: "Physical quantities in C#."

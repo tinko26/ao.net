@@ -1,0 +1,40 @@
+div.highlighter-rouge {
+  font-size: 1em;
+}
+
+.page__content {
+  :not(pre) > code {
+    padding-top: 0.1rem;
+    padding-bottom: 0.1rem;
+    padding-left: 0.1rem;
+    padding-right: 0.1rem;
+    font-size: 1em;
+
+    &::before,
+    &::after {
+      letter-spacing: 0em;
+      content: none;
+    }
+  }
+}
+
+.highlight {
+  .c1 { color: #008000; }
+  .cm { color: #008000; }
+  .k  { color: #0000ff; }
+  .kt { color: #0000ff; }
+  .m  { color: #000000; }
+  .n  { color: #1f377f; }
+  .na { color: #2d77a6; }
+  .nc { color: #2d77a6; }
+  .nf { color: #2d77a6; }
+  .nt { color: #1f377f; }
+  .p  { color: #000000; }
+  .s  { color: #b81818; }
+}
+
+div.highlighter-rouge {
+  color:#000000;
+  background-color: #f8f8f8;
+  border: 1px solid #f0f0f0;
+}

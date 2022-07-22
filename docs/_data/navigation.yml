@@ -1,37 +1,35 @@
 main:
 
-namespaces:
-  - children:
-    - title: "Ao.Bits"
-      url: /namespaces/ao.bits/
-    - title: "Ao.Can"
-      url: /namespaces/ao.can/
-    - title: "Ao.Collections"
-      url: /namespaces/ao.collections/
-    - title: "Ao.Dash"
-      url: /namespaces/ao.dash/
-    - title: "Ao.Geodesy"
-      url: /namespaces/ao.geodesy/
-    - title: "Ao.Geometry"
-      url: /namespaces/ao.geometry/
-    - title: "Ao.J1939"
-      url: /namespaces/ao.j1939/
-    - title: "Ao.Logging"
-      url: /namespaces/ao.logging/
-    - title: "Ao.Mathematics"
-      url: /namespaces/ao.mathematics/
-    - title: "Ao.Measurements"
-      url: /namespaces/ao.measurements/
-    - title: "Ao.Optimization"
-      url: /namespaces/ao.optimization/
-    - title: "Ao.Serial"
-      url: /namespaces/ao.serial/
-    - title: "Ao.Simulation"
-      url: /namespaces/ao.simulation/
-    - title: "Ao.Text"
-      url: /namespaces/ao.text/
-    - title: "Ao.Timing"
-      url: /namespaces/ao.timing/
-    - title: "Ao.Timing.Win32"
-      url: /namespaces/ao.timing.win32/
-    
+side:
+  - title: "Ao.Bits"
+    url: /namespaces/ao.bits/
+  - title: "Ao.Can"
+    url: /namespaces/ao.can/
+  - title: "Ao.Collections"
+    url: /namespaces/ao.collections/
+  - title: "Ao.Dash"
+    url: /namespaces/ao.dash/
+  - title: "Ao.Geodesy"
+    url: /namespaces/ao.geodesy/
+  - title: "Ao.Geometry"
+    url: /namespaces/ao.geometry/
+  - title: "Ao.J1939"
+    url: /namespaces/ao.j1939/
+  - title: "Ao.Logging"
+    url: /namespaces/ao.logging/
+  - title: "Ao.Mathematics"
+    url: /namespaces/ao.mathematics/
+  - title: "Ao.Measurements"
+    url: /namespaces/ao.measurements/
+  - title: "Ao.Optimization"
+    url: /namespaces/ao.optimization/
+  - title: "Ao.Serial"
+    url: /namespaces/ao.serial/
+  - title: "Ao.Simulation"
+    url: /namespaces/ao.simulation/
+  - title: "Ao.Text"
+    url: /namespaces/ao.text/
+  - title: "Ao.Timing"
+    url: /namespaces/ao.timing/
+  - title: "Ao.Timing.Win32"
+    url: /namespaces/ao.timing.win32/    

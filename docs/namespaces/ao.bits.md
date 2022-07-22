@@ -1,5 +1,5 @@
 ---
-permalink: /namespaces/ao.bits/
+permalink: /bits/
 author: "Stefan Wagner"
 title: "Ao.Bits"
 description: "Manipulation of bits in integers in C#."

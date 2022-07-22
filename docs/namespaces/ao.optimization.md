@@ -1,5 +1,5 @@
 ---
-permalink: /namespaces/ao.optimization/
+permalink: /optimization/
 author: "Stefan Wagner"
 title: "Ao.Optimization"
 description: "Particle swarm optimization (PSO) in C#."

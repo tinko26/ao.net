@@ -1,5 +1,5 @@
 ---
-permalink: /namespaces/ao.j1939/
+permalink: /j1939/
 author: "Stefan Wagner"
 title: "Ao.J1939"
 description: "J1939 messages in C#."

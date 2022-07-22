@@ -1,5 +1,5 @@
 ---
-permalink: /namespaces/ao.text/
+permalink: /text/
 author: "Stefan Wagner"
 title: "Ao.Text"
 description: "Emojis in C#."

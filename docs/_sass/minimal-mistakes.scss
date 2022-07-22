@@ -4,6 +4,9 @@
  * Licensed under MIT (https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE)
 */
 
+/* Overrides */
+@import "minimal-mistakes/override_variables";
+
 /* Variables */
 @import "minimal-mistakes/variables";
 
@@ -25,7 +28,7 @@
 @import "minimal-mistakes/buttons";
 @import "minimal-mistakes/notices";
 @import "minimal-mistakes/masthead";
-@import "minimal-mistakes/navigation";
+@import "minimal-mistakes/navigation-replacement";
 @import "minimal-mistakes/footer";
 @import "minimal-mistakes/search";
 @import "minimal-mistakes/syntax";
@@ -41,7 +44,11 @@
 
 /* Overrides */
 @import "minimal-mistakes/override_figures";
+@import "minimal-mistakes/override_footer";
+@import "minimal-mistakes/override_masthead";
 @import "minimal-mistakes/override_page";
+@import "minimal-mistakes/override_reset";
+@import "minimal-mistakes/override_search";
 @import "minimal-mistakes/override_sidebar";
 @import "minimal-mistakes/override_syntax";
 @import "minimal-mistakes/override_syntax_console";

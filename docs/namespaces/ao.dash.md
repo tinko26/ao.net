@@ -1,5 +1,5 @@
 ---
-permalink: /namespaces/ao.dash/
+permalink: /dash/
 author: "Stefan Wagner"
 title: "Ao.Dash"
 description: "Managing cameras attached to a Windows computer in C#."

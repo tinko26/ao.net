@@ -1,12 +1,12 @@
 # Theme
-remote_theme : "mmistakes/minimal-mistakes"
+remote_theme : "mmistakes/minimal-mistakes@4.24.0"
 minimal_mistakes_skin : "default"
 
 # Site Settings
 locale                   : "en-US"
 title                    : "ao.net"
 title_separator          : "|"
-subtitle                 : 
+subtitle                 : "Vehicle field test application support and more."
 name                     : "Stefan Wagner"
 description              : 
 url                      : "https://tinko26.github.io"
@@ -18,6 +18,7 @@ search_full_content      : true
 search_provider          : lunr
 lunr:
   search_within_pages    : true
+breadcrumbs              : false
 
 # Site Author
 author:
@@ -41,23 +42,13 @@ footer:
       icon:  "fab fa-fw fa-github"
       url:   "https://github.com/tinko26/ao.net/"
 
-
 # Feed
 atom_feed:
   hide: true
 
-# Reading Files
-include:
-  - namespaces
-
 # Conversion
 markdown: kramdown
 highlighter: rouge
-
-# Outputting
-permalink: /:categories/:title/
-paginate: 5
-paginate_path: /page:num/
 
 # Plugins (previously gems:)
 plugins:
@@ -68,25 +59,19 @@ plugins:
   - jemoji
   - jekyll-include-cache
 
-# Archives
-category_archive:
-  type: liquid
-  path: /categories/
-tag_archive:
-  type: liquid
-  path: /tags/
-
 # Defaults
 defaults:
   - scope:
       path: ""
       type: pages
     values:
-      classes: wide
+      author_profile: false
+      classes:
+      comments: false
       layout: single
-  - scope:
-      path: "namespaces"
-      type: pages
-    values:
+      read_time: false
+      related: false
+      share: false
       sidebar:
-        nav: "namespaces"
+        nav: "side"
+      sitemap: false

@@ -1,5 +1,5 @@
 ---
-permalink: /namespaces/ao.serial/
+permalink: /serial/
 author: "Stefan Wagner"
 title: "Ao.Serial"
 description: "Managing serial ports on a Windows computer in C#."

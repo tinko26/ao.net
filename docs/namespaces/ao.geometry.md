@@ -1,5 +1,5 @@
 ---
-permalink: /namespaces/ao.geometry/
+permalink: /geometry/
 author: "Stefan Wagner"
 title: "Ao.Geometry"
 description: "2D and 3D geometric calculations in C#, including linear equations and affine transformations."

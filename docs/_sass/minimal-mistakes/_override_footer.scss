@@ -1,0 +1,23 @@
+.page__footer {
+    color: $footer-text-color;
+
+    a {
+        color: $footer-text-color;
+    }
+}
+
+.page__footer-follow {
+    li:first-of-type {
+        display: none;
+    }
+    li {
+      padding: 0px;
+    }
+    li + li:before {
+      padding-right: 0px;
+    }
+    a {
+      padding-right: 0px;
+    }
+}
+  

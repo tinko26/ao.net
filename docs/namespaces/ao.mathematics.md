@@ -1,5 +1,5 @@
 ---
-permalink: /namespaces/ao.mathematics/
+permalink: /mathematics/
 author: "Stefan Wagner"
 title: "Ao.Mathematics"
 description: "Complex numbers, quaternions, vectors, and matrices in C#."
